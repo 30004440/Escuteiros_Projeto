@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Agrupamento 1240</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/estilo.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="index.html">
+              <img
+                src="images/alerta.jpg"
+                height="100"
+                alt="Escuteiros"
+                loading="lazy"
+              />
+            </a>
+            <p style="text-align:center ">Agrupamento 1240</p>
+          </div>
+        
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <li class="nav-item">
+              <button
+                type="button"
+                class="btn btn-sm btn-primary mt-5"
+                id="btnModalLogin">
+                Login
+              </button>
+            </li>
+          </div>
+          <!-- Right elements -->
+        </div>
+      </nav>
+      <!-- Navbar -->
+    </header>
+
+    <!-- Modal para registar novo utilizador -->
+    <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
+    <div
+      class="modal fade"
+      id="modalRegistar"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Registo de novo utilizador
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">E-Mail</label>
+              <input
+                type="email"
+                class="form-control"
+                id="usernameRegistar"
+                name="usernameRegistar"
+                placeholder="E-Mail"
+              />
+              <p id="emailErroLoginRegistar"></p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="senhaRegistar"
+                name="senhaRegistar"
+                placeholder="Senha"
+              />
+              <p id="statusRegistar"></p>
+            </div>
+            <div class="modal-footer d-block">
+              <button
+                id="btnCancelaRegistar"
+                class="btn btn-warning float-end"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                class="btn btn-success float-end"
+                id="btnSubmitRegistar"
+                onclick="validaRegisto()"
+              >
+                Entrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para fazer login -->
+    <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
+    <div
+      class="modal fade"
+      id="modalLogin"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Insira suas credenciais
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="btnLoginClose"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">E-Mail</label>
+              <input
+                type="email"
+                class="form-control"
+                id="usernameLogin"
+                name="usernameLogin"
+                placeholder="E-Mail"
+              />
+              <p id="emailErroLogin"></p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="senhaLogin"
+                name="senhaLogin"
+                placeholder="Senha"
+              />
+              <p id="passErroLogin"></p>
+              <p id="statusLogin"></p>
+            </div>
+         
+            </div>
+            <div class="modal-footer d-block">
+              <p id="pRegistar" class="float-start"></p>
+              <button class="btn btn-warning float-end" data-bs-dismiss="modal">
+                Cancelar
+              </button>
+              <button
+                class="btn btn-success float-end"
+                id="btnSubmitLogin"
+                onclick="validaLogin()"
+              >
+                Entrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p> <img src="images/lobitos.png" align="left">
+      <div class="content" id="main" role="main">
+        <div class="container">
+          <!-- Single Post -->
+          <div class="content main-index" id="main" role="main">
+            <section id="mensagem" class="mensagem"><!-- begin Mensagem -->
+              <div class="mensagem_wrap container">
+                <h3 class="mensagemtitlesectionLob">Da melhor vontade!</h3>
+            <div class="row row-mensagem">
+              <div class="mensagem-txt line-height28 col-sm-12">
+                <p>
+                  Ser Lobito é cumprir – da melhor vontade – aquilo que prometeu, procurando sempre imitar o exemplo do Menino Jesus. Para isso, o Lobito deve ser asseado, alegre, verdadeiro e digno de confiança, estando sempre atento e pronto para ajudar quem precisa. O Lobito é desafiado a ser bom e amigo de todos praticando diariamente uma boa-ação. 
+Ser Lobito é fazer parte, com os Escuteiros mais velhos, de um grande grupo, com cerca de 28 milhões de Escuteiros espalhados pelo mundo. É fazer parte de um movimento por onde já passaram muitas pessoas de todo o mundo, de muitas culturas e religiões. Em Portugal, já são perto de 80 mil Escuteiros!</p>
+              </div>
+            </div>
+              </div>
+            </section><!-- end Mensagem -->
+            <div class="separador separador-after-modulo separador-after-mensagem"></div>
+            
+            
+            <section id="ligacoes" class="ligacoes"><!-- begin Ligacoes -->
+              <div class="ligacoes_wrap container">
+                  <div class="row row-ligacao row-ligacao-30">
+                <div class="conteudo-ligacao-left col-sm-2">
+
+           </div>
+         </div>
+          </div>
+
+             <div class="row row-ligacao row-ligacao-28">
+                <div class="conteudo-ligacao-right col-sm-10">
+                  <h4 class="content-titlesectionLob">Especialidades: saber pensar e saber fazer!</h4>
+                 <div class="ligacao-txt text-size14 line-height24">O Sistema de Especialidades é um programa do Corpo Nacional de Escutas que procura fazer com que cada criança e jovem possa – pesquisando, aprendendo, experimentando, vivenciando – desenvolver e aprofundar conhecimentos, competências e atitudes em determinadas áreas.</div>
+                </div>
+                <div class="clr"></div>
+        </div>
+    
+             
+           <div class="row row-ligacao row-ligacao-28">
+                <div class="conteudo-ligacao-right col-sm-10">
+                  <h4 class="content-titlesectionLob">Mística e Simbologia da 1.ª Secção</h4>
+                <div class="ligacao-txt text-size14 line-height24">A Mística e Simbologia da 1.ª Secção gira em torno do Livro da Selva. As diversas figuras que surgem no Livro da Selva simbolizam as mais diversas caraterísticas humanas, tanto qualidades como defeitos.</div>
+              </div>
+                <div class="clr"></div>
+        </div>
+        
+              <div class="row row-ligacao row-ligacao-28">
+                <div class="conteudo-ligacao-right col-sm-10">
+                  <h4 class="content-titlesectionLob">Método Escutista - Educação pela Ação!</h4>
+                  <div class="ligacao-txt text-size14 line-height24">A Educação pela Ação é uma das caraterísticas do Método Escutista, fornecendo ao escuteiro as ferramentas para que possa formar-se e auto-educar-se, visando sempre tornar-se um membro ativo e responsável na sua comunidade.</div>
+                </div>
+                <div class="clr"></div>		
+          </div>
+          
+        
+              
+            </section>
+             <!-- end article.post -->
+  <img src="images/lobitos-final-v2.png" align="center">
+      </div>
+    </p>
+    <p>
+      <a href="https://escutismo.pt/seccaoi"><button style="background: #FFDD0E; border-radius: 6px; padding: 15px; cursor: pointer; color: #fff; border: none; font-size: 16px;">Saber Mais</button></a> 
+    </p>
+
+  </section>
+  
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/users.js"></script>
+  </body>
+  <footer>
+    <div class="footer-dark">
+          <footer>
+              <div class="container">
+                  <div class="row">
+                      <div class="col-sm-6 col-md-3 item">
+                          <h3>Secções</h3>
+                          <ul>
+                            <li><a href="lobitos.html">Lobitos</a></li>
+                            <li><a href="exploradores.html">Exploradores</a></li>
+                            <li><a href="pioneiros.html">Pioneiros</a></li>
+                            <li><a href="caminheiros.html">Caminheiros</a></li>
+                          </ul>
+                      </div>
+                      <div class="col-sm-6 col-md-3 item">
+                          <h3>Sobre</h3>
+                          <ul>
+                              <li><a href="https://goo.gl/maps/U6b5F4hg3KH33aXE9">Localização</a></li>
+                              <li><a href="team.html">Team</a></li>
+                          </ul>
+                      </div>
+                      <div class="col-md-6 item text">
+                        <h3>História</h3>
+                        <p>Tudo começou com 20 rapazes num acampamento experimental que teve lugar em 1907 na Ilha de Brownsea. Durante os primeiros nove dias de agosto de 1907 na Ilha de Brownsea, Inglaterra. O acampamento teve um grande sucesso e a prova para Baden Powell de que o seu método era apelativo para os jovens e que realmente funcionava.  
+                          Em janeiro de 1908, Baden-Powell publicou a primeira edição do "Escutismo para Rapazes" (nome original em inglês - "Scouting for Boys"). O "Escutismo para Rapazes" foi um sucesso imediato e vendeu mais de um milhão de cópias, tornando o "Escutismo para Rapazes" num dos livros com maior sucesso de todos os tempos. Inicialmente Baden-Powell pretendia providenciar um método de formação para rapazes, algo que pudesse ser utilizado pelas organizações de juventude já existentes (por exemplo a Boys Brigade ou a YMCA). Para surpresa do fundador os jovens, inspirados pelos seus ensinamentos, começaram a organizar-se e a construir aquilo que hoje é o maior movimento de voluntariado do mundo.</p>
+                    </div>
+                   
+                      <div class="col item social">
+                        <a href="https://pt-pt.facebook.com/agr1240murtal/"><i class="icon ion-social-facebook"></i></a>
+                        <a href="https://www.youtube.com/channel/UCDPRGuH4pQyWrMHyJNdxI6g/featured"><i class="icon ion-social-youtube"></i></a>
+                      </div>
+                  </div>
+                  <p class="copyright">Universidade Autónoma de Lisboa © 2022</p>
+              </div>
+          </footer>
+</html>
