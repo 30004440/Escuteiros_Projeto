@@ -1,0 +1,205 @@
+*
+{
+    padding: 0;
+    margin: 0;
+}
+
+body
+{
+    background-color: rgb(240, 234, 227);
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.menu-nav
+{
+    background-color: rgb(99, 197, 243);
+    text-align: center;
+}
+
+/* faz aparecer as opções do menu em lista */
+.menu-nav ul
+{
+    display: inline-flex;
+    list-style: none;
+    color: #fff;
+}
+
+/* em vez de estar em lista vertical para a lista horizontal */
+.menu-nav ul li
+{
+    width: 120px;
+    margin: 15px;
+    padding: 15px;
+}
+
+
+.menu-nav ul li a
+{
+    text-decoration: none;
+    color: #fff;
+}
+
+.active, .menu-nav ul li:hover
+{
+    background: rgb(194, 224, 300);
+    border-radius: 3px;
+}
+
+.sub-menu-1
+{
+    display: none;
+}
+
+.menu-nav ul li:hover .sub-menu-1
+{
+    display: block;
+    position: absolute;
+    background: rgb(194, 224, 300);
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+/* para aparecer as opçoes do menu em lista vertical */
+
+.menu-nav ul li:hover .sub-menu-1 ul
+{
+    display: block;
+    margin: 10px;
+}
+
+/* para aparecer as opçoes do menu dividido por uma linha */
+
+.menu-nav ul li:hover .sub-menu-1 ul li
+{
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+/* para retirar a ultima linha de cada opção do menu */
+
+.menu-nav ul li:hover .sub-menu-1 ul li:last-child
+{
+    border-bottom: none;
+}
+
+
+.sub-menu-2
+{
+    display: none;
+}
+
+.menu-nav ul li:hover .sub-menu-2
+{
+    display: block;
+    position: absolute;
+    background: rgb(194, 224, 300);
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+.menu-nav ul li:hover .sub-menu-2 ul
+{
+    display: block;
+    margin: 10px;
+}
+
+/* para aparecer as opçoes do menu dividido por uma linha */
+
+.menu-nav ul li:hover .sub-menu-2 ul li
+{
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+/* para retirar a ultima linha de cada opção do menu */
+
+.menu-nav ul li:hover .sub-menu-2 ul li:last-child
+{
+    border-bottom: none;
+}
+
+.sub-menu-3
+{
+    display: none;
+}
+
+.menu-nav ul li:hover .sub-menu-3
+{
+    display: block;
+    position: absolute;
+    background: rgb(194, 224, 300);
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+.menu-nav ul li:hover .sub-menu-3 ul
+{
+    display: block;
+    margin: 10px;
+}
+
+/* para aparecer as opçoes do menu dividido por uma linha */
+
+.menu-nav ul li:hover .sub-menu-3 ul li
+{
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+/* para retirar a ultima linha de cada opção do menu */
+
+.menu-nav ul li:hover .sub-menu-3 ul li:last-child
+{
+    border-bottom: none;
+}
+
+
+.sub-menu-4
+{
+    display: none;
+}
+
+.menu-nav ul li:hover .sub-menu-4
+{
+    display: block;
+    position: absolute;
+    background: rgb(194, 224, 300);
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+.menu-nav ul li:hover .sub-menu-4 ul
+{
+    display: block;
+    margin: 10px;
+}
+
+/* para aparecer as opçoes do menu dividido por uma linha */
+
+.menu-nav ul li:hover .sub-menu-4 ul li
+{
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+/* para retirar a ultima linha de cada opção do menu */
+
+.menu-nav ul li:hover .sub-menu-4 ul li:last-child
+{
+    border-bottom: none;
+}

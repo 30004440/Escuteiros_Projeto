@@ -4,7 +4,8 @@
   "description": "Primeira prática",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Laercio Cruvinel",
   "license": "ISC",
@@ -23,5 +24,14 @@
     "mysql2": "^2.3.3",
     "nedb": "^1.8.0",
     "nodemailer": "^6.7.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/30004440/Escuteiros_Projeto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/30004440/Escuteiros_Projeto/issues"
+  },
+  "homepage": "https://github.com/30004440/Escuteiros_Projeto#readme"
 }
