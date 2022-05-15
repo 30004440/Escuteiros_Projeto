@@ -1,10 +1,11 @@
 require("dotenv").config();
 
-//const dbNE = require("../models/nedb"); // Define o MODEL nedb
 const dbmySQL = require("../models/mysql"); // Define o MODEL mySQL
-//const dbMongoDB = require("../models/mongodb"); // Define o MODEL MongoDB
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const { response } = require("express");
+
 
 function authenticateToken(req, res) {
   console.log("A autorizar...");
@@ -23,11 +24,6 @@ function authenticateToken(req, res) {
   });
 }
 
-const nodemailer = require("nodemailer");
-const { response } = require("express");
-
-
-
 // REGISTAR - cria um novo utilizador
 exports.registar = async (req, res) => {
   console.log("Registar novo utilizador");
@@ -39,9 +35,11 @@ exports.registar = async (req, res) => {
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(req.body.password, salt);
   const email = req.body.email;
+  const name = req.body.nome;
+  const section = req.body.section;
   const password = hashPassword;
   dbmySQL
-    .Crud_registar(email, password) // C: Create
+    .Crud_registar(name, section, email, password) // C: Create
     .then((dados) => {
       console.log("Controller - utilizador registado: ");
       console.log(JSON.stringify(dados)); // para debug

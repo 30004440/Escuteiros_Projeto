@@ -46,16 +46,21 @@ function query(sql, params) {
   });
 }
 
-exports.Crud_registar = (email, password, ) => {
+exports.Crud_registar = (nome, email, section, password, confirmationToken) => {
   // insere um novo utilizador
   return new Promise((resolve, reject) => {
     data = {
-      id: email,
+      //nometabela: nomedadonocodigo
+      name: nome,
+      email: email,
+      section: section,
       password: password,
+      confirmationToken: confirmationToken,
+      confirm: 1,
     };
     query(
-      "INSERT INTO users (id,,password,) values (?,?,?,?)",
-      [data.id, data.password]
+      "INSERT INTO secretagrup (name,email,section,password,confirmationToken,confirm) values (?,?,?,?,?,?)",
+      [data.name, data.email, data.section, data.password, data.confirmationToken, data.confirm]
     )
       .then((result) => {
         console.log("Model: Registo de utilizador: ");
@@ -78,16 +83,16 @@ exports.Crud_registar = (email, password, ) => {
 exports.cRud_login = (email) => {
   return new Promise((resolve, reject) => {
     // busca os registos que contêm a chave
-    query("SELECT id, password from users WHERE id=?", [email])
+    query("SELECT email, password from secretagrup WHERE email=?", [email])
       .then((result) => {
         user = {};
         Object.keys(result).forEach(function (key) {
           user = result[key];
-          console.log(user.id);
+          console.log(user.email);
         });
         console.log("Model: Login: ");
         console.log(user);
-        if (user.id != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento");
+        if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento");
         else resolve(user);
       })
       .catch((error) => {
