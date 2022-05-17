@@ -2,6 +2,7 @@ const mysql = require("mysql2/promise");
 const config = require("../config");
 
 function connect() {
+  console.log("ver se tem erro")
   return new Promise((resolve, reject) => {
     if (!global.connection || global.connection.state == "disconnected") {
       mysql
@@ -57,20 +58,24 @@ exports.Crud_registar = (nome, email, section, password, confirmationToken) => {
       password: password,
       confirmationToken: confirmationToken,
       confirm: 1,
-    };
+    };console.log(1);
     query(
-      "INSERT INTO secretagrup (name,email,section,password,confirmationToken,confirm) values (?,?,?,?,?,?)",
+      "INSERT INTO secretagrup(name,email,section,password,confirmationToken,confirm) values(?,?,?,?,?,?)",
       [data.name, data.email, data.section, data.password, data.confirmationToken, data.confirm]
     )
       .then((result) => {
+        console.log(2);
         console.log("Model: Registo de utilizador: ");
         console.log(data);
+        console.log(2.2);
         console.log(result);
         if (result.affectedRows != 1)
           reject("Model: Problema na inserção de novo registo");
         else resolve(result);
+        console.log(2.3);
       })
       .catch((error) => {
+        console.log(3);
         console.log("Model: Problema no registo:");
         console.log(error);
         reject(error);
