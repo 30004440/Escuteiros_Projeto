@@ -33,6 +33,6 @@ module.exports = app => {
     // Busca todas as disciplinas com uma chave de pesquisa
     router.get("/disciplinas/key/:id", controlador.findKey);
    
-    app.use('/api', router);
+    app.use('/homepage', router);
   };
   

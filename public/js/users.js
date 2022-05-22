@@ -17,7 +17,7 @@ buttons.forEach((button) => {
   });
 });
 
-const urlBase = "https://localhost:8888/api";
+const urlBase = "https://localhost:8888/homepage";
 const modalLogin = document.getElementById("modalLogin");
 const bsModalLogin = new bootstrap.Modal(modalLogin, (backdrop = "static")); // Pode passar opções
 const modalRegistar = document.getElementById("modalRegistar");
@@ -30,7 +30,7 @@ const btnModalLogin = document.getElementById("btnModalLogin");
 const btnModalRegistar = document.getElementById("btnModalRegistar");
 const btnLogoff = document.getElementById("btnLogoff");
 const pRegistar = document.getElementById("pRegistar");
-const listaDisciplinas = document.getElementById("listaDisciplinas");
+//const listaDisciplinas = document.getElementById("listaDisciplinas");
 
 pRegistar.addEventListener("click", () => {
   bsModalLogin.hide();
@@ -53,15 +53,17 @@ function chamaModalRegistar() {
   bsModalRegistar.show();
 }
 
-btnLogoff.addEventListener("click", () => {
-  localStorage.removeItem("token");
-  document.getElementById("btnLogoff").style.display = "none";
-  window.location.replace("index.html");
-});
+// btnLogoff.addEventListener("click", () => {
+//   localStorage.removeItem("token");
+//   document.getElementById("btnLogoff").style.display = "none";
+//   window.location.replace("index.html");
+// });
 
 function validaRegisto() {
-  let email = document.getElementById("usernameRegistar").value; // email é validado pelo próprio browser
+  let email = document.getElementById("emailRegistar").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaRegistar").value; // tem de ter uma senha
+  let section = document.getElementById("sectionRegistar").value; 
+  let nome = document.getElementById("usernameRegistar").value;
   const statReg = document.getElementById("statusRegistar");
   if (senha.length < 4) {
     document.getElementById("passErroLogin").innerHTML =
@@ -73,7 +75,7 @@ function validaRegisto() {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
-    body: `email=${email}&password=${senha}`,
+    body: `email=${email}&password=${senha}&section=${section}&name=${nome}`,
   })
     .then((response) => {
       return response.json().then((body) => {

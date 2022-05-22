@@ -46,7 +46,7 @@ function query(sql, params) {
   });
 }
 
-exports.Crud_registar = (nome, email, section, password, confirmationToken) => {
+exports.Crud_registar = (nome, email, section, password) => {
   // insere um novo utilizador
   return new Promise((resolve, reject) => {
     data = {
@@ -54,13 +54,11 @@ exports.Crud_registar = (nome, email, section, password, confirmationToken) => {
       name: nome,
       email: email,
       section: section,
-      password: password,
-      confirmationToken: confirmationToken,
-      confirm: 1,
+      password: password
     };
     query(
-      "INSERT INTO secretagrup (name,email,section,password,confirmationToken,confirm) values (?,?,?,?,?,?)",
-      [data.name, data.email, data.section, data.password, data.confirmationToken, data.confirm]
+      "INSERT INTO secretagrup (name,email,section,password) values (?,?,?,?)",
+      [data.name, data.email, data.section, data.password]
     )
       .then((result) => {
         console.log("Model: Registo de utilizador: ");

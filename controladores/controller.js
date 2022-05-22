@@ -34,18 +34,22 @@ exports.registar = async (req, res) => {
   }
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(req.body.password, salt);
+  const nome = req.body.name;
   const email = req.body.email;
-  const name = req.body.nome;
   const section = req.body.section;
   const password = hashPassword;
   dbmySQL
-    .Crud_registar(name, section, email, password) // C: Create
+    .Crud_registar(nome, email, section, password) // C: Create
     .then((dados) => {
+      res.status(201).send({
+        message:
+          "Utilizador criado com sucesso",
+      });
       console.log("Controller - utilizador registado: ");
       console.log(JSON.stringify(dados)); // para debug
     })
     .catch((response) => {
-      console.log("Controller - problema no registar:");
+      console.log("Controller - problema ao registar:");
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),

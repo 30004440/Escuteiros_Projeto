@@ -58,12 +58,33 @@
       </ul>
 
     </div>
+
+  <!-- aqui vai ficar o botão de registar -->
+  <li><a href="#">Utilizadores</a>
+    <div class = "sub-menu-registar">
+      <button
+        type="button"
+        class="sub-menu-5"
+        id="pRegistar"
+      >
+      <ul>
+        <li><a href="#">Inserir</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Listar</a></li>
+      </ul>
+      </button>
+      
+
+    </div>
+    </li>
+    <!--  -->
   </li>
     <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 17">
       <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
     </svg>logOut</a></li>  <!-- npm i bootstrap-icons -->
 
-    <div class="d-flex align-items-center">
+    <!-- <div class="d-flex align-items-center">
     <div class="nav-item">
       <button
         type="button"
@@ -73,30 +94,14 @@
         Registar
       </button>
     </div>
-    </div>
+    </div> -->
+   
 
     </ul>
   </div> 
 </head>
 <body>
       <header>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <!-- Container wrapper -->
-          <div class="container-fluid">
-            <!-- Toggle button -->
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-  
             <!-- Collapsible wrapper -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -146,41 +151,35 @@
               <div class="mb-3">
                 <label class="form-label">Nome</label>
                 <input
-                  type="email"
+                  type="name"
                   class="form-control"
                   id="usernameRegistar"
                   name="usernameRegistar"
                   placeholder="Nome"
                 />
-                <p id="emailErroLoginRegistar"></p>
               </div>
 
               <div class="mb-3">
                 <label class="form-label">Secção</label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
-                  id="usernameRegistar"
-                  name="usernameRegistar"
+                  id="sectionRegistar"
+                  name="sectionRegistar"
                   placeholder="Secção"
                 />
-                <p id="emailErroLoginRegistar"></p>
               </div>
-
-
               <div class="mb-3">
                 <label class="form-label">Email</label>
                 <input
                   type="email"
                   class="form-control"
-                  id="usernameRegistar"
-                  name="usernameRegistar"
+                  id="emailRegistar"
+                  name="emailRegistar"
                   placeholder="E-Mail"
                 />
                 <p id="emailErroLoginRegistar"></p>
               </div>
-
-
               <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input
@@ -225,17 +224,6 @@
         aria-hidden="true"
         data-bs-backdrop="static"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="modal-footer d-block">
-                <p id="pRegistar" class="float-start">
-                  Sem conta ainda? <a href="#">Registe-se</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
   
       <!-- Bootstrap JS -->
