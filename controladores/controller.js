@@ -50,6 +50,8 @@ exports.registar = async (req, res) => {
     })
     .catch((response) => {
       console.log("Controller - problema ao registar:");
+      console.log(4);
+      console.log("Controller - problema no registar:");
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
