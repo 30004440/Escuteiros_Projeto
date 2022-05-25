@@ -110,9 +110,8 @@
 </head>
 <body>
       <header>
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
               <!-- Left links -->
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -124,14 +123,9 @@
                     Login
                   </button>
                 </li>
-
               </ul>
-              <!-- Left links -->
-            </div>
-            <!-- Collapsible wrapper -->
-  
+            <!-- </div> -->
 
-  
       <!-- Modal para registar novo utilizador -->
       <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
       <div
@@ -166,16 +160,20 @@
                   placeholder="Nome"
                 />
               </div>
-
               <div class="mb-3">
                 <label class="form-label">Secção</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="sectionRegistar"
-                  name="sectionRegistar"
-                  placeholder="Secção"
-                />
+                <select 
+                type="text"
+                class="form-control"
+                id="sectionRegistar"
+                name="sectionRegistar"
+                placeholder="Secção">
+                  <option value="Agrup">Agrupamento</option>
+                  <option value="Lob">Lobitos</option>
+                  <option value="Exp">Exploradores</option>
+                  <option value="Pio">Pioneiros</option>
+                  <option value="Cam">Caminheiros</option>
+                </select>
               </div>
               <div class="mb-3">
                 <label class="form-label">Email</label>
@@ -219,19 +217,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      
-      <!-- Modal para fazer login -->
-      <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
-      <div
-        class="modal fade"
-        id="modalLogin"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        data-bs-backdrop="static"
-      >
       </div>
   
       <!-- Bootstrap JS -->

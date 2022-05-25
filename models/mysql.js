@@ -47,20 +47,29 @@ function connect() {
 //   });
 // }
 
-exports.Crud_registar = (nome, email, section, password) => {
+exports.Crud_registar = (email, password, nome, section) => {
   // insere um novo utilizador
   return new Promise((resolve, reject) => {
     data = {
       //nometabela: nomedadonocodigo
-      name: nome,
       email: email,
+      password: password,
+      name: nome,
       section: section,
-      password: password
     };
     query(
       "INSERT INTO secretagrup (email,password,name,section) values (?,?,?,?)",
       [data.email,data.password,data.name,data.section]
-      )}
+    )
+      .then((result) => {
+        console.log("Model: Registo de utilizador: ");
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na inserção de novo registo");
+        else resolve(result);
+      })
+    }
 )};
 
 

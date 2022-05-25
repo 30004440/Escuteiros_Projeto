@@ -75,7 +75,7 @@ function validaRegisto() {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
-    body: `email=${email}&password=${senha}&section=${section}&name=${nome}`,
+    body: `email=${email}&password=${senha}&name=${nome}&section=${section}`,
   })
     .then((response) => {
       return response.json().then((body) => {
@@ -211,7 +211,7 @@ function validaLogin() {
     }
     
 });
-}
+
 
 
 
