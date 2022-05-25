@@ -146,61 +146,61 @@ function validaLogin() {
     });
 }
 
-async function getDisciplinas(id) {
-  const criteria = document.getElementById("searchkey").value;
-  console.log("Critério: " + criteria);
+// async function getDisciplinas(id) {
+//   const criteria = document.getElementById("searchkey").value;
+//   console.log("Critério: " + criteria);
 
-  let url = urlBase + "/disciplinas";
-  const token = localStorage.token;
-  console.log(token);
+//   let url = urlBase + "/disciplinas";
+//   const token = localStorage.token;
+//   console.log(token);
 
-  if (id != "") {
-    url = url + "/:" + id;
-  } else if (criteria != "") {
-    url = url + "/key/:" + criteria;
-  }
+//   if (id != "") {
+//     url = url + "/:" + id;
+//   } else if (criteria != "") {
+//     url = url + "/key/:" + criteria;
+//   }
 
-  console.log("URL: " + url);
-  const myInit = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      // Authorization: `Bearer ${token}`,
-    },
-  };
-  const myRequest = new Request(url, myInit);
+//   console.log("URL: " + url);
+//   const myInit = {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/x-www-form-urlencoded",
+//       // Authorization: `Bearer ${token}`,
+//     },
+//   };
+//   const myRequest = new Request(url, myInit);
 
-  await fetch(myRequest).then(async function (response) {
-    if (!response.ok) {
-      listaDisciplinas.innerHTML = "Não posso mostrar disciplinas de momento!";
-    } else {
-      disciplinas = await response.json();
-      console.log(disciplinas);
-      let texto = "";
-      if (Object.keys(disciplinas).length == 1) {
-        // Só retornou uma disciplina, detalhamos
-        disciplina = disciplinas[0];
-        texto += ` 
-          <div>
-            <h4>${disciplina.disciplina}</h4>
-            &nbsp&nbsp&nbsp${disciplina.curso} -- Ano: ${disciplina.ano}<br /> 
-            &nbsp&nbsp&nbspDocente: ${disciplina.docente}
-          </div>`;
-      } else {
-        // Retornou mais de uma disciplina
-        for (const disciplina of disciplinas) {
-          texto += ` 
-            <div>
-              <h4>${disciplina.disciplina}
-              <button type="button" onclick="getDisciplinas('${disciplina.id}')">
-                Clique aqui para detalhar esta disciplina
-              </button></h4>
-            </div>`;
-        }
-      }
-      listaDisciplinas.innerHTML = texto;
-    }
-  });
+//   await fetch(myRequest).then(async function (response) {
+//     if (!response.ok) {
+//       listaDisciplinas.innerHTML = "Não posso mostrar disciplinas de momento!";
+//     } else {
+//       disciplinas = await response.json();
+//       console.log(disciplinas);
+//       let texto = "";
+//       if (Object.keys(disciplinas).length == 1) {
+//         // Só retornou uma disciplina, detalhamos
+//         disciplina = disciplinas[0];
+//         texto += ` 
+//           <div>
+//             <h4>${disciplina.disciplina}</h4>
+//             &nbsp&nbsp&nbsp${disciplina.curso} -- Ano: ${disciplina.ano}<br /> 
+//             &nbsp&nbsp&nbspDocente: ${disciplina.docente}
+//           </div>`;
+//       } else {
+//         // Retornou mais de uma disciplina
+//         for (const disciplina of disciplinas) {
+//           texto += ` 
+//             <div>
+//               <h4>${disciplina.disciplina}
+//               <button type="button" onclick="getDisciplinas('${disciplina.id}')">
+//                 Clique aqui para detalhar esta disciplina
+//               </button></h4>
+//             </div>`;
+//         }
+//       }
+//       listaDisciplinas.innerHTML = texto;
+//     }
+//   });
 
   $(document).on("click", ".side-menu > ul > li", function(e){
     if($(this).find('.sub-menu').length>0){

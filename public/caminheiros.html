@@ -49,20 +49,6 @@
             </a>
             <p style="color: #6D187D; font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 25px;">Secretaria Agrupamento 1240</b></p>
           </div>
-        
-          <!-- Right elements -->
-          <div class="d-flex align-items-center">
-            <div class="nav-item">
-              <button
-              style="background: #6D187D; font-family: Arial, Helvetica, sans-serif; border-radius: 6px; padding: 10px; cursor: pointer; color: #fff; border: none; font-size: 16px;"
-              type="button"
-              class="btn btn-sm btn-primary mt-5"
-              id="btnModalLogin">
-                Login
-              </button>
-            </div>
-          </div>
-          <!-- Right elements -->
         </div>
       </nav>
       <!-- Navbar -->
@@ -135,72 +121,6 @@
       </div>
     </div>
 
-    <!-- Modal para fazer login -->
-    <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
-    <div
-      class="modal fade"
-      id="modalLogin"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      data-bs-backdrop="static"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Insira suas credenciais
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              id="btnLoginClose"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">E-Mail</label>
-              <input
-                type="email"
-                class="form-control"
-                id="usernameLogin"
-                name="usernameLogin"
-                placeholder="E-Mail"
-              />
-              <p id="emailErroLogin"></p>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="senhaLogin"
-                name="senhaLogin"
-                placeholder="Senha"
-              />
-              <p id="passErroLogin"></p>
-              <p id="statusLogin"></p>
-            </div>
-         
-            </div>
-            <div class="modal-footer d-block">
-              <p id="pRegistar" class="float-start"></p>
-              <button class="btn btn-warning float-end" data-bs-dismiss="modal">
-                Cancelar
-              </button>
-              <button
-                class="btn btn-success float-end"
-                id="btnSubmitLogin"
-                onclick="validaLogin()"
-              >
-                Entrar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <p> <img src="images/caminheiros.png" align="left">
     <div class="content" id="main" role="main">
@@ -296,7 +216,7 @@
                           <h3>Sobre</h3>
                           <ul>
                               <li><a href="https://goo.gl/maps/U6b5F4hg3KH33aXE9">Localização</a></li>
-                              <li><a href="team.html">Team</a></li>
+                             <!-- <li><a href="team.html">Team</a></li> -->
                           </ul>
                       </div>
                       <div class="col-md-6 item text">

@@ -24,28 +24,28 @@ function connect() {
   });
 }
 
-function query(sql, params) {
-  return new Promise((resolve, reject) => {
-    connect() // Acionado quando fazemos uma query
-      .then((conn) => {
-        conn
-          .execute(sql, params)
-          .then(([result]) => {
-            console.log("Model: Query");
-            console.log(result);
-            resolve(result);
-          })
-          .catch((error) => {
-            reject(error.sqlMessage);
-          });
-      })
-      .catch((error) => {
-        console.log("Query:");
-        console.log(error);
-        reject(error);
-      });
-  });
-}
+// function query(sql, params) {
+//   return new Promise((resolve, reject) => {
+//     connect() // Acionado quando fazemos uma query
+//       .then((conn) => {
+//         conn
+//           .execute(sql, params)
+//           .then(([result]) => {
+//             console.log("Model: Query");
+//             console.log(result);
+//             resolve(result);
+//           })
+//           .catch((error) => {
+//             reject(error.sqlMessage);
+//           });
+//       })
+//       .catch((error) => {
+//         console.log("Query:");
+//         console.log(error);
+//         reject(error);
+//       });
+//   });
+// }
 
 exports.Crud_registar = (nome, email, section, password) => {
   // insere um novo utilizador
@@ -55,40 +55,13 @@ exports.Crud_registar = (nome, email, section, password) => {
       name: nome,
       email: email,
       section: section,
-
       password: password
     };
     query(
-      "INSERT INTO secretagrup (name,email,section,password) values (?,?,?,?)",
-      [data.name, data.email, data.section, data.password]
-
-      password: password,
-      confirmationToken: confirmationToken,
-      confirm: 1,
-    };console.log(1);
-    query(
-      "INSERT INTO secretagrup(name,email,section,password,confirmationToken,confirm) values(?,?,?,?,?,?)",
-      [data.name, data.email, data.section, data.password, data.confirmationToken, data.confirm]
-    )
-      .then((result) => {
-        console.log(2);
-        console.log("Model: Registo de utilizador: ");
-        console.log(data);
-        console.log(2.2);
-        console.log(result);
-        if (result.affectedRows != 1)
-          reject("Model: Problema na inserção de novo registo");
-        else resolve(result);
-        console.log(2.3);
-      })
-      .catch((error) => {
-        console.log(3);
-        console.log("Model: Problema no registo:");
-        console.log(error);
-        reject(error);
-      });
-  });
-};
+      "INSERT INTO secretagrup (email,password,name,section) values (?,?,?,?)",
+      [data.email,data.password,data.name,data.section]
+      )}
+)};
 
 
 // Retorna o utilizador e sua password encriptada
@@ -106,6 +79,7 @@ exports.cRud_login = (email) => {
         console.log(user);
         if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento");
         else resolve(user);
+        //aqui colocar window.rederect = If user.section "Lobito" rede
       })
       .catch((error) => {
         console.log("Model: Problema no login:");
@@ -115,52 +89,52 @@ exports.cRud_login = (email) => {
   });
 };
 
-exports.cRud_all = () => {
-  return new Promise((resolve, reject) => {
-    // lê todos os registos
-    query("SELECT * from disciplinas")
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
+// exports.cRud_all = () => {
+//   return new Promise((resolve, reject) => {
+//     // lê todos os registos
+//     query("SELECT * from disciplinas")
+//       .then((result) => {
+//         resolve(result);
+//       })
+//       .catch((error) => {
+//         reject(error);
+//       });
+//   });
+// };
 
-exports.cRud_id = (id) => {
-  return new Promise((resolve, reject) => {
-    // busca os registos que contêm a chave
-    query("SELECT * FROM disciplinas WHERE id=?", [id])
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
+// exports.cRud_id = (id) => {
+//   return new Promise((resolve, reject) => {
+//     // busca os registos que contêm a chave
+//     query("SELECT * FROM disciplinas WHERE id=?", [id])
+//       .then((result) => {
+//         resolve(result);
+//       })
+//       .catch((error) => {
+//         reject(error);
+//       });
+//   });
+// };
 
-exports.cRud_key = (criteria) => {
-  return new Promise((resolve, reject) => {
-    // busca os registos que contêm a chave
-    console.log("Model - criteria:")
-    console.log(criteria)
-    // OR docente LIKE '%' + ? + '%' OR curso LIKE '%' + ? + '%'
-    query(
-      "SELECT * FROM disciplinas WHERE ano=? OR disciplina LIKE CONCAT('%',?,'%') OR docente LIKE CONCAT('%',?,'%') OR curso LIKE CONCAT('%',?,'%')", [criteria,criteria,criteria,criteria])
-      .then((result) => {
-        console.log("Model - result:")
-        console.log(result)
-        if (Object.keys(result).length == 0) {
-          console.log("Model - sem resultados")
-          reject("Não posso mostrar disciplinas!");
-        } else {
-          resolve(result);
-        }
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
+// exports.cRud_key = (criteria) => {
+//   return new Promise((resolve, reject) => {
+//     // busca os registos que contêm a chave
+//     console.log("Model - criteria:")
+//     console.log(criteria)
+//     // OR docente LIKE '%' + ? + '%' OR curso LIKE '%' + ? + '%'
+//     query(
+//       "SELECT * FROM disciplinas WHERE ano=? OR disciplina LIKE CONCAT('%',?,'%') OR docente LIKE CONCAT('%',?,'%') OR curso LIKE CONCAT('%',?,'%')", [criteria,criteria,criteria,criteria])
+//       .then((result) => {
+//         console.log("Model - result:")
+//         console.log(result)
+//         if (Object.keys(result).length == 0) {
+//           console.log("Model - sem resultados")
+//           reject("Não posso mostrar disciplinas!");
+//         } else {
+//           resolve(result);
+//         }
+//       })
+//       .catch((error) => {
+//         reject(error);
+//       });
+//   });
+// };
