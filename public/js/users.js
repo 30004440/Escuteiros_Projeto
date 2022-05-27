@@ -67,7 +67,7 @@ function validaRegisto() {
   const statReg = document.getElementById("statusRegistar");
   if (senha.length < 4) {
     document.getElementById("passErroLogin").innerHTML =
-      "A senha tem de ter ao menos 4 carateres";
+      "A password tem de ter ao menos 4 carateres";
     return;
   }
   fetch(`${urlBase}/registar`, {
@@ -114,7 +114,6 @@ function validaLogin() {
     return;
   }
   const statLogin = document.getElementById("statusLogin");
-
   fetch(`${urlBase}/login`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

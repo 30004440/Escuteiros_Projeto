@@ -24,28 +24,28 @@ function connect() {
   });
 }
 
-// function query(sql, params) {
-//   return new Promise((resolve, reject) => {
-//     connect() // Acionado quando fazemos uma query
-//       .then((conn) => {
-//         conn
-//           .execute(sql, params)
-//           .then(([result]) => {
-//             console.log("Model: Query");
-//             console.log(result);
-//             resolve(result);
-//           })
-//           .catch((error) => {
-//             reject(error.sqlMessage);
-//           });
-//       })
-//       .catch((error) => {
-//         console.log("Query:");
-//         console.log(error);
-//         reject(error);
-//       });
-//   });
-// }
+function query(sql, params) {
+  return new Promise((resolve, reject) => {
+    connect() // Acionado quando fazemos uma query
+      .then((conn) => {
+        conn
+          .execute(sql, params)
+          .then(([result]) => {
+            console.log("Model: Query");
+            console.log(result);
+            resolve(result);
+          })
+          .catch((error) => {
+            reject(error.sqlMessage);
+          });
+      })
+      .catch((error) => {
+        console.log("Query:");
+        console.log(error);
+        reject(error);
+      });
+  });
+}
 
 exports.Crud_registar = (email, password, nome, section) => {
   // insere um novo utilizador

@@ -14,17 +14,14 @@
     <title>Agrupamento 1240</title>
 </head>
 <body>
-
   <div class="menu-nav">
     <ul>
-
-    <li class="#"><a href="#">Eventos</a>
+    <li><a href="#">Eventos</a>
     <div class = "sub-menu-1">
       <ul>
         <li><a href="#">Listar</a></li>
         <li><a href="#">Inserir</a></li>
       </ul>
-
     </div>
     </li>
 
@@ -34,21 +31,20 @@
         <li><a href="#">Listar</a></li>
         <li><a href="#">Atualizar</a></li>
       </ul>
-
     </div>
     </li>
-    <li><a href="#">Lista Espera</a>
 
+
+    <li><a href="#">Lista Espera</a>
     <div class = "sub-menu-3">
       <ul>
         <li><a href="#">Listar</a></li>
-        
       </ul>
-
     </div>
   </li>
-    <li><a href="#">Secção</a>
 
+
+    <li><a href="#">Secção</a>
     <div class = "sub-menu-4">
       <ul>
         <li><a href="#">Lobitos</a></li>
@@ -56,62 +52,40 @@
         <li><a href="#">Pioneiros</a></li>
         <li><a href="#">Caminheiros</a></li>
       </ul>
-
     </div>
-  </li>
-  <!-- aqui vai ficar o botão de registar -->
 
-  <li><a href="#">Utilizadores</a>
+    <li><a href="#">Utilizadores</a></li>
+
+  <!-- aqui vai ficar o botão de registar -->
     <div class = "sub-menu-registar">
       <button
         type="button"
         class="sub-menu-5"
         id="pRegistar"
-    <div class = "sub-menu-registar">
-      <button
-        type="button"
-        class="btn btn-sm btn-primary"
-        id="btnModalRegistar"
-
       >
-      <ul>
-        <li><a href="#">Inserir</a></li>
-      </ul>
-
-      <ul>
-        <li><a href="#">Listar</a></li>
-      </ul>
       </button>
-      
-
     </div>
-    </li>
-    <!--  -->
+  
   </li>
     <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 17">
       <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
     </svg>logOut</a></li>  <!-- npm i bootstrap-icons -->
 
-    <!-- <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center">
     <div class="nav-item">
       <button
         type="button"
         class="btn btn-sm btn-primary"
-        id="btnModalRegistar"
-      >
+        id="btnModalRegistar">
         Registar
       </button>
     </div>
-    </div> -->
-   
-
+    </div>
     </ul>
   </div> 
-</head>
-<body>
       <header>
-
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
               <!-- Left links -->
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -123,9 +97,12 @@
                     Login
                   </button>
                 </li>
-              </ul>
-            <!-- </div> -->
 
+              </ul>
+              <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
+  
       <!-- Modal para registar novo utilizador -->
       <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
       <div
@@ -163,7 +140,7 @@
               <div class="mb-3">
                 <label class="form-label">Secção</label>
                 <select 
-                type="text"
+                type="section"
                 class="form-control"
                 id="sectionRegistar"
                 name="sectionRegistar"
@@ -218,17 +195,22 @@
           </div>
         </div>
       </div>
-  
-      <!-- Bootstrap JS -->
-      <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-  
-      <script src="js/users.js"></script>
-    </body>
-  </html>
-  
-  
 
+      
+      <!-- Modal para fazer login -->
+      <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
+      <div
+        class="modal fade"
+        id="modalLogin"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+      >
+      </div>
 </body>
+
 <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
 <script src="js/users.js"></script>
+<script src="js/consultas.js"></script>
 </html>

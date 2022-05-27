@@ -34,12 +34,12 @@ exports.registar = async (req, res) => {
   }
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(req.body.password, salt);
-  const email = req.body.email;
+  const email = req.body.email; //req.body.igualAouser.js
   const password = hashPassword;
-  const name = req.body.name;
+  const nome = req.body.name;
   const section = req.body.section;
   dbmySQL
-    .Crud_registar(email, password, name, section)
+    .Crud_registar(email, password, nome, section)
     .then((dados) => {
       res.status(201).send({
         message:
