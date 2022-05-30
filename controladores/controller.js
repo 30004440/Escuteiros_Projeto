@@ -99,6 +99,34 @@ exports.login = async (req, res) => {
     });
 };
 
+exports.inserirEspera = async (req, res) => {
+  console.log("Inserir novo utilizador");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nome = req.body.nome;
+  const nif = req.body.nif;
+  const status = req.body.status;
+  dbmySQL
+    .Crud_inserirListaEspera(nome, nif, status)
+    .then((dados) => {
+      res.status(201).send({
+        message:
+          "Associado criado com sucesso",
+      });
+      console.log(JSON.stringify(dados)); 
+    })
+    .catch((response) => {
+      console.log("O erro está aqui");
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
 // // CREATE - cria um novo registo
 // exports.create = (req, res) => {
 //   console.log("Create");

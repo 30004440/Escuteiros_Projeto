@@ -21,21 +21,25 @@ const urlBase = "https://localhost:8888/homepage";
 const modalLogin = document.getElementById("modalLogin");
 const bsModalLogin = new bootstrap.Modal(modalLogin, (backdrop = "static")); // Pode passar opções
 const modalRegistar = document.getElementById("modalRegistar");
-const bsModalRegistar = new bootstrap.Modal(
-  modalRegistar,
-  (backdrop = "static")
-); // Pode passar opções
+const bsModalRegistar = new bootstrap.Modal(modalRegistar, (backdrop = "static")); // Pode passar opções
+const loginModal = document.getElementById("loginModal");
 
-const btnModalLogin = document.getElementById("btnModalLogin");
 const btnModalRegistar = document.getElementById("btnModalRegistar");
 const btnLogoff = document.getElementById("btnLogoff");
 const pRegistar = document.getElementById("pRegistar");
-//const listaDisciplinas = document.getElementById("listaDisciplinas");
+const login = document.getElementById("login");
+
+const inserirEspera = document.getElementById("inserirEspera");
 
 pRegistar.addEventListener("click", () => {
   bsModalLogin.hide();
   chamaModalRegistar();
 });
+
+// login.addEventListener("click", () => {
+//   loginModal.hide();
+//   bsModalLogin();
+// });
 
 modalLogin.addEventListener("shown.bs.modal", () => {
   document.getElementById("usernameLogin").focus();
@@ -43,9 +47,15 @@ modalLogin.addEventListener("shown.bs.modal", () => {
 btnModalLogin.addEventListener("click", () => {
   bsModalLogin.show();
 });
+inserirEspera.addEventListener("click", () => {
+  insereRegisto();
+});
 btnModalRegistar.addEventListener("click", () => {
   chamaModalRegistar();
 });
+// loginModal.addEventListener("click", () => {
+//   bsloginModal.show();
+// });
 
 function chamaModalRegistar() {
   document.getElementById("btnSubmitRegistar").style.display = "block";
@@ -114,6 +124,7 @@ function validaLogin() {
     return;
   }
   const statLogin = document.getElementById("statusLogin");
+
   fetch(`${urlBase}/login`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -126,7 +137,6 @@ function validaLogin() {
         if (response.status == 200) {
           console.log(body.user);
           document.getElementById("statusLogin").innerHTML = "Sucesso!";
-          listaDisciplinas.innerHTML = "";
           document.getElementById("searchbtn").disabled = false;
           document.getElementById("searchkey").disabled = false;
           document.getElementById("btnLoginClose").click();
@@ -145,71 +155,48 @@ function validaLogin() {
     });
 }
 
-// async function getDisciplinas(id) {
-//   const criteria = document.getElementById("searchkey").value;
-//   console.log("Critério: " + criteria);
+function insereRegisto() {
+  let nome = document.getElementById("nomeEspera").value;
+  let nif = document.getElementById("nifEspera").value;
+  let status = document.getElementById("statusEspera").value;
+  fetch(`${urlBase}/inserirEspera`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "POST",
+    body: `nome=${nomeEspera}&nif=${nifEspera}&status=${statusEspera}`,
+  })
+    .then((response) => {
+      return response.json().then((body) => {
+        if (response.status == 201) {
+          console.log(body.message);
+          statReg.innerHTML = body.message;
+          document.getElementById("btnSubmitListaEspera").innerHTML = "Sucesso!";
+        }
+      });
+    })
+    .catch((body) => {
+      result = body.message;
+      document.getElementById(
+        "statusInserir"
+      ).innerHTML = `${result}`;
+      console.log("Catch:");
+      console.log(result);
+    });
+}
 
-//   let url = urlBase + "/disciplinas";
-//   const token = localStorage.token;
-//   console.log(token);
 
-//   if (id != "") {
-//     url = url + "/:" + id;
-//   } else if (criteria != "") {
-//     url = url + "/key/:" + criteria;
-//   }
-
-//   console.log("URL: " + url);
-//   const myInit = {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/x-www-form-urlencoded",
-//       // Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   const myRequest = new Request(url, myInit);
-
-//   await fetch(myRequest).then(async function (response) {
-//     if (!response.ok) {
-//       listaDisciplinas.innerHTML = "Não posso mostrar disciplinas de momento!";
-//     } else {
-//       disciplinas = await response.json();
-//       console.log(disciplinas);
-//       let texto = "";
-//       if (Object.keys(disciplinas).length == 1) {
-//         // Só retornou uma disciplina, detalhamos
-//         disciplina = disciplinas[0];
-//         texto += ` 
-//           <div>
-//             <h4>${disciplina.disciplina}</h4>
-//             &nbsp&nbsp&nbsp${disciplina.curso} -- Ano: ${disciplina.ano}<br /> 
-//             &nbsp&nbsp&nbspDocente: ${disciplina.docente}
-//           </div>`;
-//       } else {
-//         // Retornou mais de uma disciplina
-//         for (const disciplina of disciplinas) {
-//           texto += ` 
-//             <div>
-//               <h4>${disciplina.disciplina}
-//               <button type="button" onclick="getDisciplinas('${disciplina.id}')">
-//                 Clique aqui para detalhar esta disciplina
-//               </button></h4>
-//             </div>`;
-//         }
-//       }
-//       listaDisciplinas.innerHTML = texto;
+//   $(document).on("click", ".side-menu > ul > li", function(e){
+//     if($(this).find('.sub-menu').length>0){
+//         e.preventDefault();
+//         e.stopPropagation();
+//         $(this).toggleClass('active');
+//         $(this).find('.sub-menu').stop().slideToggle();
 //     }
-//   });
+// });
 
-  $(document).on("click", ".side-menu > ul > li", function(e){
-    if($(this).find('.sub-menu').length>0){
-        e.preventDefault();
-        e.stopPropagation();
-        $(this).toggleClass('active');
-        $(this).find('.sub-menu').stop().slideToggle();
-    }
-    
-});
+
+
 
 
 

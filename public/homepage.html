@@ -39,6 +39,7 @@
     <div class = "sub-menu-3">
       <ul>
         <li><a href="#">Listar</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#inserirEspera">Inserir</a></li>
       </ul>
     </div>
   </li>
@@ -101,6 +102,14 @@
               </ul>
               <!-- Left links -->
             </div>
+            <div
+            class="modal fade"
+            id="modalLogin"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            data-bs-backdrop="static"      >
+          </div>
             <!-- Collapsible wrapper -->
   
       <!-- Modal para registar novo utilizador -->
@@ -197,17 +206,102 @@
       </div>
 
       
-      <!-- Modal para fazer login -->
-      <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
-      <div
-        class="modal fade"
-        id="modalLogin"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        data-bs-backdrop="static"
-      >
-      </div>
+   <!-- Lista de Espera - Inserir -->
+   <!-- <div
+      class="modal fade"
+      id="inserirEspera"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="inserirEspera1">
+           Inserir associado em Lista de Espera
+         </h5>
+         <button
+           type="button"
+           class="btn-close"
+           data-bs-dismiss="modal"
+           aria-label="Close"
+         ></button>
+       </div>
+       <div class="modal-body">
+         <div class="mb-3">
+           <label class="form-label">Nome</label>
+           <input
+             type="name"
+             class="form-control"
+             id="nomeEspera"
+             name="nomeEspera"
+             placeholder="Nome"
+           />
+         </div>
+         <div class="mb-3">
+           <label class="form-label">NIF</label>
+           <input
+             type="NIF"
+             class="form-control"
+             id="nifEspera"
+             name="nifEspera"
+             placeholder="NIF"
+           />
+         </div>
+         <div class="mb-3">
+           <label class="form-label">Status</label>
+           <input
+             type="text"
+             class="form-control"
+             id="statusEspera"
+             name="statusEspera"
+             placeholder="Status"
+           />
+         </div>
+         <div class="modal-footer d-block">
+           <button
+             class="btn btn-success float-end"
+             id="btnSubmitEspera"
+             onclick="insereRegisto()"
+           >
+             Submeter
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div> -->
+  <div
+      id="inserirEspera"
+      class="modal fade"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+ <form>
+  <legend>Inserir associado em Lista de Espera</legend>
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Nome</label>
+      <input type="email" class="form-control" id="nomeEspera">
+    </div>
+    <div class="mb-3">
+      <label for="inputNIF" class="form-label">NIF</label>
+      <input type="password" class="form-control" id="nifEspera">
+    </div>
+      <div class="mb-3">
+      <label for="inputStatus" class="form-label">Status</label>
+      <input type="email" class="form-control" id="statusEspera">
+    </div>
+    <button 
+    class="btn btn-success float-end"
+    id="btnSubmitEspera"
+    onclick="insereRegisto()">Submit</button>
+  </form>
+</div>
+
+
 </body>
 
 <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>

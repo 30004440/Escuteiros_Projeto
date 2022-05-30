@@ -12,6 +12,9 @@ module.exports = app => {
     // Rota para login - tem de ser POST para não vir user e pass na URL
     router.post("/login", controlador.login);
 
+    // Inserir um associado à lista de espera
+    router.post("/inserirEspera", controlador.inserirEspera);
+
     // // Envia lista de disciplinas e docentes associados
     // router.get("/disciplinas/", controlador.findAll);
   
