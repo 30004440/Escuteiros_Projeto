@@ -21,25 +21,19 @@ const urlBase = "https://localhost:8888/homepage";
 const modalLogin = document.getElementById("modalLogin");
 const bsModalLogin = new bootstrap.Modal(modalLogin, (backdrop = "static")); // Pode passar opções
 const modalRegistar = document.getElementById("modalRegistar");
-const bsModalRegistar = new bootstrap.Modal(modalRegistar, (backdrop = "static")); // Pode passar opções
-const loginModal = document.getElementById("loginModal");
+const bsModalRegistar = new bootstrap.Modal(modalRegistar, (backdrop = "static")
+); // Pode passar opções
 
+const btnModalLogin = document.getElementById("btnModalLogin");
 const btnModalRegistar = document.getElementById("btnModalRegistar");
 const btnLogoff = document.getElementById("btnLogoff");
 const pRegistar = document.getElementById("pRegistar");
-const login = document.getElementById("login");
-
-const inserirEspera = document.getElementById("inserirEspera");
+const listaDisciplinas = document.getElementById("listaDisciplinas");
 
 pRegistar.addEventListener("click", () => {
   bsModalLogin.hide();
   chamaModalRegistar();
 });
-
-// login.addEventListener("click", () => {
-//   loginModal.hide();
-//   bsModalLogin();
-// });
 
 modalLogin.addEventListener("shown.bs.modal", () => {
   document.getElementById("usernameLogin").focus();
@@ -47,37 +41,34 @@ modalLogin.addEventListener("shown.bs.modal", () => {
 btnModalLogin.addEventListener("click", () => {
   bsModalLogin.show();
 });
-inserirEspera.addEventListener("click", () => {
-  insereRegisto();
-});
 btnModalRegistar.addEventListener("click", () => {
   chamaModalRegistar();
 });
-// loginModal.addEventListener("click", () => {
-//   bsloginModal.show();
-// });
 
 function chamaModalRegistar() {
-  document.getElementById("btnSubmitRegistar").style.display = "block";
-  document.getElementById("btnCancelaRegistar").innerHTML = "Cancelar";
+  document.getElementById("btnSubmitLogin").style.display = "block";
+  document.getElementById("btnCancelaLogin").innerHTML = "Cancelar";
   bsModalRegistar.show();
 }
 
-// btnLogoff.addEventListener("click", () => {
-//   localStorage.removeItem("token");
-//   document.getElementById("btnLogoff").style.display = "none";
-//   window.location.replace("index.html");
-// });
+btnLogoff.addEventListener("click", () => {
+  localStorage.removeItem("token");
+  document.getElementById("btnLogoff").style.display = "none";
+  window.location.replace("index.html");
+});
 
 function validaRegisto() {
-  let email = document.getElementById("emailRegistar").value; // email é validado pelo próprio browser
+  let email = document.getElementById("usernameRegistar").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaRegistar").value; // tem de ter uma senha
-  let section = document.getElementById("sectionRegistar").value; 
-  let nome = document.getElementById("usernameRegistar").value;
   const statReg = document.getElementById("statusRegistar");
   if (senha.length < 4) {
     document.getElementById("passErroLogin").innerHTML =
-      "A password tem de ter ao menos 4 carateres";
+      "A senha tem de ter ao menos 4 carateres";
+    return;
+  }
+    if (email.length < 1) {
+    document.getElementById("ErroLogin").innerHTML =
+      "Necessário preencher todos os campos";
     return;
   }
   fetch(`${urlBase}/registar`, {
@@ -85,7 +76,7 @@ function validaRegisto() {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
-    body: `email=${email}&password=${senha}&name=${nome}&section=${section}`,
+    body: `email=${email}&password=${senha}`,
   })
     .then((response) => {
       return response.json().then((body) => {
@@ -104,7 +95,7 @@ function validaRegisto() {
       result = body.message;
       document.getElementById(
         "statusRegistar"
-      ).innerHTML = `${result}`;
+      ).innerHTML = `Pedido falhado: ${result}`;
       console.log("Catch:");
       console.log(result);
     });
@@ -124,7 +115,6 @@ function validaLogin() {
     return;
   }
   const statLogin = document.getElementById("statusLogin");
-
   fetch(`${urlBase}/login`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -184,20 +174,4 @@ function insereRegisto() {
       console.log(result);
     });
 }
-
-
-//   $(document).on("click", ".side-menu > ul > li", function(e){
-//     if($(this).find('.sub-menu').length>0){
-//         e.preventDefault();
-//         e.stopPropagation();
-//         $(this).toggleClass('active');
-//         $(this).find('.sub-menu').stop().slideToggle();
-//     }
-// });
-
-
-
-
-
-
 

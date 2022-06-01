@@ -95,6 +95,19 @@ exports.Crud_inserirListaEspera = (nome, nif, status) => {
     }
 )};
 
+exports.Crud_listarListaEspera = (nome, nif, status) => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from waitinglist")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 // Retorna o utilizador e sua password encriptada
 exports.cRud_login = (email) => {
   return new Promise((resolve, reject) => {

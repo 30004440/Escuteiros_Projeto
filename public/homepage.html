@@ -1,314 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- link para o bootstrap (COMANDO: npm install bootstrap) -->
-    <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"/> 
+  <head>
+    <title>Agrupamento 1240</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/estilo.css" />
     <link rel="stylesheet" type="text/css" href="css/homepage.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"/>
 
-    <title>Agrupamento 1240</title>
-</head>
-<body>
-  <div class="menu-nav">
-    <ul>
-    <li><a href="#">Eventos</a>
-    <div class = "sub-menu-1">
-      <ul>
-        <li><a href="#">Listar</a></li>
-        <li><a href="#">Inserir</a></li>
-      </ul>
-    </div>
-    </li>
-
-    <li><a href="#">Pagamentos</a>
-    <div class = "sub-menu-2">
-      <ul>
-        <li><a href="#">Listar</a></li>
-        <li><a href="#">Atualizar</a></li>
-      </ul>
-    </div>
-    </li>
-
-
-    <li><a href="#">Lista Espera</a>
-    <div class = "sub-menu-3">
-      <ul>
-        <li><a href="#">Listar</a></li>
-        <li><a href="#" data-toggle="modal" data-target="#inserirEspera">Inserir</a></li>
-      </ul>
-    </div>
-  </li>
-
-
-    <li><a href="#">Secção</a>
-    <div class = "sub-menu-4">
-      <ul>
-        <li><a href="#">Lobitos</a></li>
-        <li><a href="#">Exploradores</a></li>
-        <li><a href="#">Pioneiros</a></li>
-        <li><a href="#">Caminheiros</a></li>
-      </ul>
-    </div>
-
-    <li><a href="#">Utilizadores</a></li>
-
-  <!-- aqui vai ficar o botão de registar -->
-    <div class = "sub-menu-registar">
-      <button
-        type="button"
-        class="sub-menu-5"
-        id="pRegistar"
-      >
-      </button>
-    </div>
-  
-
-    <!-- francisco alterou aqui  -->
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="menu-nav">
+        <ul>
+        <li><a href="#">Eventos</a>
+        <div class = "sub-menu-1">
+          <ul>
+            <li><a href="#">Listar</a></li>
+            <li><a href="#">Inserir</a></li>
+          </ul>
+        </div>
+        </li>
     
+        <li><a href="#">Pagamentos</a>
+        <div class = "sub-menu-2">
+          <ul>
+            <li><a href="#">Listar</a></li>
+            <li><a href="#">Atualizar</a></li>
+          </ul>
+        </div>
+        </li>
+    
+    
+        <li><a href="#">Lista Espera</a>
+        <div class = "sub-menu-3">
+          <ul>
+            <li><a href="#">Listar</a></li>
+            <li><a id="ModalEspera">Inserir</a></li>
+          </ul>
+        </div>
+      </li>
+        <li><a href="#">Secção</a>
+        <div class = "sub-menu-4">
+          <ul>
+            <li><a href="#">Lobitos</a></li>
+            <li><a href="#">Exploradores</a></li>
+            <li><a href="#">Pioneiros</a></li>
+            <li><a href="#">Caminheiros</a></li>
+          </ul>
+        </div>
+        <li><a href="#">Utilizadores</a></li>
+        <li><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 17">
+          <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+        </svg>logOut</a></li>  <!-- npm i bootstrap-icons -->
+        <li>
+          <button
+          type="button"
+          class="btn btn-sm btn-primary"
+          id="btnModalRegistar">
+          Registar
+        </button>
+      </li>
+    </header>
 
-  </li>
-    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 17">
-      <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-    </svg>logOut</a></li>  <!-- npm i bootstrap-icons -->
-
-    <div class="d-flex align-items-center">
-    <div class="nav-item">
-      <button
-        type="button"
-        class="btn btn-sm btn-primary"
-        id="btnModalRegistar">
-        Registar
-      </button>
-    </div>
-    </div>
-    </ul>
-  </div> 
-      <header>
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-              <!-- Left links -->
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-primary mt-5"
-                    id="btnModalLogin"
-                  >
-                    Login
-                  </button>
-                </li>
-
-              </ul>
-              <!-- Left links -->
-            </div>
-            <div
-            class="modal fade"
-            id="modalLogin"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            data-bs-backdrop="static"      >
-          </div>
-            <!-- Collapsible wrapper -->
-  
-      <!-- Modal para registar novo utilizador -->
-      <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
-      <div
-        class="modal fade"
-        id="modalRegistar"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        data-bs-backdrop="static"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Registo de novo utilizador
-              </h5>
+    <!-- Modal para registar novo utilizador -->
+    <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
+    <div
+      class="modal fade"
+      id="modalRegistar"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
               <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input
-                  type="name"
-                  class="form-control"
-                  id="usernameRegistar"
-                  name="usernameRegistar"
-                  placeholder="Nome"
-                />
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Secção</label>
-                <select 
-                type="section"
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Nome</label>
+              <input
+                type="name"
                 class="form-control"
-                id="sectionRegistar"
-                name="sectionRegistar"
-                placeholder="Secção">
-                  <option value="Agrup">Agrupamento</option>
-                  <option value="Lob">Lobitos</option>
-                  <option value="Exp">Exploradores</option>
-                  <option value="Pio">Pioneiros</option>
-                  <option value="Cam">Caminheiros</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="emailRegistar"
-                  name="emailRegistar"
-                  placeholder="E-Mail"
-                />
-                <p id="emailErroLoginRegistar"></p>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="senhaRegistar"
-                  name="senhaRegistar"
-                  placeholder="Password"
-                />
-                <p id="statusRegistar"></p>
-              </div>
+                id="usernameRegistar"
+                name="usernameRegistar"
+                placeholder="Nome"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Secção</label>
+              <select 
+              type="section"
+              class="form-control"
+              id="sectionRegistar"
+              name="sectionRegistar"
+              placeholder="Secção">
+                <option value="Agrup">Agrupamento</option>
+                <option value="Lob">Lobitos</option>
+                <option value="Exp">Exploradores</option>
+                <option value="Pio">Pioneiros</option>
+                <option value="Cam">Caminheiros</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="emailRegistar"
+                name="emailRegistar"
+                placeholder="E-Mail"
+              />
+              <p id="emailErroLoginRegistar"></p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="senhaRegistar"
+                name="senhaRegistar"
+                placeholder="Password"
+              />
+              <p id="statusRegistar"></p>
+            </div>
 
-              <div class="modal-footer d-block">
-                <button
-                  id="btnCancelaRegistar"
-                  class="btn btn-warning float-end"
-                  data-bs-dismiss="modal"
-                >
-                  Cancelar
-                </button>
-                <button
-                  class="btn btn-success float-end"
-                  id="btnSubmitRegistar"
-                  onclick="validaRegisto()"
-                >
-                  Submeter
-                </button>
-              </div>
+            <div class="modal-footer d-block">
+              <button
+                id="btnCancelaLogin"
+                class="btn btn-warning float-end"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                class="btn btn-success float-end"
+                id="btnSubmitRegistar"
+                onclick="validaRegisto()"
+              >
+                Submeter
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      
-   <!-- Lista de Espera - Inserir -->
-   <!-- <div
-      class="modal fade"
-      id="inserirEspera"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      data-bs-backdrop="static"
-    >
-   <div class="modal-dialog">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="inserirEspera1">
-           Inserir associado em Lista de Espera
-         </h5>
-         <button
-           type="button"
-           class="btn-close"
-           data-bs-dismiss="modal"
-           aria-label="Close"
-         ></button>
-       </div>
-       <div class="modal-body">
-         <div class="mb-3">
-           <label class="form-label">Nome</label>
-           <input
-             type="name"
-             class="form-control"
-             id="nomeEspera"
-             name="nomeEspera"
-             placeholder="Nome"
-           />
-         </div>
-         <div class="mb-3">
-           <label class="form-label">NIF</label>
-           <input
-             type="NIF"
-             class="form-control"
-             id="nifEspera"
-             name="nifEspera"
-             placeholder="NIF"
-           />
-         </div>
-         <div class="mb-3">
-           <label class="form-label">Status</label>
-           <input
-             type="text"
-             class="form-control"
-             id="statusEspera"
-             name="statusEspera"
-             placeholder="Status"
-           />
-         </div>
-         <div class="modal-footer d-block">
-           <button
-             class="btn btn-success float-end"
-             id="btnSubmitEspera"
-             onclick="insereRegisto()"
-           >
-             Submeter
-           </button>
-         </div>
-       </div>
-     </div>
-   </div>
- </div> -->
-  <div
-      id="inserirEspera"
-      class="modal fade"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      data-bs-backdrop="static"
-    >
- <form>
-  <legend>Inserir associado em Lista de Espera</legend>
-    <div class="mb-3">
-      <label for="inputName" class="form-label">Nome</label>
-      <input type="email" class="form-control" id="nomeEspera">
-    </div>
-    <div class="mb-3">
-      <label for="inputNIF" class="form-label">NIF</label>
-      <input type="password" class="form-control" id="nifEspera">
-    </div>
+
+
+
+    <!-- Lista de Espera - Inserir -->
+ <!-- Modal - Lista de Espera - Inserir -->
+ <div id="ModalEspera" class="modal">
+   <!-- Modal content -->
+   <div class="modal-content">
+    <h5 class="modal-title">
+      Inserir associado em Lista de Espera
+    </h5>
+    <form>
       <div class="mb-3">
-      <label for="inputStatus" class="form-label">Status</label>
-      <input type="email" class="form-control" id="statusEspera">
-    </div>
-    <button 
-    class="btn btn-success float-end"
-    id="btnSubmitEspera"
-    onclick="insereRegisto()">Submit</button>
+        <label class="form-label">Nome</label>
+        <input
+          type="name"
+          class="form-control"
+          id="nomeEspera"
+          name="nomeEspera"
+          placeholder="Nome"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">NIF</label>
+        <input
+          type="NIF"
+          class="form-control"
+          id="nifEspera"
+          name="nifEspera"
+          placeholder="NIF"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <input
+          type="text"
+          class="form-control"
+          id="statusEspera"
+          name="statusEspera"
+          placeholder="Status"
+        />
+      </div>
   </form>
+  <div class="modal-footer d-block">
+    <button
+      class="btn btn-success float-end"
+      id="btnSubmitEspera"
+      onclick="insereRegisto()"
+    >
+      Submeter
+    </button>
+    <button
+    id="btnCancelaEspera"
+    class="btn btn-warning float-end"
+    data-bs-dismiss="modal"
+  >
+    Cancelar
+  </button>
+  </div>
+  </div>
 </div>
 
+  </body>
 
-</body>
+    <!-- Bootstrap JS -->
+    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-<script src="js/users.js"></script>
-<script src="js/consultas.js"></script>
+    <script src="js/users.js"></script>
+    <script src="js/consultas.js"></script>
+
 </html>

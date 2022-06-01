@@ -5,49 +5,48 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="css/estilo.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"/>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <header>
+      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a class="navbar-brand mt-2 mt-lg-0" href="index.html">
-              <img
-                src="images/alerta.jpg"
-                height="100"
-                alt="Escuteiros"
-                loading="lazy"
-              />
-            </a>
-            <p style="color: #6D187D; font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 25px;">Secretaria Agrupamento 1240</b></p>
-          </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <a class="navbar-brand mt-2 mt-lg-0" href="index.html">
+            <img
+              src="images/alerta.jpg"
+              height="100"
+              alt="Escuteiros"
+              loading="lazy"
+            />
+          </a>
+          <p style="color: #6D187D; font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size: 25px;">Secretaria Agrupamento 1240</b></p>
+        </div>
+        <!-- Container wrapper -->
+          <!-- Right elements -->
           <div class="d-flex align-items-center">
-            <div class="nav-item">
+            <ul class="nav-item">
               <button
               style="background: #6D187D; font-family: Arial, Helvetica, sans-serif; border-radius: 1000px; padding: 10px 20px 10px 20px; top-padding: 10px ;cursor: pointer; color: #fff; border: none; font-size: 15px;"
               type="button"
               class="btn btn-sm btn-primary mt-5"
-              id="loginModal">
+              id="btnModalLogin">
                 Login
               </button>
-            </div>
+            </ul>
           </div>
         </div>
+        <!-- Container wrapper -->
       </nav>
+      <!-- Navbar -->
     </header>
     <section aria-label="Newest Photos">
       <div class="carousel" data-carousel>
@@ -73,10 +72,78 @@
         </ul>
       </div>
     </section>
-    <!-- Modal para fazer login -->
+    <!-- Modal para registar novo utilizador -->
+    <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
     <div
       class="modal fade"
-      id="modal1"
+      id="modalRegistar"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Registo de novo utilizador
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">E-Mail</label>
+              <input
+                type="email"
+                class="form-control"
+                id="usernameRegistar"
+                name="usernameRegistar"
+                placeholder="E-Mail"
+              />
+              <p id="emailErroLoginRegistar"></p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Senha</label>
+              <input
+                type="password"
+                class="form-control"
+                id="senhaRegistar"
+                name="senhaRegistar"
+                placeholder="Senha"
+              />
+              <p id="statusRegistar"></p>
+            </div>
+            <div class="modal-footer d-block">
+              <button
+                id="btnCancelaRegistar"
+                class="btn btn-warning float-end"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                class="btn btn-success float-end"
+                id="btnSubmitLogin"
+                onclick="validaLogin()"
+              >
+                Submeter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para fazer login -->
+    <!-- se retirar o data-bs-backdrop, o modal desaparece ao clicar no fundo da página -->
+    <div
+      class="modal fade"
+      id="modalLogin"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -109,7 +176,7 @@
               <p id="emailErroLogin"></p>
             </div>
             <div class="mb-3">
-              <label class="form-label">Password</label>
+              <label class="form-label">Senha</label>
               <input
                 type="password"
                 class="form-control"
@@ -120,25 +187,23 @@
               <p id="passErroLogin"></p>
               <p id="statusLogin"></p>
             </div>
-         
-            </div>
             <div class="modal-footer d-block">
-              <button class="btnCancelar" data-bs-dismiss="modal">
+              <p id="pRegistar" class="float-start"> Se não tem conta dirija-se à secretaria do Agrupamento.</p>
+              <button class="btn btn-warning float-end" data-bs-dismiss="modal">
                 Cancelar
               </button>
               <button
-                class="btnEntrar"
+                class="btn btn-success float-end"
                 id="btnSubmitLogin"
                 onclick="validaLogin()"
               >
-                Entrar
+                Submeter
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </body>
   <footer>
     <div class="footer-dark">
@@ -175,6 +240,9 @@
               </div>
           </footer>
 
-<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-<script src="js/users.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/users.js"></script>
+
 </html>
