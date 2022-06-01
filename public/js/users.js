@@ -175,3 +175,28 @@ function insereRegisto() {
     });
 }
 
+async function getListaEspera() {
+  const criteria = document.getElementById("searchkey").value;
+  console.log("Critério: " + criteria);
+
+  let url = urlBase + "/listagemEspera";
+  const token = localStorage.token;
+  console.log(token);
+
+  if (id != "") {
+    url = url + "/:" + id;
+  } else if (criteria != "") {
+    url = url + "/key/:" + criteria;
+  }
+
+  console.log("URL: " + url);
+  const myInit = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      // Authorization: `Bearer ${token}`,
+    },
+  };
+  const myRequest = new Request(url, myInit);
+}
+

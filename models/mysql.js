@@ -95,19 +95,6 @@ exports.Crud_inserirListaEspera = (nome, nif, status) => {
     }
 )};
 
-exports.Crud_listarListaEspera = (nome, nif, status) => {
-  return new Promise((resolve, reject) => {
-    // lê todos os registos
-    query("SELECT * from waitinglist")
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
 // Retorna o utilizador e sua password encriptada
 exports.cRud_login = (email) => {
   return new Promise((resolve, reject) => {
@@ -133,18 +120,18 @@ exports.cRud_login = (email) => {
   });
 };
 
-// exports.cRud_all = () => {
-//   return new Promise((resolve, reject) => {
-//     // lê todos os registos
-//     query("SELECT * from disciplinas")
-//       .then((result) => {
-//         resolve(result);
-//       })
-//       .catch((error) => {
-//         reject(error);
-//       });
-//   });
-// };
+exports.ListaEspera = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from waitinglist")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 
 // exports.cRud_id = (id) => {
 //   return new Promise((resolve, reject) => {

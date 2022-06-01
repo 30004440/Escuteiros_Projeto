@@ -15,11 +15,9 @@ module.exports = app => {
   // Inserir um associado à lista de espera
   router.post("/inserirEspera", controlador.inserirEspera);
 
-  // // Envia lista de disciplinas e docentes associados
-  // router.get("/disciplinas/", controlador.findAll);
+  // Lista os associados em lista de espera
+  router.get("/listagemEspera/", controlador.findAllListaEspera);
 
-  // // Busca uma disciplina pelo id
-  // router.get("/disciplinas/:id", controlador.findOne);
 
   // // Busca todas as disciplinas com uma chave de pesquisa
   // router.get("/disciplinas/key/:id", controlador.findKey);

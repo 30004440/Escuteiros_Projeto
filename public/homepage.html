@@ -42,7 +42,7 @@
         <li><a href="#">Lista Espera</a>
         <div class = "sub-menu-3">
           <ul>
-            <li><a href="#">Listar</a></li>
+            <li><a id="searchListaEspera">Listar</a></li>
             <li><a id="ModalEspera">Inserir</a></li>
           </ul>
         </div>
@@ -162,11 +162,17 @@
     </div>
 
 
-
+    <button 
+    type="button"
+    id="searchListaEspera" 
+    class="btn btn-primary btn-lg btn-block" 
+    disabled="" 
+    onclick="getListaEspera('')">
+    </button>
 
     <!-- Lista de Espera - Inserir -->
  <!-- Modal - Lista de Espera - Inserir -->
- <div id="ModalEspera" class="modal">
+ <div class="modal" id="ModalEspera">
    <!-- Modal content -->
    <div class="modal-content">
     <h5 class="modal-title">

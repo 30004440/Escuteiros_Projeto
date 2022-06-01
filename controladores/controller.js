@@ -175,14 +175,13 @@ exports.create = (req, res) => {
 };
 
 // Envia todas as disciplinas
-exports.findAll = (req, res) => {
-  authenticateToken(req, res);
+exports.findAllListaEspera = (req, res) => {
   if (req.email != null) {
     // utilizador autenticado
     console.log(`FindAll - user: ${req.email.name}`);
     console.log("Mensagem de debug - listar disciplinas");
     dbmySQL
-      .cRud_all() // R: Read
+      .cRud_allListaEspera() // R: Read
       .then((dados) => {
         res.send(dados);
         // console.log("Dados: " + JSON.stringify(dados)); // para debug
