@@ -24,43 +24,6 @@ function authenticateToken(req, res) {
 const nodemailer = require("nodemailer");
 const { response } = require("express");
 
-// async..await não é permitido no contexto global
-async function enviaEmail(recipients, confirmationToken) {
-  // Gera uma conta do serviço SMTP de email do domínio ethereal.email
-  // Somente necessário na fase de testes e se não tiver uma conta real para utilizar
-  let testAccount = await nodemailer.createTestAccount();
-
-  // Cria um objeto transporter reutilizável que é um transporter SMTP
-  let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true para 465, false para outras portas
-    auth: {
-      user: testAccount.user, // utilizador ethereal gerado
-      pass: testAccount.pass, // senha do utilizador ethereal
-    },
-  });
-
-  // envia o email usando o objeto de transporte definido
-  let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // endereço do originador
-    to: recipients, // lista de destinatários
-    subject: "Hello ✔", // assunto
-    text: "Clique aqui para ativar sua conta: " + confirmationToken, // corpo do email
-    html: "<b>Clique aqui para ativar sua conta: " + confirmationToken + "</b>", // corpo do email em html
-  });
-
-  console.log("Mensagem enviada: %s", info.messageId);
-  // Mensagem enviada: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // A pré-visualização só estará disponível se usar uma conta Ethereal para envio
-  console.log(
-    "URL para visualização prévia: %s",
-    nodemailer.getTestMessageUrl(info)
-  );
-  // URL para visualização prévia: https://ethereal.email/message/WaQKMgKddxQDoou...
-}
-
 exports.verificaUtilizador = async (req, res) => {
   const confirmationCode = req.params.confirmationCode;
   dbmySQL
@@ -94,11 +57,10 @@ exports.registar = async (req, res) => {
     req.body.email,
     process.env.ACCESS_TOKEN_SECRET
   );
-  const confirmURL = `https://localhost:${process.env.PORT}/api/auth/confirm/${confirmationToken}`;
   dbmySQL
     .Crud_registar(email, password, confirmationToken) // C: Create
     .then((dados) => {
-      enviaEmail(email, confirmURL).catch(console.error);
+      enviaEmail(email).catch(console.error);
       res.status(201).send({
         message:
           "Utilizador criado com sucesso, confira sua caixa de correio para ativar!",
@@ -174,12 +136,12 @@ exports.create = (req, res) => {
   return res.send(resposta);
 };
 
-// Envia todas as disciplinas
+// Envia todas os associados na lista de espera
 exports.findAllListaEspera = (req, res) => {
   if (req.email != null) {
     // utilizador autenticado
     console.log(`FindAll - user: ${req.email.name}`);
-    console.log("Mensagem de debug - listar disciplinas");
+    console.log("Mensagem de debug - listar associados na lista de espera");
     dbmySQL
       .cRud_allListaEspera() // R: Read
       .then((dados) => {
@@ -189,10 +151,32 @@ exports.findAllListaEspera = (req, res) => {
       .catch((err) => {
         return res
           .status(400)
-          .send({ message: "Não há disciplinas para mostrar!" });
+          .send({ message: "Não há associados para mostrar!" });
       });
   }
 };
+
+
+// Envia todas os lobitos
+exports.findAllLobitos = (req, res) => {
+  if (req.email != null) {
+    // utilizador autenticado
+    console.log(`FindAll - user: ${req.email.name}`);
+    console.log("Mensagem de debug - lista dos lobitos");
+    dbmySQL
+      .cRud_findAllLobitos() // R: Read
+      .then((dados) => {
+        res.send(dados);
+        // console.log("Dados: " + JSON.stringify(dados)); // para debug
+      })
+      .catch((err) => {
+        return res
+          .status(400)
+          .send({ message: "Não há lobitos para mostrar!" });
+      });
+  }
+};
+
 
 // READ one - busca um item pelo id
 exports.findOne = async (req, res) => {
@@ -240,7 +224,7 @@ exports.findKey = (req, res) => {
 };
 
 exports.inserirEspera = async (req, res) => {
-  console.log("Inserir novo utilizador");
+  console.log("Inserir novo associado");
   if (!req.body) {
     return res.status(400).send({
       message: "O conteúdo não pode ser vazio!",

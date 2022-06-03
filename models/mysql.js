@@ -83,7 +83,7 @@ exports.Crud_inserirListaEspera = (nome, nif, status) => {
     };
     query(
       "INSERT INTO waitinglist (name, nif, status) values (?,?,?)",
-      [data.nome,data.nif,data.status]
+      [data.name,data.nif,data.status]
     )
       .then((result) => {
         console.log(data);
@@ -96,20 +96,21 @@ exports.Crud_inserirListaEspera = (nome, nif, status) => {
 )};
 
 // Retorna o utilizador e sua password encriptada
-exports.cRud_login = (email) => {
+exports.cRud_login = (email, section) => {
   return new Promise((resolve, reject) => {
-    // busca os registos que contêm a chave
-    query("SELECT email, password from secretagrup WHERE email=?", [email])
+    query("SELECT email, password, section from secretagrup WHERE email=?", [email])
       .then((result) => {
         user = {};
         Object.keys(result).forEach(function (key) {
           user = result[key];
           console.log(user.email);
+          console.log(user.section);
         });
         console.log("Model: Login: ");
         console.log(user);
         if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento");
-        else resolve(user);
+        else if (user.section = 'Lob') {window.location.replace="https://localhost:8888/lobitos.html"};
+        //else if resolve(user);
         //aqui colocar window.rederect = If user.section "Lobito" rede
       })
       .catch((error) => {
@@ -133,18 +134,31 @@ exports.ListaEspera = () => {
   });
 };
 
-// exports.cRud_id = (id) => {
-//   return new Promise((resolve, reject) => {
-//     // busca os registos que contêm a chave
-//     query("SELECT * FROM disciplinas WHERE id=?", [id])
-//       .then((result) => {
-//         resolve(result);
-//       })
-//       .catch((error) => {
-//         reject(error);
-//       });
-//   });
-// };
+exports.cRud_allListaEspera = (nif) => {
+  return new Promise((resolve, reject) => {
+    // busca os registos que contêm a chave
+    query("SELECT * FROM waitinglist WHERE nif=?", [nif])
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_findAllLobitos = (category) => {
+  return new Promise((resolve, reject) => {
+    // busca os registos que contêm a chave
+    query("SELECT * FROM associados WHERE category=?", [1])
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 
 // exports.cRud_key = (criteria) => {
 //   return new Promise((resolve, reject) => {

@@ -42,15 +42,15 @@
         <li><a href="#">Lista Espera</a>
         <div class = "sub-menu-3">
           <ul>
-            <li><a id="searchListaEspera">Listar</a></li>
-            <li><a id="ModalEspera">Inserir</a></li>
+            <li><a href="#searchListaEspera">Listar</a></li>
+            <li><a href="#ModalEspera">Inserir</a></li>
           </ul>
         </div>
       </li>
         <li><a href="#">Secção</a>
         <div class = "sub-menu-4">
           <ul>
-            <li><a href="#">Lobitos</a></li>
+            <li><a href="#listaLobitos">Lobitos</a></li>
             <li><a href="#">Exploradores</a></li>
             <li><a href="#">Pioneiros</a></li>
             <li><a href="#">Caminheiros</a></li>
@@ -162,17 +162,9 @@
     </div>
 
 
-    <button 
-    type="button"
-    id="searchListaEspera" 
-    class="btn btn-primary btn-lg btn-block" 
-    disabled="" 
-    onclick="getListaEspera('')">
-    </button>
-
     <!-- Lista de Espera - Inserir -->
  <!-- Modal - Lista de Espera - Inserir -->
- <div class="modal" id="ModalEspera">
+ <div class="modalEspera" id="ModalEspera">
    <!-- Modal content -->
    <div class="modal-content">
     <h5 class="modal-title">
@@ -227,6 +219,16 @@
   </button>
   </div>
   </div>
+</div>
+
+<button
+id="searchListaEspera"
+onclick="listaResultadosEspera()">
+</button>
+
+<div
+id="listarLobitos"
+onclick="listaLobitos()">
 </div>
 
   </body>

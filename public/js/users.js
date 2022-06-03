@@ -30,6 +30,10 @@ const btnLogoff = document.getElementById("btnLogoff");
 const pRegistar = document.getElementById("pRegistar");
 const listaDisciplinas = document.getElementById("listaDisciplinas");
 
+const ModalEspera = document.getElementById("btnModalEspera");
+const bsModalEspera = new bootstrap.Modal(modalEspera);
+
+
 pRegistar.addEventListener("click", () => {
   bsModalLogin.hide();
   chamaModalRegistar();
@@ -44,6 +48,11 @@ btnModalLogin.addEventListener("click", () => {
 btnModalRegistar.addEventListener("click", () => {
   chamaModalRegistar();
 });
+
+btnModalEspera.addEventListener("click", () => {
+  btnModalEspera.show();
+});
+
 
 function chamaModalRegistar() {
   document.getElementById("btnSubmitLogin").style.display = "block";
@@ -175,11 +184,37 @@ function insereRegisto() {
     });
 }
 
-async function getListaEspera() {
+async function listaResultadosEspera() {
   const criteria = document.getElementById("searchkey").value;
   console.log("Critério: " + criteria);
 
   let url = urlBase + "/listagemEspera";
+  const token = localStorage.token;
+  console.log(token);
+
+  if (id != "") {
+    url = url + "/:" + id;
+  } else if (criteria != "") {
+    url = url + "/key/:" + criteria;
+  }
+
+  console.log("URL: " + url);
+  const myInit = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      // Authorization: `Bearer ${token}`,
+    },
+  };
+  const myRequest = new Request(url, myInit);
+}
+
+
+async function listaLobitos() {
+  const criteria = document.getElementById("searchkey").value;
+  console.log("Critério: " + criteria);
+
+  let url = urlBase + "/listagemLobitos";
   const token = localStorage.token;
   console.log(token);
 

@@ -18,6 +18,8 @@ module.exports = app => {
   // Lista os associados em lista de espera
   router.get("/listagemEspera/", controlador.findAllListaEspera);
 
+  // Lista os associados em lista de espera
+  router.get("/listagemLobitos/", controlador.findAllLobitos);
 
   // // Busca todas as disciplinas com uma chave de pesquisa
   // router.get("/disciplinas/key/:id", controlador.findKey);
