@@ -19,7 +19,7 @@ module.exports = app => {
   router.get("/listagemEspera/", controlador.findAllListaEspera);
 
   // Lista os associados da secção Lobitos
-  router.get("/listagemLobitos/", controlador.findAllLobitos);
+  router.get("/listagemLobitos/", controlador.listaLobitos);
 
   // Lista os associados da secção Exploradores
   router.get("/listagemExploradores/", controlador.findAllExploradores);

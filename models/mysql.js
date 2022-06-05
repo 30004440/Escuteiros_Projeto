@@ -154,7 +154,7 @@ exports.cRud_allListaEspera = (nif) => {
 exports.cRud_findAllLobitos = (section) => {
   return new Promise((resolve, reject) => {
     // busca os registos que contêm a chave
-    query("SELECT * FROM associados WHERE section=?", [1])
+    query("SELECT * FROM associados WHERE section=?", [Lobitos])
       .then((result) => {
         resolve(result);
       })
