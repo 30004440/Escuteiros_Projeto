@@ -106,12 +106,11 @@ exports.cRud_login = (email, section) => {
           console.log(user.email);
           console.log(user.section);
         });
-        console.log("Model: Login: ");
         console.log(user);
-        if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento");
-        else if (user.section = 'Lob') {window.location.replace="https://localhost:8888/lobitos.html"};
-        //else if resolve(user);
-        //aqui colocar window.rederect = If user.section "Lobito" rede
+        if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento")
+        else if (user.section == "Lob") {
+        resolve (user), mudarPagina()}
+        //aqui colocar window.redirect = If user.section "Lobito" rede
       })
       .catch((error) => {
         console.log("Model: Problema no login:");
@@ -120,6 +119,11 @@ exports.cRud_login = (email, section) => {
       });
   });
 };
+
+function mudarPagina ()  {
+  window.location.replace("https://google.com")
+}
+
 
 exports.ListaEspera = () => {
   return new Promise((resolve, reject) => {
@@ -147,10 +151,10 @@ exports.cRud_allListaEspera = (nif) => {
   });
 };
 
-exports.cRud_findAllLobitos = (category) => {
+exports.cRud_findAllLobitos = (section) => {
   return new Promise((resolve, reject) => {
     // busca os registos que contêm a chave
-    query("SELECT * FROM associados WHERE category=?", [1])
+    query("SELECT * FROM associados WHERE section=?", [1])
       .then((result) => {
         resolve(result);
       })
@@ -159,6 +163,99 @@ exports.cRud_findAllLobitos = (category) => {
       });
   });
 };
+
+exports.cRud_findAllExploradores = (category) => {
+  return new Promise((resolve, reject) => {
+    // busca os registos que contêm a chave
+    query("SELECT * FROM associados WHERE category=?", [2])
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_findAllPioneiros = (category) => {
+  return new Promise((resolve, reject) => {
+    // busca os registos que contêm a chave
+    query("SELECT * FROM associados WHERE category=?", [3])
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_findAllCaminheiros = (category) => {
+  return new Promise((resolve, reject) => {
+    // busca os registos que contêm a chave
+    query("SELECT * FROM associados WHERE category=?", [4])
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+// exports.Crud_inserirEscuteiro = (nin, name, citizencard, personsex, nif2, birthdate, nationality, naturalness, address, vilage, city, zipcode, district, mobilephone, phone, email, school, profession, nPai, profPai, telPai, emailPai, nMae, profMae, telMae, emailMae, nEncEdu, profEncEdu, telEncEdu, emailEncEdu, nUte, nOp, op1, op2, op3, op4, desAle, medReg, resAli, outSau) => {
+//   // insere um novo escuteiro
+//   return new Promise((resolve, reject) => {
+//     data = {
+//       //nometabela: nomedadonocodigo
+//       nin : nin,
+//       name : name,
+//       citizencard : citizencard,
+//       personsex : personsex,
+//       nif : nif2,
+//       birthdate : birthdate,
+//       nationality : nationality,
+//       naturalness : naturalness,
+//       address : address,
+//       vilage : vilage,
+//       city : city,
+//       zipcode : zipcode,
+//       district : district,
+//       mobilephone : mobilephone,
+//       phone : phone,
+//       email : email,
+//       school : school,
+//       profession : profession,
+//       fathername : nPai,
+//       fatherprofession : profPai,
+//       fathermobilephone : telPai,
+//       fatheremail : emailPai,
+//       mothername : nMae,
+//       motherprofession : profMae,
+//       mothermobilephone : telMae,
+//       motheremail : emailMae,
+//       sponsername : nEncEdu,
+//       sponserprofession : profEncEdu,
+//       sponsermobilephone : telEncEdu,
+//       sponsoremail : emailEncEdu,
+      
+//     };
+//     query(
+//       "INSERT INTO associados (nin, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, city, zipcode, district, mobilephone, phone, email, school, profession) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+//       [data.nin, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.city, data.zipcode, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession]
+//       and 
+//       "INSERT INTO associados (fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail) values (?,?,?,?,?,?,?,?,?,?,?,?)",
+//       [data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail]
+//       )
+//       .then((result) => {
+//         console.log(data);
+//         console.log(result);
+//         if (result.affectedRows != 1)
+//           reject("Model: Problema na inserção de novo registo");
+//         else resolve(result);
+//       })
+//     }
+// )};
 
 // exports.cRud_key = (criteria) => {
 //   return new Promise((resolve, reject) => {

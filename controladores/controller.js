@@ -157,14 +157,75 @@ exports.findAllListaEspera = (req, res) => {
 };
 
 
-// Envia todas os lobitos
-exports.findAllLobitos = (req, res) => {
+// Envia todos os lobitos
+exports.listaLobitos = (req, res) => {
   if (req.email != null) {
     // utilizador autenticado
     console.log(`FindAll - user: ${req.email.name}`);
     console.log("Mensagem de debug - lista dos lobitos");
     dbmySQL
       .cRud_findAllLobitos() // R: Read
+      .then((dados) => {
+        res.send(dados);
+        // console.log("Dados: " + JSON.stringify(dados)); // para debug
+      })
+      .catch((err) => {
+        return res
+          .status(400)
+          .send({ message: "Não há lobitos para mostrar!" });
+      });
+  }
+};
+
+// Envia todos os exploradores
+exports.findAllExploradores = (req, res) => {
+  if (req.email != null) {
+    // utilizador autenticado
+    console.log(`FindAll - user: ${req.email.name}`);
+    console.log("Mensagem de debug - lista dos lobitos");
+    dbmySQL
+      .cRud_findAllExploradores() // R: Read
+      .then((dados) => {
+        res.send(dados);
+        // console.log("Dados: " + JSON.stringify(dados)); // para debug
+      })
+      .catch((err) => {
+        return res
+          .status(400)
+          .send({ message: "Não há lobitos para mostrar!" });
+      });
+  }
+};
+
+// Envia todos os pioneiros
+exports.findAllPioneiros = (req, res) => {
+  if (req.email != null) {
+    // utilizador autenticado
+    console.log(`FindAll - user: ${req.email.name}`);
+    console.log("Mensagem de debug - lista dos lobitos");
+    dbmySQL
+      .cRud_findAllPioneiros() // R: Read
+      .then((dados) => {
+        res.send(dados);
+        // console.log("Dados: " + JSON.stringify(dados)); // para debug
+      })
+      .catch((err) => {
+        return res
+          .status(400)
+          .send({ message: "Não há lobitos para mostrar!" });
+      });
+  }
+};
+
+
+// Envia todos os caminheiros
+exports.findAllCaminheiros = (req, res) => {
+  if (req.email != null) {
+    // utilizador autenticado
+    console.log(`FindAll - user: ${req.email.name}`);
+    console.log("Mensagem de debug - lista dos lobitos");
+    dbmySQL
+      .cRud_findAllCaminheiros() // R: Read
       .then((dados) => {
         res.send(dados);
         // console.log("Dados: " + JSON.stringify(dados)); // para debug
@@ -250,3 +311,84 @@ exports.inserirEspera = async (req, res) => {
       });
     });
 };
+
+
+// exports.inserirEscuteiro = async (req, res) => {
+//   console.log("Inserir novo escuteiro");
+//   if (!req.body) {
+//     return res.status(400).send({
+//       message: "O conteúdo não pode ser vazio!",
+//     });
+//   }
+//   const nin = req.body.nin;
+//   const name = req.body.fname;
+//   const citizencard = req.body.cc;
+//   const personsex = req.body.genre;
+//   const nif2 = req.body.nif2;
+//   const birthdate = req.body.dtnasc;
+//   const nationality = req.body.nac;
+//   const naturalness = req.body.nat;
+//   const address = req.body.mor;
+//   const vilage = req.body.loc;
+//   const city = req.body.conc;
+//   const zipcode = req.body.codp;
+//   const district = req.body.dist;
+//   const mobilephone = req.body.tel;
+//   const phone = req.body.telf;
+//   const email = req.body.email1;
+//   const school = req.body.hab;
+//   const profession = req.body.prof;
+//   const nPai = req.body.nPai;
+//   const profPai = req.body.profPai;
+//   const telPai = req.body.telPai;
+//   const emailPai = req.body.emailPai;
+//   const nMae = req.body.nMae;
+//   const profMae = req.body.profMae;
+//   const telMae = req.body.telMae;
+//   const emailMae = req.body.emailMae;
+//   const nEncEdu = req.body.nEncEdu;
+//   const profEncEdu = req.body.profEncEdu;
+//   const telEncEdu = req.body.telEncEdu;
+//   const emailEncEdu = req.body.emailEncEdu;
+//   const nUte = req.body.nUte;
+//   const nOp = req.body.nOp;
+//   const op1 = req.body.op1;
+//   const op2 = req.body.op2;
+//   const op3 = req.body.op3;
+//   const op4 = req.body.op4;
+//   const desAle = req.body.desAle;
+//   const medReg = req.body.medReg;
+//   const resAli = req.body.resAli;
+//   const outSau = req.body.outSau;
+//   const name1 = req.body.name1;
+//   const pare = req.body.pare;
+//   const tel1 = req.body.tel1;
+//   const name2 = req.body.name2;
+//   const pare1 = req.body.pare1;
+//   const tel2 = req.body.tel2;
+//   const cons1 = req.body.cons1;
+//   const cons2 = req.body.cons2;
+//   const cons3 = req.body.cons3;
+//   const cons4 = req.body.cons4;
+//   const cons5 = req.body.cons5;
+//   const cons6 = req.body.cons6;
+//   const cons7 = req.body.cons7;
+//   const cons8 = req.body.cons8;
+//   const cons9 = req.body.cons9;
+//   dbmySQL
+//     .Crud_inserirEscuteiro(nin, name, citizencard, personsex, nif2, birthdate, nationality, naturalness, address, vilage, city, zipcode, district, mobilephone, phone, email, school, profession, nPai, profPai, telPai, emailPai, nMae, profMae, telMae, emailMae, nEncEdu, profEncEdu, telEncEdu, emailEncEdu, nUte, nOp, op1, op2, op3, op4, desAle, medReg, resAli, outSau, name1, pare, tel1, name2, pare1, tel2, cons1, cons2, cons3, cons4, cons5, cons6, cons7, cons8, cons9)
+//     .then((dados) => {
+//       res.status(201).send({
+//         message:
+//           "Associado criado com sucesso",
+//       });
+//       console.log(JSON.stringify(dados)); 
+//     })
+//     .catch((response) => {
+//       console.log("O erro está aqui");
+//       console.log(response);
+//       return res.status(400).send({
+//         message: JSON.stringify(response),
+//       });
+//     });
+// };

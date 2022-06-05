@@ -18,8 +18,21 @@ module.exports = app => {
   // Lista os associados em lista de espera
   router.get("/listagemEspera/", controlador.findAllListaEspera);
 
-  // Lista os associados em lista de espera
+  // Lista os associados da secção Lobitos
   router.get("/listagemLobitos/", controlador.findAllLobitos);
+
+  // Lista os associados da secção Exploradores
+  router.get("/listagemExploradores/", controlador.findAllExploradores);
+
+  // Lista os associados da secção Pioneiros
+  router.get("/listagemPioneiros/", controlador.findAllPioneiros);
+
+  // Lista os associados da secção Caminheiros
+  router.get("/listagemCaminheiros/", controlador.findAllCaminheiros);
+
+  // // Inserir um associado ao agrupamento
+  // router.post("/insereEscuteiro", controlador.inserirEscuteiro);
+
 
   // // Busca todas as disciplinas com uma chave de pesquisa
   // router.get("/disciplinas/key/:id", controlador.findKey);
