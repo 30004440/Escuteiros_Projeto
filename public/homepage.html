@@ -4,7 +4,6 @@
     <title>Agrupamento 1240</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="css/estilo.css" />
     <link rel="stylesheet" type="text/css" href="css/homepage.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -17,8 +16,8 @@
         <li><a href="#">Eventos</a>
         <div class = "sub-menu-1">
           <ul>
-            <li><a href="#">Listar</a></li>
-            <li><a href="#">Inserir</a></li>
+            <li><a class ="nav-link" href="#">Listar</a></li>
+            <li><a class ="nav-link" href="#">Inserir</a></li>
           </ul>
         </div>
         </li>
@@ -26,8 +25,8 @@
         <li><a href="#">Pagamentos</a>
         <div class = "sub-menu-2">
           <ul>
-            <li><a href="#">Listar</a></li>
-            <li><a href="#">Atualizar</a></li>
+            <li><a class ="nav-link" href="#">Listar</a></li>
+            <li><a class ="nav-link" href="#">Atualizar</a></li>
           </ul>
         </div>
         </li>
@@ -36,19 +35,19 @@
         <li><a href="#">Lista Espera</a>
         <div class = "sub-menu-3">
           <ul>
-            <li><a href="#searchListaEspera">Listar</a></li>
-            <li><a href="#ModalEspera">Inserir</a></li>
+            <li><a class ="nav-link" href="#searchListaEspera" onclick="listaResultadosEspera()">Listar</a></li>
+            <li><a class ="nav-link" href="#ModalEspera">Inserir</a></li>
           </ul>
         </div>
       </li>
         <li><a href="#">Secção</a>
         <div class = "sub-menu-4">
           <ul>
-            <li><a href="#formulario">Inserir Associado</a></li>
-            <li><a href="#listarLobitos" onclick="listaLobitos()">Lobitos</a></li>
-            <li><a href="#listarExploradores">Exploradores</a></li>
-            <li><a href="#listarPioneiros">Pioneiros</a></li>
-            <li><a href="#listarCaminheiros">Caminheiros</a></li>
+            <li><a class ="nav-link" href="#formulario">Inserir Associado</a></li>
+            <li><a class ="nav-link" href="#listarLobitos" onclick="listaLobitos()">Lobitos</a></li>
+            <li><a class ="nav-link" href="#listarExploradores" onclick="listaExploradores()">Exploradores</a></li>
+            <li><a class ="nav-link" href="#listarPioneiros" onclick="listaPioneiros()">Pioneiros</a></li>
+            <li><a class ="nav-link" href="#listarCaminheiros" onclick="listaCaminheiros()">Caminheiros</a></li>
           </ul>
         </div>
         <li><a href="#">Secretários</a></li>
@@ -160,7 +159,6 @@
 
 
     <!-- Lista de Espera - Inserir -->
- <!-- Modal - Lista de Espera - Inserir -->
    <div class="modalEspera" id="ModalEspera">
     <form>
       <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir associado em Lista de Espera</label><br>
@@ -215,30 +213,25 @@
 </form>
   </div>
 
-<button
-id="searchListaEspera"
-onclick="listaResultadosEspera()">
-</button>
+<div
+id="searchListaEspera">
+</div>
 
 <div
 id="listarLobitos">
 </div>
 
 <div
-id="listarExploradores"
-onclick="listaExploradores()">
+id="listarExploradores">
 </div>
 
 <div
-id="listarPioneiros"
-onclick="listaPioneiros()">
+id="listarPioneiros">
 </div>
 
 <div
-id="listarCaminheiros"
-onclick="listaCaminheiros()">
+id="listarCaminheiros">
 </div>
-
 
 
 <div id="area">
@@ -337,7 +330,7 @@ onclick="listaCaminheiros()">
   <input type="text" id="nUte" name="nUte" placeholder="Número de Utente de Saúde"><br>
   <label for="op">Opções Alergias:</label><br>
   <input type="checkbox" id="op1" name="op1" value="Asma">
-  <label for="op1">Asma</label><br>
+  <label for="op1" position="absolut">Asma</label><br>
   <input type="checkbox" id="op2" name="op2" value="Epilepsia">
   <label for="op2">Epilespia</label><br>
   <input type="checkbox" id="op3" name="op3" value="Diabetes">
@@ -442,14 +435,10 @@ onclick="listaCaminheiros()">
 </form>
 </div>
 
-
-
   </body>
 
     <!-- Bootstrap JS -->
     <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-
-    <!-- <script src="js/users.js"></script> -->
     <script src="js/consultas.js"></script>
 
 </html>

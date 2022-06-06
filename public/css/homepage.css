@@ -88,6 +88,7 @@ body
     border-bottom: none;
 }
 
+
 .sub-menu-2
 {
     display: none;
@@ -164,45 +165,6 @@ body
     border-bottom: none;
 }
 
-.sub-menu-registar
-{
-    display: none;
-}
-
-.menu-nav ul li:hover .sub-menu-registar
-{
-    display: block;
-    position: absolute;
-    background: rgb(194, 224, 300);
-    margin-top: 15px;
-    margin-left: -15px;
-}
-
-/* para aparecer as opçoes do menu em lista vertical */
-
-.menu-nav ul li:hover .sub-menu-registar ul
-{
-    display: block;
-    margin: 10px;
-}
-
-/* para aparecer as opçoes do menu dividido por uma linha */
-
-.menu-nav ul li:hover .sub-menu-registar ul li
-{
-    width: 150px;
-    padding: 10px;
-    border-bottom: 1px dotted #fff;
-    background: transparent;
-    border-radius: 0;
-    text-align: left;
-}
-/* para retirar a ultima linha de cada opção do menu */
-
-.menu-nav ul li:hover .sub-menu-registar ul li:last-child
-{
-    border-bottom: none;
-}
 
 .sub-menu-4
 {
@@ -242,6 +204,7 @@ body
     border-bottom: none;
 }
   
+
   /* The Close Button */
   .close {
     color: #aaa;
@@ -275,7 +238,7 @@ body
     box-sizing: border-box;
     padding: 1rem;
     border-radius: 1rem;
-    background-color: #C2E0FF;
+    background-color: #27507a;
     border: 2px solid hsl(0, 0%, 90%);
     display: grid;
     grid-template-columns: auto auto;
@@ -285,3 +248,4 @@ body
   .full-width {
     grid-column: span 2;
   }
+
