@@ -1,3 +1,25 @@
+const urlBase = "https://localhost:8888/homepage";
+const modalRegistar = document.getElementById("modalRegistar");
+const bsModalRegistar = new bootstrap.Modal(
+  modalRegistar,
+  (backdrop = "static")
+); // Pode passar opções
+
+const btnModalRegistar = document.getElementById("btnModalRegistar");
+const pRegistar = document.getElementById("pRegistar");
+
+
+btnModalRegistar.addEventListener("click", () => {
+  chamaModalRegistar();
+});
+
+function chamaModalRegistar() {
+  document.getElementById("btnSubmitRegistar").style.display = "block";
+  document.getElementById("btnCancelaRegistar").innerHTML = "Cancelar";
+  bsModalRegistar.show();
+}
+
+
 function validaRegisto() {
   let email = document.getElementById("usernameRegistar").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaRegistar").value; // tem de ter uma senha
@@ -5,11 +27,6 @@ function validaRegisto() {
   if (senha.length < 4) {
     document.getElementById("passErroLogin").innerHTML =
       "A senha tem de ter ao menos 4 carateres";
-    return;
-  }
-    if (email.length < 1) {
-    document.getElementById("ErroLogin").innerHTML =
-      "Necessário preencher todos os campos";
     return;
   }
   fetch(`${urlBase}/registar`, {
@@ -41,7 +58,6 @@ function validaRegisto() {
       console.log(result);
     });
 }
-
 
 
 function insereRegisto() {
@@ -267,7 +283,7 @@ async function listaCaminheiros() {
 
 
 async function listaLobitos() {
-  const response = await fetch("/controller/listarLobitos");
+  const response = await fetch(`${urlBase}/listaLobitos`);
   const data = await response.json();
   const listaLobitos = document.getElementById("listarLobitos");
 

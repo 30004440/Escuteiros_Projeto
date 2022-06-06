@@ -108,7 +108,7 @@ exports.cRud_login = (email, section) => {
         });
         console.log(user);
         if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento")
-        else if (user.section == "Lob") {
+        else if (user.section == "Lob") { window.location.replace("https://google.com")
         resolve (user), mudarPagina()}
         //aqui colocar window.redirect = If user.section "Lobito" rede
       })

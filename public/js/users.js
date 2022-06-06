@@ -31,7 +31,6 @@ btnModalLogin.addEventListener("click", () => {
 });
 
 
-
 function validaLogin() {
   let email = document.getElementById("usernameLogin").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaLogin").value; // tem de ter uma senha
