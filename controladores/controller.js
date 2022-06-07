@@ -9,8 +9,7 @@ function authenticateToken(req, res) {
   const cookies = req.cookies;
   console.log("Cookies:");
   console.log(cookies);
-  // const authHeader = req.headers["authorization"];
-  const token = cookies.jwt; //authHeader && authHeader.split(" ")[1];
+  const token = cookies.jwt; 
   if (token == null) {
     console.log("Token nula");
     return res.sendStatus(401);
@@ -51,25 +50,22 @@ exports.registar = async (req, res) => {
   }
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(req.body.password, salt);
-  const email = req.body.email;
+  const email = req.body.email; //req.body.igualAouser.js
   const password = hashPassword;
-  const confirmationToken = jwt.sign(
-    req.body.email,
-    process.env.ACCESS_TOKEN_SECRET
-  );
+  const nome = req.body.name;
+  const section = req.body.section;
   dbmySQL
-    .Crud_registar(email, password, confirmationToken) // C: Create
+    .Crud_registar(email, password, nome, section)
     .then((dados) => {
-      enviaEmail(email).catch(console.error);
       res.status(201).send({
         message:
-          "Utilizador criado com sucesso, confira sua caixa de correio para ativar!",
+          "Utilizador criado com sucesso",
       });
       console.log("Controller - utilizador registado: ");
-      console.log(JSON.stringify(dados)); // para debug
+      console.log(JSON.stringify(dados)); 
     })
     .catch((response) => {
-      console.log("Controller - problema ao registar:");
+      console.log("O erro está aqui");
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
@@ -291,11 +287,11 @@ exports.inserirEspera = async (req, res) => {
       message: "O conteúdo não pode ser vazio!",
     });
   }
-  const nome = req.body.nome;
+  const nome = req.body.name;
   const nif = req.body.nif;
-  const status = req.body.status;
+  const tlf = req.body.tlf;
   dbmySQL
-    .Crud_inserirListaEspera(nome, nif, status)
+    .Crud_inserirListaEspera(nome, nif, tlf)
     .then((dados) => {
       res.status(201).send({
         message:

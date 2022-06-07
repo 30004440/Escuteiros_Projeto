@@ -21,12 +21,14 @@ function chamaModalRegistar() {
 
 
 function validaRegisto() {
-  let email = document.getElementById("usernameRegistar").value; // email é validado pelo próprio browser
+  let email = document.getElementById("emailRegistar").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaRegistar").value; // tem de ter uma senha
+  let section = document.getElementById("sectionRegistar").value; 
+  let nome = document.getElementById("usernameRegistar").value;
   const statReg = document.getElementById("statusRegistar");
   if (senha.length < 4) {
     document.getElementById("passErroLogin").innerHTML =
-      "A senha tem de ter ao menos 4 carateres";
+      "A password tem de ter ao menos 4 carateres";
     return;
   }
   fetch(`${urlBase}/registar`, {
@@ -34,7 +36,7 @@ function validaRegisto() {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
-    body: `email=${email}&password=${senha}`,
+    body: `email=${email}&password=${senha}&name=${nome}&section=${section}`,
   })
     .then((response) => {
       return response.json().then((body) => {
@@ -53,7 +55,7 @@ function validaRegisto() {
       result = body.message;
       document.getElementById(
         "statusRegistar"
-      ).innerHTML = `Pedido falhado: ${result}`;
+      ).innerHTML = `${result}`;
       console.log("Catch:");
       console.log(result);
     });
@@ -63,19 +65,25 @@ function validaRegisto() {
 function insereRegisto() {
   let nome = document.getElementById("nomeEspera").value;
   let nif = document.getElementById("nifEspera").value;
-  let status = document.getElementById("statusEspera").value;
+  let tlf = document.getElementById("tlfEspera").value;
+  const statEsp = document.getElementById("statusInserirEspera");
+  if (nif.length < 9) {
+    document.getElementById("passErroNIF").innerHTML =
+      "O NIF tem de ter 9 caracteres";
+    return;
+  }
   fetch(`${urlBase}/inserirEspera`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
-    body: `nome=${nomeEspera}&nif=${nifEspera}&status=${statusEspera}`,
+    body: `name=${nome}&nif=${nif}&tlf=${tlf}`,
   })
     .then((response) => {
       return response.json().then((body) => {
         if (response.status == 201) {
           console.log(body.message);
-          statReg.innerHTML = body.message;
+          statEsp.innerHTML = body.message;
           document.getElementById("btnSubmitListaEspera").innerHTML = "Sucesso!";
         }
       });
@@ -83,7 +91,7 @@ function insereRegisto() {
     .catch((body) => {
       result = body.message;
       document.getElementById(
-        "statusInserir"
+        "statusInserirEspera"
       ).innerHTML = `${result}`;
       console.log("Catch:");
       console.log(result);

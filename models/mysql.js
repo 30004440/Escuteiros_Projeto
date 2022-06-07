@@ -2,7 +2,6 @@ const mysql = require("mysql2/promise");
 const config = require("../config");
 
 function connect() {
-  console.log("erro na ligação à BD")
   return new Promise((resolve, reject) => {
     if (!global.connection || global.connection.state == "disconnected") {
       mysql
@@ -72,18 +71,18 @@ exports.Crud_registar = (email, password, nome, section) => {
     }
 )};
 
-exports.Crud_inserirListaEspera = (nome, nif, status) => {
-  // insere um novo utilizador
+exports.Crud_inserirListaEspera = (nome, nif, tlf) => {
+  console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
       //nometabela: nomedadonocodigo
       name: nome,
       nif: nif,
-      status: status,
+      tlf: tlf,
     };
     query(
-      "INSERT INTO waitinglist (name, nif, status) values (?,?,?)",
-      [data.name,data.nif,data.status]
+      "INSERT INTO waitinglist (name, nif, tlf) values (?,?,?)",
+      [data.name,data.nif,data.tlf]
     )
       .then((result) => {
         console.log(data);
@@ -92,6 +91,11 @@ exports.Crud_inserirListaEspera = (nome, nif, status) => {
           reject("Model: Problema na inserção de novo registo");
         else resolve(result);
       })
+      .catch((error) => {
+        console.log("Erro na ligação ao mySQL:");
+        console.log(error);
+        reject(error);
+      });
     }
 )};
 
