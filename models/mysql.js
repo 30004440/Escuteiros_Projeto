@@ -92,7 +92,6 @@ exports.Crud_inserirListaEspera = (nome, nif, tlf) => {
         else resolve(result);
       })
       .catch((error) => {
-        console.log("Erro na ligação ao mySQL:");
         console.log(error);
         reject(error);
       });
@@ -112,7 +111,7 @@ exports.cRud_login = (email, section) => {
         });
         console.log(user);
         if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento")
-        else if (user.section == "Lob") { window.location.replace("https://google.com")
+        else if (user.section == "Lob") {window.location.replace("https://google.com")
         resolve (user), mudarPagina()}
         //aqui colocar window.redirect = If user.section "Lobito" rede
       })
@@ -207,59 +206,82 @@ exports.cRud_findAllCaminheiros = (category) => {
   });
 };
 
-// exports.Crud_inserirEscuteiro = (nin, name, citizencard, personsex, nif2, birthdate, nationality, naturalness, address, vilage, city, zipcode, district, mobilephone, phone, email, school, profession, nPai, profPai, telPai, emailPai, nMae, profMae, telMae, emailMae, nEncEdu, profEncEdu, telEncEdu, emailEncEdu, nUte, nOp, op1, op2, op3, op4, desAle, medReg, resAli, outSau) => {
-//   // insere um novo escuteiro
-//   return new Promise((resolve, reject) => {
-//     data = {
-//       //nometabela: nomedadonocodigo
-//       nin : nin,
-//       name : name,
-//       citizencard : citizencard,
-//       personsex : personsex,
-//       nif : nif2,
-//       birthdate : birthdate,
-//       nationality : nationality,
-//       naturalness : naturalness,
-//       address : address,
-//       vilage : vilage,
-//       city : city,
-//       zipcode : zipcode,
-//       district : district,
-//       mobilephone : mobilephone,
-//       phone : phone,
-//       email : email,
-//       school : school,
-//       profession : profession,
-//       fathername : nPai,
-//       fatherprofession : profPai,
-//       fathermobilephone : telPai,
-//       fatheremail : emailPai,
-//       mothername : nMae,
-//       motherprofession : profMae,
-//       mothermobilephone : telMae,
-//       motheremail : emailMae,
-//       sponsername : nEncEdu,
-//       sponserprofession : profEncEdu,
-//       sponsermobilephone : telEncEdu,
-//       sponsoremail : emailEncEdu,
-      
-//     };
-//     query(
-//       "INSERT INTO associados (nin, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, city, zipcode, district, mobilephone, phone, email, school, profession) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-//       [data.nin, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.city, data.zipcode, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession]
-//       and 
-//       "INSERT INTO associados (fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail) values (?,?,?,?,?,?,?,?,?,?,?,?)",
-//       [data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail]
-//       )
-//       .then((result) => {
-//         console.log(data);
-//         console.log(result);
-//         if (result.affectedRows != 1)
-//           reject("Model: Problema na inserção de novo registo");
-//         else resolve(result);
-//       })
-//     }
-// )};
+exports.Crud_inserirEscuteiro = (nin, admission, section, name, citizencard, personsex, nif, birth, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
+  // insere um novo escuteiro
+  return new Promise((resolve, reject) => {
+    data = {
+      //nometabela: nomedadonocodigo
+      nin : nin,
+      admission : admission,
+      section : section,
+      name : name,
+      citizencard : citizencard,
+      personsex : personsex,
+      nif : nif,
+      birth : birth,
+      nationality : nationality,
+      naturalness : naturalness,
+      address : address,
+      vilage : vilage,
+      zipcode : zipcode,
+      city : city,
+      district : district,
+      mobilephone : mobilephone,
+      phone : phone,
+      email : email,
+      school : school,
+      profession : profession,
+      fathername : fathername,
+      fatherprofession : fatherprofession,
+      fathermobilephone : fathermobilephone,
+      fatheremail : fatheremail,
+      mothername : mothername,
+      motherprofession : motherprofession,
+      mothermobilephone : mothermobilephone,
+      motheremail : motheremail,
+      sponsername : sponsername,
+      sponserprofession : sponserprofession,
+      sponsermobilephone : sponsermobilephone,
+      sponsoremail : sponsoremail,
+      healthnumber : healthnumber,
+      allergies : allergies,
+      description_allergies : description_allergies,
+      regular_medication : regular_medication,
+      dietary_restrictions : dietary_restrictions,
+      other_health_problems : other_health_problems,
+      data_processing : data_processing,
+      health_data : health_data,
+      data_voice_image : data_voice_image,
+      social_networks__educating : social_networks__educating,
+      email_educating : email_educating,
+      collective_transport : collective_transport,
+      data_sharing : data_sharing,
+      all_health_data : all_health_data,
+      name1 : name1,
+      parent1 : parent1,
+      mobile1 : mobile1,
+      name2 : name2,
+      parent2 : parent2,
+      mobile2 : mobile2,
+    };
+    query(
+      "INSERT INTO associados (nin, admission, section, name, citizencard, personsex, nif, birth, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      [data.nin, data.admission, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birth, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2]
+      )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na inserção de novo registo");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log("Erro na ligação ao mySQL:");
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
 
 // exports.cRud_key = (criteria) => {
 //   return new Promise((resolve, reject) => {

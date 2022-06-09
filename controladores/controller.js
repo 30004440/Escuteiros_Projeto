@@ -288,10 +288,87 @@ exports.inserirEspera = async (req, res) => {
     });
   }
   const nome = req.body.name;
-  const nif = req.body.nif;
   const tlf = req.body.tlf;
+  const nif = req.body.nif;
   dbmySQL
     .Crud_inserirListaEspera(nome, nif, tlf)
+    .then((dados) => {
+      res.status(201).send({
+        message:
+          "Associado criado com sucesso",
+      });
+      console.log(JSON.stringify(dados)); 
+    })
+    .catch((response) => {
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+
+exports.inserirEscuteiro = async (req, res) => {
+  console.log("Inserir novo escuteiro");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  const admission = req.body.admission;
+  const section = req.body.section;
+  const name = req.body.name;
+  const citizencard = req.body.citizencard;
+  const personsex = req.body.personsex;
+  const nif = req.body.nif;
+  const birth = req.body.birth;
+  const nationality = req.body.nationality;
+  const naturalness = req.body.naturalness;
+  const address = req.body.address;
+  const vilage = req.body.vilage;
+  const zipcode = req.body.zipcode;
+  const city = req.body.city;
+  const district = req.body.district;
+  const mobilephone = req.body.mobilephone;
+  const phone = req.body.phone;
+  const email = req.body.email;
+  const school = req.body.school;
+  const profession = req.body.profession;
+  const fathername = req.body.fathername;
+  const fatherprofession = req.body.fatherprofession;
+  const fathermobilephone = req.body.fathermobilephone;
+  const fatheremail = req.body.fatheremail;
+  const mothername = req.body.mothername;
+  const motherprofession = req.body.motherprofession;
+  const mothermobilephone = req.body.mothermobilephone;
+  const motheremail = req.body.motheremail;
+  const sponsername = req.body.sponsername;
+  const sponserprofession = req.body.sponserprofession;
+  const sponsermobilephone = req.body.sponsermobilephone;
+  const sponsoremail = req.body.sponsoremail;
+  const healthnumber = req.body.healthnumber;
+  const allergies = req.body.allergies;
+  const description_allergies = req.body.description_allergies;
+  const regular_medication = req.body.regular_medication;
+  const dietary_restrictions = req.body.dietary_restrictions;
+  const other_health_problems = req.body.other_health_problems;
+  const data_processing = req.body.data_processing;
+  const health_data = req.body.health_data;
+  const data_voice_image = req.body.data_voice_image;
+  const social_networks__educating = req.body.social_networks__educating;
+  const email_educating = req.body.email_educating;
+  const collective_transport = req.body.collective_transport;
+  const data_sharing = req.body.data_sharing;
+  const all_health_data = req.body.all_health_data;
+  const name1 = req.body.name1;
+  const parent1 = req.body.parent1;
+  const mobile1 = req.body.mobile1;
+  const name2 = req.body.name2;
+  const parent2 = req.body.parent2;
+  const mobile2 = req.body.mobile2;
+  dbmySQL
+    .Crud_inserirEscuteiro(nin, admission, section, name, citizencard, personsex, nif, birth, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
     .then((dados) => {
       res.status(201).send({
         message:
@@ -307,84 +384,3 @@ exports.inserirEspera = async (req, res) => {
       });
     });
 };
-
-
-// exports.inserirEscuteiro = async (req, res) => {
-//   console.log("Inserir novo escuteiro");
-//   if (!req.body) {
-//     return res.status(400).send({
-//       message: "O conteúdo não pode ser vazio!",
-//     });
-//   }
-//   const nin = req.body.nin;
-//   const name = req.body.fname;
-//   const citizencard = req.body.cc;
-//   const personsex = req.body.genre;
-//   const nif2 = req.body.nif2;
-//   const birthdate = req.body.dtnasc;
-//   const nationality = req.body.nac;
-//   const naturalness = req.body.nat;
-//   const address = req.body.mor;
-//   const vilage = req.body.loc;
-//   const city = req.body.conc;
-//   const zipcode = req.body.codp;
-//   const district = req.body.dist;
-//   const mobilephone = req.body.tel;
-//   const phone = req.body.telf;
-//   const email = req.body.email1;
-//   const school = req.body.hab;
-//   const profession = req.body.prof;
-//   const nPai = req.body.nPai;
-//   const profPai = req.body.profPai;
-//   const telPai = req.body.telPai;
-//   const emailPai = req.body.emailPai;
-//   const nMae = req.body.nMae;
-//   const profMae = req.body.profMae;
-//   const telMae = req.body.telMae;
-//   const emailMae = req.body.emailMae;
-//   const nEncEdu = req.body.nEncEdu;
-//   const profEncEdu = req.body.profEncEdu;
-//   const telEncEdu = req.body.telEncEdu;
-//   const emailEncEdu = req.body.emailEncEdu;
-//   const nUte = req.body.nUte;
-//   const nOp = req.body.nOp;
-//   const op1 = req.body.op1;
-//   const op2 = req.body.op2;
-//   const op3 = req.body.op3;
-//   const op4 = req.body.op4;
-//   const desAle = req.body.desAle;
-//   const medReg = req.body.medReg;
-//   const resAli = req.body.resAli;
-//   const outSau = req.body.outSau;
-//   const name1 = req.body.name1;
-//   const pare = req.body.pare;
-//   const tel1 = req.body.tel1;
-//   const name2 = req.body.name2;
-//   const pare1 = req.body.pare1;
-//   const tel2 = req.body.tel2;
-//   const cons1 = req.body.cons1;
-//   const cons2 = req.body.cons2;
-//   const cons3 = req.body.cons3;
-//   const cons4 = req.body.cons4;
-//   const cons5 = req.body.cons5;
-//   const cons6 = req.body.cons6;
-//   const cons7 = req.body.cons7;
-//   const cons8 = req.body.cons8;
-//   const cons9 = req.body.cons9;
-//   dbmySQL
-//     .Crud_inserirEscuteiro(nin, name, citizencard, personsex, nif2, birthdate, nationality, naturalness, address, vilage, city, zipcode, district, mobilephone, phone, email, school, profession, nPai, profPai, telPai, emailPai, nMae, profMae, telMae, emailMae, nEncEdu, profEncEdu, telEncEdu, emailEncEdu, nUte, nOp, op1, op2, op3, op4, desAle, medReg, resAli, outSau, name1, pare, tel1, name2, pare1, tel2, cons1, cons2, cons3, cons4, cons5, cons6, cons7, cons8, cons9)
-//     .then((dados) => {
-//       res.status(201).send({
-//         message:
-//           "Associado criado com sucesso",
-//       });
-//       console.log(JSON.stringify(dados)); 
-//     })
-//     .catch((response) => {
-//       console.log("O erro está aqui");
-//       console.log(response);
-//       return res.status(400).send({
-//         message: JSON.stringify(response),
-//       });
-//     });
-// };

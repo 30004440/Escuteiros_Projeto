@@ -3,9 +3,6 @@ module.exports = app => {
 
   var router = require("express").Router();
 
-  // // Cria um novo registo
-  // router.post("/disciplinas/", controlador.create);
-
   // Cria um novo utilizador
   router.post("/registar", controlador.registar);
 
@@ -19,7 +16,7 @@ module.exports = app => {
   router.get("/listagemEspera/", controlador.findAllListaEspera);
 
   // Lista os associados da secção Lobitos
-  router.get("/listagemLobitos/", controlador.listaLobitos);
+  router.get("/listagemLobitos", controlador.listaLobitos);
 
   // Lista os associados da secção Exploradores
   router.get("/listagemExploradores/", controlador.findAllExploradores);
@@ -30,8 +27,8 @@ module.exports = app => {
   // Lista os associados da secção Caminheiros
   router.get("/listagemCaminheiros/", controlador.findAllCaminheiros);
 
-  // // Inserir um associado ao agrupamento
-  // router.post("/insereEscuteiro", controlador.inserirEscuteiro);
+  // Inserir um associado ao agrupamento
+  router.post("/insereEscuteiro", controlador.inserirEscuteiro);
 
 
   // // Busca todas as disciplinas com uma chave de pesquisa
