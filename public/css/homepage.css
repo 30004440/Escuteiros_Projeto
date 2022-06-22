@@ -238,8 +238,8 @@ body
     box-sizing: border-box;
     padding: 1rem;
     border-radius: 1rem;
-    background-color: #27507a;
-    border: 2px solid hsl(0, 0%, 90%);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid hsl(0, 0%, 100%);
     display: grid;
     grid-template-columns: auto auto;
     gap: 1rem;
@@ -247,5 +247,20 @@ body
   
   .full-width {
     grid-column: span 2;
+  }
+
+
+  .checkbox {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
   }
 

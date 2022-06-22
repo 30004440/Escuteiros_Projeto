@@ -19,11 +19,86 @@ function chamaModalRegistar() {
   bsModalRegistar.show();
 }
 
+const btnModalEspera = document.getElementById("btnModalEspera");
+btnModalEspera.addEventListener("click", () => {
+  chamaModalEspera();
+});
+function chamaModalEspera() {
+  document.getElementById("btnSubmitEspera").style.display = "block";
+  document.getElementById("btnCancelaEspera").innerHTML = "Cancelar";
+  bsModalEspera.show();
+}
+const bsModalEspera = new bootstrap.Modal(
+  ModalEspera,
+  (backdrop = "static")
+);
+
+
+const btnModalDoc = document.getElementById("btnModalDoc");
+btnModalDoc.addEventListener("click", () => {
+  chamaModalDoc();
+});
+function chamaModalDoc() {
+  document.getElementById("btnSubmitstatDoc").style.display = "block";
+  document.getElementById("btnCancelaDoc").innerHTML = "Cancelar";
+  bsModalDoc.show();
+}
+const bsModalDoc = new bootstrap.Modal(
+  modalStatDoc,
+  (backdrop = "static")
+);
+
+
+const btnModalQuota = document.getElementById("btnModalQuota");
+btnModalQuota.addEventListener("click", () => {
+  chamaModalQuota();
+});
+function chamaModalQuota() {
+  document.getElementById("btnSubmitPagQuota").style.display = "block";
+  document.getElementById("btnCancelaPagQuota").innerHTML = "Cancelar";
+  bsModalQuota.show();
+}
+const bsModalQuota = new bootstrap.Modal(
+  modalPagQuotas,
+  (backdrop = "static")
+);
+
+
+
+const btnModalPagEvent = document.getElementById("btnModalPagEvent");
+btnModalPagEvent.addEventListener("click", () => {
+  chamaModalPagEvent();
+});
+function chamaModalPagEvent() {
+  document.getElementById("btnSubmitPagEvent").style.display = "block";
+  document.getElementById("btnCancelaEvento").innerHTML = "Cancelar";
+  bsModalPagEvent.show();
+}
+const bsModalPagEvent = new bootstrap.Modal(
+  modalPagEventos,
+  (backdrop = "static")
+);
+
+
+const btnModalInsAss = document.getElementById("btnModalInsAss");
+btnModalInsAss.addEventListener("click", () => {
+  chamaModalInsAss();
+});
+function chamaModalInsAss() {
+  document.getElementById("btnSubmitAssocciao").style.display = "block";
+  document.getElementById("btnCancelarAssociacao").innerHTML = "Cancelar";
+  bsModalInsAss.show();
+}
+const bsModalInsAss = new bootstrap.Modal(
+  area,
+  (backdrop = "static")
+);
+
 
 function validaRegisto() {
   let email = document.getElementById("emailRegistar").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaRegistar").value; // tem de ter uma senha
-  let section = document.getElementById("sectionRegistar").value; 
+  let section = document.getElementById("sectionRegistar").value;
   let nome = document.getElementById("usernameRegistar").value;
   const statReg = document.getElementById("statusRegistar");
   if (senha.length < 4) {
@@ -65,6 +140,7 @@ function validaRegisto() {
 function insereRegisto() {
   let nome = document.getElementById("nomeEspera").value;
   let nif = document.getElementById("nifEspera").value;
+  let dtNasc = document.getElementById("dtNasc").value;
   let tlf = document.getElementById("tlfEspera").value;
   const statEsp = document.getElementById("statusInserirEspera");
   if (nif.length < 9) {
@@ -77,7 +153,7 @@ function insereRegisto() {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
-    body: `name=${nome}&nif=${nif}&tlf=${tlf}`,
+    body: `name=${nome}&nif=${nif}&dtNasc=${dtNasc}&tlf=${tlf}`,
   })
     .then((response) => {
       return response.json().then((body) => {
@@ -98,164 +174,181 @@ function insereRegisto() {
     });
 }
 
-async function listaResultadosEspera() {
-  const criteria = document.getElementById("searchkey").value;
-  console.log("Critério: " + criteria);
 
-  let url = urlBase + "/listagemEspera";
-  const token = localStorage.token;
-  console.log(token);
-
-  if (id != "") {
-    url = url + "/:" + id;
-  } else if (criteria != "") {
-    url = url + "/key/:" + criteria;
+function inserirPagamentoEvento() {
+  let nin = document.getElementById("NINEvento").value;
+  let event = document.getElementById("event").value;
+  let payment = document.getElementById("payment").value;
+  let payment_status = document.getElementById("payment_status").value;
+  const statPag = document.getElementById("statusPagEvent");
+  if (nin.length < 9) {
+    document.getElementById("passErroNIF").innerHTML =
+      "O NIN tem de ter 9 caracteres";
+    return;
   }
-
-  console.log("URL: " + url);
-  const myInit = {
-    method: "GET",
+  fetch(`${urlBase}/inserirPagamentoEvento`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      // Authorization: `Bearer ${token}`,
     },
-  };
-  const myRequest = new Request(url, myInit);
+    method: "POST",
+    body: `nin=${nin}&event=${event}&payment=${payment}&payment_status=${payment_status}`,
+  })
+    .then((response) => {
+      return response.json().then((body) => {
+        if (response.status == 201) {
+          console.log(body.message);
+          statPag.innerHTML = body.message;
+          document.getElementById("btnSubmitPagEvent").innerHTML = "Sucesso!";
+        }
+      });
+    })
+    .catch((body) => {
+      result = body.message;
+      document.getElementById(
+        "statusPagEvent"
+      ).innerHTML = `${result}`;
+      console.log("Catch:");
+      console.log(result);
+    });
 }
 
 
-
-async function listaExploradores() {
-  const criteria = document.getElementById("searchkey").value;
-  console.log("Critério: " + criteria);
-
-  let url = urlBase + "/listagemExploradores";
-  const token = localStorage.token;
-  console.log(token);
-
-  if (id != "") {
-    url = url + "/:" + id;
-  } else if (criteria != "") {
-    url = url + "/key/:" + criteria;
+function inserirPagamentoQuota() {
+  let nin = document.getElementById("NINQuota").value;
+  let payment = document.getElementById("paymentQuota").value;
+  let payment_status = document.getElementById("payment_status_Quota").value;
+  let school_year = document.getElementById("anoLec").value;
+  const statPag = document.getElementById("statusPagQuota");
+  if (nin.length < 9) {
+    document.getElementById("passErroNIF").innerHTML =
+      "O NIN tem de ter 9 caracteres";
+    return;
   }
-
-  console.log("URL: " + url);
-  const myInit = {
-    method: "GET",
+  fetch(`${urlBase}/inserirPagamentoQuota`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      // Authorization: `Bearer ${token}`,
     },
-  };
-  const myRequest = new Request(url, myInit);
+    method: "POST",
+    body: `nin=${nin}&payment=${payment}&payment_status=${payment_status}&school_year=${school_year}`,
+  })
+    .then((response) => {
+      return response.json().then((body) => {
+        if (response.status == 201) {
+          console.log(body.message);
+          statPag.innerHTML = body.message;
+          document.getElementById("btnSubmitPagQuota").innerHTML = "Sucesso!";
+        }
+      });
+    })
+    .catch((body) => {
+      result = body.message;
+      document.getElementById(
+        "statusPagQuota"
+      ).innerHTML = `${result}`;
+      console.log("Catch:");
+      console.log(result);
+    });
 }
 
 
-async function listaPioneiros() {
-  const criteria = document.getElementById("searchkey").value;
-  console.log("Critério: " + criteria);
-
-  let url = urlBase + "/listagemPioneiros";
-  const token = localStorage.token;
-  console.log(token);
-
-  if (id != "") {
-    url = url + "/:" + id;
-  } else if (criteria != "") {
-    url = url + "/key/:" + criteria;
+function inserirEstadoDocumento() {
+  let nin = document.getElementById("NINDoc").value;
+  let send = document.getElementById("send").value;
+  let assig = document.getElementById("assig").value;
+  let received = document.getElementById("received").value;
+  const statDoc = document.getElementById("statusDoc");
+  if (nin.length < 9) {
+    document.getElementById("passErroNIF").innerHTML =
+      "O NIN tem de ter 9 caracteres";
+    return;
   }
-
-  console.log("URL: " + url);
-  const myInit = {
-    method: "GET",
+  fetch(`${urlBase}/inserirStatusDoc`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      // Authorization: `Bearer ${token}`,
     },
-  };
-  const myRequest = new Request(url, myInit);
+    method: "POST",
+    body: `nin=${nin}&send=${send}&assig=${assig}&received=${received}`,
+  })
+    .then((response) => {
+      return response.json().then((body) => {
+        if (response.status == 201) {
+          console.log(body.message);
+          statPag.innerHTML = body.message;
+          document.getElementById("btnSubmitstatDoc").innerHTML = "Sucesso!";
+        }
+      });
+    })
+    .catch((body) => {
+      result = body.message;
+      document.getElementById(
+        "statusDoc"
+      ).innerHTML = `${result}`;
+      console.log("Catch:");
+      console.log(result);
+    });
 }
 
-
-async function listaCaminheiros() {
-  const criteria = document.getElementById("searchkey").value;
-  console.log("Critério: " + criteria);
-
-  let url = urlBase + "/listagemCaminheiros";
-  const token = localStorage.token;
-  console.log(token);
-
-  if (id != "") {
-    url = url + "/:" + id;
-  } else if (criteria != "") {
-    url = url + "/key/:" + criteria;
-  }
-
-  console.log("URL: " + url);
-  const myInit = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      // Authorization: `Bearer ${token}`,
-    },
-  };
-  const myRequest = new Request(url, myInit);
-}
 
 function insereEscuteiro() {
-let nin = document.getElementById("nin").value;
-let admission = document.getElementById("admission").value;
-let section = document.getElementById("section").value;
-let name = document.getElementById("name").value;
-let citizencard = document.getElementById("citizencard").value;
-let personsex = document.getElementById("personsex").value;
-let nif = document.getElementById("nif").value;
-let birth = document.getElementById("birth").value;
-let nationality = document.getElementById("nationality").value;
-let naturalness = document.getElementById("naturalness").value;
-let address = document.getElementById("address").value;
-let vilage = document.getElementById("vilage").value;
-let zipcode = document.getElementById("zipcode").value;
-let city = document.getElementById("city").value;
-let district = document.getElementById("district").value;
-let mobilephone = document.getElementById("mobilephone").value;
-let phone = document.getElementById("phone").value;
-let email = document.getElementById("email").value;
-let school = document.getElementById("school").value;
-let profession = document.getElementById("profession").value;
-let fathername = document.getElementById("fathername").value;
-let fatherprofession = document.getElementById("fatherprofession").value;
-let fathermobilephone = document.getElementById("fathermobilephone").value;
-let fatheremail = document.getElementById("fatheremail").value;
-let mothername = document.getElementById("mothername").value;
-let motherprofession = document.getElementById("motherprofession").value;
-let mothermobilephone = document.getElementById("mothermobilephone").value;
-let motheremail = document.getElementById("motheremail").value;
-let sponsername = document.getElementById("sponsername").value;
-let sponserprofession = document.getElementById("sponserprofession").value;
-let sponsermobilephone = document.getElementById("sponsermobilephone").value;
-let sponsoremail = document.getElementById("sponsoremail").value;
-let healthnumber = document.getElementById("healthnumber").value;
-let allergies = document.getElementById("allergies").value;
-let description_allergies = document.getElementById("description_allergies").value;
-let regular_medication = document.getElementById("regular_medication").value;
-let dietary_restrictions = document.getElementById("dietary_restrictions").value;
-let other_health_problems = document.getElementById("other_health_problems").value;
-let data_processing = document.getElementById("data_processing").value;
-let health_data = document.getElementById("health_data").value;
-let data_voice_image = document.getElementById("data_voice_image").value;
-let social_networks__educating = document.getElementById("social_networks__educating").value;
-let email_educating = document.getElementById("email_educating").value;
-let collective_transport = document.getElementById("collective_transport").value;
-let data_sharing = document.getElementById("data_sharing").value;
-let all_health_data = document.getElementById("all_health_data").value;
-let name1 = document.getElementById("name1").value;
-let parent1 = document.getElementById("parent1").value;
-let mobile1 = document.getElementById("mobile1").value;
-let name2 = document.getElementById("name2").value;
-let parent2 = document.getElementById("parent2").value;
-let mobile2 = document.getElementById("mobile2").value;
-  if (nin.length < 9) {
+  let nin = document.getElementById("nin").value;
+  let admissiondate = document.getElementById("admissiondate").value;
+  let section = document.getElementById("section").value;
+  let name = document.getElementById("name").value;
+  let citizencard = document.getElementById("citizencard").value;
+  let personsex = document.getElementById("personsex").value;
+  let nif = document.getElementById("nif").value;
+  let birthdate = document.getElementById("birthdate").value;
+  let nationality = document.getElementById("nationality").value;
+  let naturalness = document.getElementById("naturalness").value;
+  let address = document.getElementById("address").value;
+  let vilage = document.getElementById("vilage").value;
+  let zipcode = document.getElementById("zipcode").value;
+  let city = document.getElementById("city").value;
+  let district = document.getElementById("district").value;
+  let mobilephone = document.getElementById("mobilephone").value;
+  let phone = document.getElementById("phone").value;
+  let email = document.getElementById("email").value;
+  let school = document.getElementById("school").value;
+  let profession = document.getElementById("profession").value;
+  let fathername = document.getElementById("fathername").value;
+  let fatherprofession = document.getElementById("fatherprofession").value;
+  let fathermobilephone = document.getElementById("fathermobilephone").value;
+  let fatheremail = document.getElementById("fatheremail").value;
+  let mothername = document.getElementById("mothername").value;
+  let motherprofession = document.getElementById("motherprofession").value;
+  let mothermobilephone = document.getElementById("mothermobilephone").value;
+  let motheremail = document.getElementById("motheremail").value;
+  let sponsername = document.getElementById("sponsername").value;
+  let sponserprofession = document.getElementById("sponserprofession").value;
+  let sponsermobilephone = document.getElementById("sponsermobilephone").value;
+  let sponsoremail = document.getElementById("sponsoremail").value;
+  let healthnumber = document.getElementById("healthnumber").value;
+  let allergies = document.getElementById("asma").checked ? "Asma," : "";
+  allergies += document.getElementById("epilepsia").checked ? "Epilepsia," : "";
+  allergies += document.getElementById("diabetes").checked ? "Diabetes," : "";
+  allergies += document.getElementById("alergias").checked ? "Alergias," : "";
+  if (allergies.endsWith(',')) {
+    allergies = allergies.substring(0, allergies.lastIndexOf(","));
+  }
+  let description_allergies = document.getElementById("description_allergies").value;
+  let regular_medication = document.getElementById("regular_medication").value;
+  let dietary_restrictions = document.getElementById("dietary_restrictions").value;
+  let other_health_problems = document.getElementById("other_health_problems").value;
+  let data_processing = document.getElementById("data_processing").value;
+  let health_data = document.getElementById("health_data").value;
+  let data_voice_image = document.getElementById("data_voice_image").value;
+  let social_networks__educating = document.getElementById("social_networks__educating").value;
+  let email_educating = document.getElementById("email_educating").value;
+  let collective_transport = document.getElementById("collective_transport").value;
+  let data_sharing = document.getElementById("data_sharing").value;
+  let all_health_data = document.getElementById("all_health_data").value;
+  let name1 = document.getElementById("name1").value;
+  let parent1 = document.getElementById("parent1").value;
+  let mobile1 = document.getElementById("mobile1").value;
+  let name2 = document.getElementById("name2").value;
+  let parent2 = document.getElementById("parent2").value;
+  let mobile2 = document.getElementById("mobile2").value;
+  if (nin.length < 5) {
     console.log("estamos a entrar na função")
     document.getElementById("passErroNIF").innerHTML =
       "O NIN tem de ter 12 caracteres";
@@ -266,8 +359,7 @@ let mobile2 = document.getElementById("mobile2").value;
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
-    body: `
-    nin=${nin}&admission=${admission}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birth=${birth}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
+    body: `nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdate=${birthdate}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
   })
     .then((response) => {
       console.log("estamos a entrar no then")
@@ -290,121 +382,1004 @@ let mobile2 = document.getElementById("mobile2").value;
 }
 
 
-async function listaLobitos() {
-  const response = await fetch(`${urlBase}/listagemLobitos`);
-  const data = await response.json();
-  const listaLobitos = document.getElementById("listarLobitos");
 
-  for (lobito of data) {
-    const root = document.createElement(`div`);
-    //const do campoAApareserNaPagina = document.createElement("div");
-    const nin = document.createElement(`div`);
-    const dataAdmissao = document.createElement(`div`);
-    const seccao = document.createElement(`div`);
-    const nome = document.createElement(`div`);
-    const cc = document.createElement(`div`);
-    const genero = document.createElement(`div`);
-    const nif = document.createElement(`div`);
-    const dataNascimento = document.createElement(`div`);
-    const nacionalidade = document.createElement(`div`);
-    const naturalidade = document.createElement(`div`);
-    const morada = document.createElement(`div`);
-    const localidade = document.createElement(`div`);
-    const codigoPostal = document.createElement(`div`);
-    const concelho = document.createElement(`div`);
-    const distrito = document.createElement(`div`);
-    const telemovel = document.createElement(`div`);
-    const telefone = document.createElement(`div`);
-    const email = document.createElement(`div`);
-    const habilitacoes = document.createElement(`div`);
-    const profissao = document.createElement(`div`);
-    const nomePai = document.createElement(`div`);
-    const profPai = document.createElement(`div`);
-    const telePai = document.createElement(`div`);
-    const emailPai = document.createElement(`div`);
-    const nomeMae = document.createElement(`div`);
-    const profMae = document.createElement(`div`);
-    const teleMae = document.createElement(`div`);
-    const emailMae = document.createElement(`div`);  
-    const nomeEncEdu = document.createElement(`div`);
-    const profEncEdu = document.createElement(`div`);
-    const teleEncEdu = document.createElement(`div`);
-    const emailEncEdu = document.createElement(`div`);
-    const nUtente = document.createElement(`div`);
-    const opAssinaladas = document.createElement(`div`);
-    const descAlergias = document.createElement(`div`);
-    const medRegular = document.createElement(`div`);
-    const resAlimen = document.createElement(`div`);
-    const outProblSaude = document.createElement(`div`);
-    const cons1 = document.createElement(`div`);
-    const cons2 = document.createElement(`div`);
-    const cons3 = document.createElement(`div`);
-    const cons4 = document.createElement(`div`);
-    const cons5 = document.createElement(`div`);
-    const cons6 = document.createElement(`div`);
-    const cons7 = document.createElement(`div`);
-    const cons8 = document.createElement(`div`);
-    const parentesco1 = document.createElement(`div`);
-    const telemovel1 = document.createElement(`div`);
-    const nome2 = document.createElement(`div`);
-    const parentesco2 = document.createElement(`div`);
-    const telemovel2 = document.createElement(`div`);
-    //ApareserNaPagina.textContent = `Nome do Campo: ${lobito.campodaBD}`;
+async function listarEventos() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemEventos/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+      field: 'nin',
+      title: 'NIN'
+    }, {
+      field: 'event',
+      title: 'Evento'
+    }, {
+      field: 'payment',
+      title: 'Pagamento'
+    }, {
+      field: 'payment_status',
+      title: 'Estado do Pagamento'
+    }]
+  })
+}
 
-    nin.textContent =`Nome do Campo: ${lobito.nin}`;
-    dataAdmissao.textContent =`Nome do Campo: ${lobito.admissiondate}`;
-    seccao.textContent =`Nome do Campo: ${lobito.section}`;
-    nome.textContent =`Nome do Campo: ${lobito.name}`;
-    cc.textContent =`Nome do Campo: ${lobito.citiziencard}`;
-    genero.textContent =`Nome do Campo: ${lobito.personsex}`;
-    nif.textContent =`Nome do Campo: ${lobito.nif}`;
-    dataNascimento.textContent =`Nome do Campo: ${lobito.birthdate}`;
-    nacionalidade.textContent =`Nome do Campo: ${lobito.nationality}`;
-    naturalidade.textContent =`Nome do Campo: ${lobito.naturalness}`;
-    morada.textContent =`Nome do Campo: ${lobito.address}`;
-    localidade.textContent =`Nome do Campo: ${lobito.vilage}`;
-    codigoPostal.textContent =`Nome do Campo: ${lobito.zipcode}`;
-    concelho.textContent =`Nome do Campo: ${lobito.city}`;
-    distrito.textContent =`Nome do Campo: ${lobito.district}`;
-    telemovel.textContent =`Nome do Campo: ${lobito.mobilephone}`;
-    telefone.textContent =`Nome do Campo: ${lobito.phone}`;
-    email.textContent =`Nome do Campo: ${lobito.email}`;
-    habilitacoes.textContent =`Nome do Campo: ${lobito.school}`;
-    profissao.textContent =`Nome do Campo: ${lobito.profession}`;
-    nomePai.textContent =`Nome do Campo: ${lobito.fathername}`;
-    profPai.textContent =`Nome do Campo: ${lobito.fatherprofession}`;
-    telePai.textContent =`Nome do Campo: ${lobito.fathermobilephone}`;
-    emailPai.textContent =`Nome do Campo: ${lobito.fatheremail}`;
-    nomeMae.textContent =`Nome do Campo: ${lobito.mothername}`;
-    profMae.textContent =`Nome do Campo: ${lobito.motherprofession}`;
-    teleMae.textContent =`Nome do Campo: ${lobito.mothermobilephone}`;
-    emailMae.textContent =`Nome do Campo: ${lobito.motheremail}`;  
-    nomeEncEdu.textContent =`Nome do Campo: ${lobito.sponsername}`;
-    profEncEdu.textContent =`Nome do Campo: ${lobito.sponserprofession}`;
-    teleEncEdu.textContent =`Nome do Campo: ${lobito.sponsermobilephone}`;
-    emailEncEdu.textContent =`Nome do Campo: ${lobito.sponseremail}`;
-    nUtente.textContent =`Nome do Campo: ${lobito.healthnumber}`;
-    opAssinaladas.textContent =`Nome do Campo: ${lobito.allergies}`;
-    descAlergias.textContent =`Nome do Campo: ${lobito.description_allergies}`;
-    medRegular.textContent =`Nome do Campo: ${lobito.regular_medication}`;
-    resAlimen.textContent =`Nome do Campo: ${lobito.diatary_restrictions}`;
-    outProblSaude.textContent =`Nome do Campo: ${lobito.other_health_problems}`;
-    cons1.textContent =`Nome do Campo: ${lobito.data_processing}`;
-    cons2.textContent =`Nome do Campo: ${lobito.health_data}`;
-    cons3.textContent =`Nome do Campo: ${lobito.data_voice_image}`;
-    cons4.textContent =`Nome do Campo: ${lobito.social_networks_educating}`;
-    cons5.textContent =`Nome do Campo: ${lobito.email_educationg}`;
-    cons6.textContent =`Nome do Campo: ${lobito.collective_transport}`;
-    cons8.textContent =`Nome do Campo: ${lobito.data_sharing}`;
-    cons9.textContent =`Nome do Campo: ${lobito.all_health_data}`;
-    nome1.textContent =`Nome do Campo: ${lobito.name1}`;
-    parentesco1.textContent =`Nome do Campo: ${lobito.parent1}`;
-    telemovel1.textContent =`Nome do Campo: ${lobito.mobile1}`;
-    nome2.textContent =`Nome do Campo: ${lobito.name2}`;
-    parentesco2.textContent =`Nome do Campo: ${lobito.parent2}`;
-    telemovel2.textContent =`Nome do Campo: ${lobito.mobile2}`;
-    root.append(nin, dataAdmissao, seccao, nome, cc, genero, nif, dataNascimento, nacionalidade, naturalidade, morada, localidade, codigoPostal, concelho, distrito, telemovel, telefone, email, habilitacoes, profissao, nomePai, profPai, telePai, emailPai, nomeMae, profMae, teleMae, emailMae, nomeEncEdu, profEncEdu, teleEncEdu, emailEncEdu, nUtente, opAssinaladas, descAlergias, medRegular, resAlimen, outProblSaude, cons1, cons2, cons3, cons4, cons5, cons6, cons8, cons9, nome1, parentesco1, telemovel1, nome2, parentesco2, telemovel2);
-    listaLobitos.append(root);
-  }
-  console.log(listaLobitos);
+
+async function listarQuotas() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemQuotas/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+      field: 'nin',
+      title: 'NIN'
+    }, {
+      field: 'payment',
+      title: 'Valor Pago'
+    }, {
+      field: 'payment_status',
+      title: 'Estado do Pagamento'
+    }, {
+      field: 'school_year',
+      title: 'Ano Letivo'
+    }]
+  })
+}
+
+
+async function listarEspera() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemEspera/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+      field: 'name',
+      title: 'Nome'
+    }, {
+      field: 'nif',
+      title: 'NIF'
+    }, {
+      field: 'tlf',
+      title: 'Telefone'
+    }, {
+      field: 'dtNasc',
+      title: 'Data de Nascimento'
+    }]
+  })
+}
+
+
+async function listarDocumentos() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemDocumentos/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+      field: 'nin',
+      title: 'NIN'
+    }, {
+      field: 'send',
+      title: 'Documento Enviado'
+    }, {
+      field: 'signature',
+      title: 'Documento Assinado'
+    }, {
+      field: 'received',
+      title: 'Documento Recebido'
+    }]
+  })
+}
+
+async function listarLobitos() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemLobitos/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    },{
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+async function listarExploradores() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemExploradores/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+async function listarPioneiros() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemPioneiros/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+async function listarCaminheiros() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemCaminheiros/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+async function listarSecretarios() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemSecretario/`,
+    columns: [{
+      field: '----',
+      title: 'Editar'
+    }, {
+      field: '----',
+      title: 'Apagar'
+    }, {
+      field: 'email',
+      title: 'Email'
+    }, {
+      field: 'name',
+      title: 'Nome'
+    }, {
+      field: 'section',
+      title: 'Secção'
+    }]
+  })
 }

@@ -71,7 +71,7 @@ exports.Crud_registar = (email, password, nome, section) => {
     }
 )};
 
-exports.Crud_inserirListaEspera = (nome, nif, tlf) => {
+exports.Crud_inserirListaEspera = (nome, nif, tlf, dtNasc) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
@@ -79,9 +79,10 @@ exports.Crud_inserirListaEspera = (nome, nif, tlf) => {
       name: nome,
       nif: nif,
       tlf: tlf,
+      dtNasc: dtNasc,
     };
     query(
-      "INSERT INTO waitinglist (name, nif, tlf) values (?,?,?)",
+      "INSERT INTO waitinglist (name, nif, tlf, dtNasc) values (?,?,?,?)",
       [data.name,data.nif,data.tlf]
     )
       .then((result) => {
@@ -111,9 +112,9 @@ exports.cRud_login = (email, section) => {
         });
         console.log(user);
         if (user.email != email) reject("Utilizador inexistente contacte a secretaria do Agrupamento")
-        else if (user.section == "Lob") {window.location.replace("https://google.com")
-        resolve (user), mudarPagina()}
-        //aqui colocar window.redirect = If user.section "Lobito" rede
+        else {
+          resolve(user)
+        }
       })
       .catch((error) => {
         console.log("Model: Problema no login:");
@@ -122,11 +123,6 @@ exports.cRud_login = (email, section) => {
       });
   });
 };
-
-function mudarPagina ()  {
-  window.location.replace("https://google.com")
-}
-
 
 exports.ListaEspera = () => {
   return new Promise((resolve, reject) => {
@@ -154,10 +150,12 @@ exports.cRud_allListaEspera = (nif) => {
   });
 };
 
-exports.cRud_findAllLobitos = (section) => {
+
+
+exports.cRud_findAllAssociados = (section) => {
   return new Promise((resolve, reject) => {
-    // busca os registos que contêm a chave
-    query("SELECT * FROM associados WHERE section=?", [Lobitos])
+    // lê todos os registos
+    query("SELECT * from associados WHERE section like '%?%'", [section])
       .then((result) => {
         resolve(result);
       })
@@ -206,19 +204,19 @@ exports.cRud_findAllCaminheiros = (category) => {
   });
 };
 
-exports.Crud_inserirEscuteiro = (nin, admission, section, name, citizencard, personsex, nif, birth, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
+exports.Crud_inserirEscuteiro = (nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
   // insere um novo escuteiro
   return new Promise((resolve, reject) => {
     data = {
       //nometabela: nomedadonocodigo
       nin : nin,
-      admission : admission,
+      admissiondate : admissiondate,
       section : section,
       name : name,
       citizencard : citizencard,
       personsex : personsex,
       nif : nif,
-      birth : birth,
+      birthdate : birthdate,
       nationality : nationality,
       naturalness : naturalness,
       address : address,
@@ -265,8 +263,8 @@ exports.Crud_inserirEscuteiro = (nin, admission, section, name, citizencard, per
       mobile2 : mobile2,
     };
     query(
-      "INSERT INTO associados (nin, admission, section, name, citizencard, personsex, nif, birth, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-      [data.nin, data.admission, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birth, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2]
+      "INSERT INTO associados (nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      [data.nin, data.admissiondate, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2]
       )
       .then((result) => {
         console.log(data);
@@ -282,6 +280,21 @@ exports.Crud_inserirEscuteiro = (nin, admission, section, name, citizencard, per
       });
     }
 )};
+
+
+exports.cRud_findAllDocs = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from statusdocument")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 
 // exports.cRud_key = (criteria) => {
 //   return new Promise((resolve, reject) => {
@@ -306,3 +319,210 @@ exports.Crud_inserirEscuteiro = (nin, admission, section, name, citizencard, per
 //       });
 //   });
 // };
+
+
+exports.Crud_inserirPagamentoEvento = (nin, event, payment, payment_status) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      //nometabela: nomedadonocodigo 
+      nin: nin,
+      event: event,
+      payment: payment,
+      payment_status: payment_status
+    };
+    query(
+      "INSERT INTO events (nin, event, payment, payment_status) values (?,?,?,?)",
+      [data.nin, data.event, data.payment, data.payment_status]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na inserção de novo pagamento");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+exports.Crud_inserirPagamentoQuota = (nin, payment, payment_status, school_year) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      //nometabela: nomedadonocodigo 
+      nin: nin,
+      payment: payment,
+      payment_status: payment_status,
+      school_year : school_year
+    };
+    query(
+      "INSERT INTO quota (nin, payment, payment_status, school_year) values (?,?,?,?)",
+      [data.nin, data.payment, data.payment_status, data.school_year]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na inserção de novo pagamento");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+exports.Crud_inserirStatusDoc = (nin, send, assig, received) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      //nometabela: nomedadonocodigo 
+      nin: nin,
+      send: send,
+      signature: assig,
+      received : received
+    };
+    query(
+      "INSERT INTO statusdocument (nin, send, signature, received) values (?,?,?,?)",
+      [data.nin, data.send, data.signature, data.received]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na inserção do status dos documentos");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+
+exports.cRud_allListaEventos = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from events")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+
+exports.cRud_allListaQuotas = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from quota")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaEspera = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from waitinglist")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaDocumentos = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from statusdocument")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaLobitos = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from associados where section = 'Lobitos'")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaExploradores = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from associados where section = 'Exploradores'")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaPioneiros = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from associados where section = 'Pioneiros'")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaCaminheiros = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from associados where section = 'Caminheiros'")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaSecratarios = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos
+    query("SELECT * from secretagrup")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

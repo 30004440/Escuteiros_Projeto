@@ -9,7 +9,7 @@ function authenticateToken(req, res) {
   const cookies = req.cookies;
   console.log("Cookies:");
   console.log(cookies);
-  const token = cookies.jwt; 
+  const token = cookies.jwt;
   if (token == null) {
     console.log("Token nula");
     return res.sendStatus(401);
@@ -62,10 +62,10 @@ exports.registar = async (req, res) => {
           "Utilizador criado com sucesso",
       });
       console.log("Controller - utilizador registado: ");
-      console.log(JSON.stringify(dados)); 
+      console.log(JSON.stringify(dados));
     })
     .catch((response) => {
-      console.log("O erro está aqui");
+      console.log("Registar Utilizador - O erro está aqui");
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
@@ -98,7 +98,32 @@ exports.login = async (req, res) => {
           maxAge: 1000 * 60 * 2,
           httpOnly: true,
         });
-        res.status(200).send({ user: email }); // aqui temos de enviar a token de autorização
+
+        res.cookie("sec", dados.section);
+
+        // Escolher a página de acordo com a secção
+        let pathToGo = "/";
+        switch (dados.section) {
+          case "Caminheiros":
+            pathToGo = "/homepage.html";
+            break;
+          case "Lobitos":
+            pathToGo = "/homepage.html";
+            break;
+          case "Pioneiros":
+            pathToGo = "/homepage.html";
+            break;
+          case "Exploradores":
+            pathToGo = "/homepage.html";
+            break;
+          case "Agrupamento":
+            pathToGo = "/homepage.html";
+            break;
+          default:
+            pathToGo = "/";
+        }
+
+        res.status(200).send({ user: email, path: pathToGo }); // aqui temos de enviar a token de autorização
         console.log("Resposta da consulta à base de dados: ");
         console.log(JSON.stringify(dados)); // para debug
       } else {
@@ -110,7 +135,7 @@ exports.login = async (req, res) => {
       console.log("Controller:");
       console.log(response);
       return res.status(401).send({
-        message: JSON.stringify(response),
+        erro: response,
       });
     });
 };
@@ -153,132 +178,70 @@ exports.findAllListaEspera = (req, res) => {
 };
 
 
-// Envia todos os lobitos
-exports.listaLobitos = (req, res) => {
-  if (req.email != null) {
-    // utilizador autenticado
-    console.log(`FindAll - user: ${req.email.name}`);
-    console.log("Mensagem de debug - lista dos lobitos");
-    dbmySQL
-      .cRud_findAllLobitos() // R: Read
-      .then((dados) => {
-        res.send(dados);
-        // console.log("Dados: " + JSON.stringify(dados)); // para debug
-      })
-      .catch((err) => {
-        return res
-          .status(400)
-          .send({ message: "Não há lobitos para mostrar!" });
-      });
-  }
-};
-
-// Envia todos os exploradores
-exports.findAllExploradores = (req, res) => {
-  if (req.email != null) {
-    // utilizador autenticado
-    console.log(`FindAll - user: ${req.email.name}`);
-    console.log("Mensagem de debug - lista dos lobitos");
-    dbmySQL
-      .cRud_findAllExploradores() // R: Read
-      .then((dados) => {
-        res.send(dados);
-        // console.log("Dados: " + JSON.stringify(dados)); // para debug
-      })
-      .catch((err) => {
-        return res
-          .status(400)
-          .send({ message: "Não há lobitos para mostrar!" });
-      });
-  }
-};
-
-// Envia todos os pioneiros
-exports.findAllPioneiros = (req, res) => {
-  if (req.email != null) {
-    // utilizador autenticado
-    console.log(`FindAll - user: ${req.email.name}`);
-    console.log("Mensagem de debug - lista dos lobitos");
-    dbmySQL
-      .cRud_findAllPioneiros() // R: Read
-      .then((dados) => {
-        res.send(dados);
-        // console.log("Dados: " + JSON.stringify(dados)); // para debug
-      })
-      .catch((err) => {
-        return res
-          .status(400)
-          .send({ message: "Não há lobitos para mostrar!" });
-      });
-  }
-};
 
 
-// Envia todos os caminheiros
-exports.findAllCaminheiros = (req, res) => {
-  if (req.email != null) {
-    // utilizador autenticado
-    console.log(`FindAll - user: ${req.email.name}`);
-    console.log("Mensagem de debug - lista dos lobitos");
-    dbmySQL
-      .cRud_findAllCaminheiros() // R: Read
-      .then((dados) => {
-        res.send(dados);
-        // console.log("Dados: " + JSON.stringify(dados)); // para debug
-      })
-      .catch((err) => {
-        return res
-          .status(400)
-          .send({ message: "Não há lobitos para mostrar!" });
-      });
-  }
-};
+// // Envia todos os associados
+// exports.listaAssociados = (req, res) => {
+//   const { section } = req.params
+//   console.log("ListaAssociados");
+//   console.log("Mensagem de debug - listar associados - section: " + section);
+//   dbmySQL
+//     .cRud_findAllAssociados(section)
+//     .then((dados) => {
+//       res.send(dados);
+//     })
+//     .catch((err) => {
+//       return res
+//         .status(400)
+//         .send({ message: "Não há associados para mostrar!" });
+//     });
+// };
 
 
-// READ one - busca um item pelo id
-exports.findOne = async (req, res) => {
-  authenticateToken(req, res);
-  if (req.email != null) {
-    // utilizador autenticado
-    console.log("Find One by id");
-    console.log("Parâmetro: " + req.params.id);
-    //Deve implementar esta funcionalidade...
-    const id = req.params.id.substr(1); // faz substring a partir do segundo carater
-    dbmySQL
-      .cRud_id(id) // R: Read
-      .then((dados) => {
-        res.send(dados);
-        // console.log("Dados: " + JSON.stringify(dados)); // para debug
-      })
-      .catch((err) => {
-        return res
-          .status(400)
-          .send({ message: "Não há disciplinas para mostrar!" });
-      });
-  }
-};
+// // READ one - busca um item pelo id
+// exports.findOne = async (req, res) => {
+//   authenticateToken(req, res);
+//   if (req.email != null) {
+//     // utilizador autenticado
+//     console.log("Find One by id");
+//     console.log("Parâmetro: " + req.params.id);
+//     //Deve implementar esta funcionalidade...
+//     const id = req.params.id.substr(1); // faz substring a partir do segundo carater
+//     dbmySQL
+//       .cRud_id(id) // R: Read
+//       .then((dados) => {
+//         res.send(dados);
+//         // console.log("Dados: " + JSON.stringify(dados)); // para debug
+//       })
+//       .catch((err) => {
+//         return res
+//           .status(400)
+//           .send({ message: "Não há disciplinas para mostrar!" });
+//       });
+//   }
+// };
 
-// READ key - busca os itens que contêm uma chave
-exports.findKey = (req, res) => {
-  authenticateToken(req, res);
-  if (req.email != null) {
-    // utilizador autenticado
-    console.log("Find key");
-    // Temos de eliminar o primeiro carater para obter a chave de pesquisa
-    // O primeiro carater é o ":"
-    const criteria = req.params.id.substr(1); // faz substring a partir do segundo carater
-    console.log("Critério: " + criteria);
-    dbmySQL
-      .cRud_key(criteria) // R: Read
-      .then((dados) => {
-        res.send(dados);
-        // console.log("Dados: " + JSON.stringify(dados)); // para debug
-      })
-      .catch((err) => {
-        return res.status(400).send({});
-      });
-  }
-};
+// // READ key - busca os itens que contêm uma chave
+// exports.findKey = (req, res) => {
+//   authenticateToken(req, res);
+//   if (req.email != null) {
+//     // utilizador autenticado
+//     console.log("Find key");
+//     // Temos de eliminar o primeiro carater para obter a chave de pesquisa
+//     // O primeiro carater é o ":"
+//     const criteria = req.params.id.substr(1); // faz substring a partir do segundo carater
+//     console.log("Critério: " + criteria);
+//     dbmySQL
+//       .cRud_key(criteria) // R: Read
+//       .then((dados) => {
+//         res.send(dados);
+//         // console.log("Dados: " + JSON.stringify(dados)); // para debug
+//       })
+//       .catch((err) => {
+//         return res.status(400).send({});
+//       });
+//   }
+// };
 
 exports.inserirEspera = async (req, res) => {
   console.log("Inserir novo associado");
@@ -290,14 +253,15 @@ exports.inserirEspera = async (req, res) => {
   const nome = req.body.name;
   const tlf = req.body.tlf;
   const nif = req.body.nif;
+  const dtNasc = req.body.dtNasc
   dbmySQL
-    .Crud_inserirListaEspera(nome, nif, tlf)
+    .Crud_inserirListaEspera(nome, nif, tlf, dtNasc)
     .then((dados) => {
       res.status(201).send({
         message:
-          "Associado criado com sucesso",
+          "Utilizador adicionado com sucesso",
       });
-      console.log(JSON.stringify(dados)); 
+      console.log(JSON.stringify(dados));
     })
     .catch((response) => {
       console.log(response);
@@ -307,6 +271,94 @@ exports.inserirEspera = async (req, res) => {
     });
 };
 
+exports.inserirPagamentoEvento = async (req, res) => {
+  console.log("Inserir novo pagamento");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  const event = req.body.event;
+  const payment = req.body.payment;
+  const payment_status = req.body.payment_status;
+  dbmySQL
+    .Crud_inserirPagamentoEvento(nin, event, payment, payment_status)
+    .then((dados) => {
+      res.status(201).send({
+        message:
+          "Pagamento adicionado com sucesso",
+      });
+      console.log(JSON.stringify(dados));
+    })
+    .catch((response) => {
+      console.log("o erro está a inserção da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+
+exports.inserirStatusDoc = async (req, res) => {
+  console.log("Inserir estado do pagamento");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  const send = req.body.send;
+  const assig = req.body.assig;
+  const received = req.body.received;
+  dbmySQL
+    .Crud_inserirStatusDoc(nin, send, assig, received)
+    .then((dados) => {
+      res.status(201).send({
+        message:
+          "Pagamento adicionado com sucesso",
+      });
+      console.log(JSON.stringify(dados));
+    })
+    .catch((response) => {
+      console.log("o erro está a inserção da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+
+exports.inserirPagamentoQuota = async (req, res) => {
+  console.log("Inserir novo pagamento");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  const payment = req.body.payment;
+  const payment_status = req.body.payment_status;
+  const school_year = req.body.school_year;
+  dbmySQL
+    .Crud_inserirPagamentoQuota(nin, payment, payment_status, school_year)
+    .then((dados) => {
+      res.status(201).send({
+        message:
+          "Pagamento adicionado com sucesso",
+      });
+      console.log(JSON.stringify(dados));
+    })
+    .catch((response) => {
+      console.log("o erro está a inserção da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
 
 exports.inserirEscuteiro = async (req, res) => {
   console.log("Inserir novo escuteiro");
@@ -316,13 +368,13 @@ exports.inserirEscuteiro = async (req, res) => {
     });
   }
   const nin = req.body.nin;
-  const admission = req.body.admission;
+  const admissiondate = req.body.admissiondate;
   const section = req.body.section;
   const name = req.body.name;
   const citizencard = req.body.citizencard;
   const personsex = req.body.personsex;
   const nif = req.body.nif;
-  const birth = req.body.birth;
+  const birthdate = req.body.birthdate;
   const nationality = req.body.nationality;
   const naturalness = req.body.naturalness;
   const address = req.body.address;
@@ -368,19 +420,167 @@ exports.inserirEscuteiro = async (req, res) => {
   const parent2 = req.body.parent2;
   const mobile2 = req.body.mobile2;
   dbmySQL
-    .Crud_inserirEscuteiro(nin, admission, section, name, citizencard, personsex, nif, birth, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
+    .Crud_inserirEscuteiro(nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
     .then((dados) => {
       res.status(201).send({
         message:
           "Associado criado com sucesso",
       });
-      console.log(JSON.stringify(dados)); 
+      console.log(JSON.stringify(dados));
     })
     .catch((response) => {
-      console.log("O erro está aqui");
+      console.log("inserir Associado - O erro está aqui");
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
       });
+    });
+};
+
+
+// Envia todas as disciplinas
+exports.findAllDocs = (req, res) => {
+  if (!req.body) {
+    // utilizador autenticado
+    console.log(`FindAll - user: ${req.email.name}`);
+    console.log("Mensagem de debug - listar documentos");
+    dbmySQL
+      .cRud_findAllDocs() // R: Read
+      .then((dados) => {
+        res.send(dados);
+
+      })
+      .catch((err) => {
+        return res
+          .status(400)
+          .send({ message: "Não há documentos para mostrar!" });
+      });
+  }
+};
+
+
+// Envia todos os eventos
+exports.listaEventos = (req, res) => {
+  dbmySQL
+    .cRud_allListaEventos()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há eventos para mostrar!" });
+    });
+};
+
+// Envia todos as quotas
+exports.listaQuotas = (req, res) => {
+  dbmySQL
+    .cRud_allListaQuotas()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há quotas para mostrar!" });
+    });
+};
+
+// Envia todos da lista de espera
+exports.listaEspera = (req, res) => {
+  dbmySQL
+    .cRud_allListaEspera()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há lista de espera para mostrar!" });
+    });
+};
+
+// Envia todos da lista de espera
+exports.listaDocumentos = (req, res) => {
+  dbmySQL
+    .cRud_allListaDocumentos()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há lista de espera para mostrar!" });
+    });
+};
+
+// Envia todos os Lobitos
+exports.listaLobitos = (req, res) => {
+  dbmySQL
+    .cRud_allListaLobitos()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há Lobitos para mostrar!" });
+    });
+};
+
+// Envia todos os Exploradores
+exports.listaExploradores = (req, res) => {
+  dbmySQL
+    .cRud_allListaExploradores()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há Exploradores para mostrar!" });
+    });
+};
+
+// Envia todos os Pioneiros
+exports.listaPioneiros = (req, res) => {
+  dbmySQL
+    .cRud_allListaPioneiros()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há Pioneiros para mostrar!" });
+    });
+};
+
+// Envia todos os Caminheiros
+exports.listaCaminheiros = (req, res) => {
+  dbmySQL
+    .cRud_allListaCaminheiros()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há Caminheiros para mostrar!" });
+    });
+};
+
+// Envia todos os Secratários
+exports.listaSecretario = (req, res) => {
+  dbmySQL
+    .cRud_allListaSecratarios()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há Secretários para mostrar!" });
     });
 };

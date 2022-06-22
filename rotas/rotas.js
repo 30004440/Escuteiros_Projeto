@@ -12,39 +12,46 @@ module.exports = app => {
   // Inserir um associado à lista de espera
   router.post("/inserirEspera", controlador.inserirEspera);
 
-  // Lista os associados em lista de espera
-  router.get("/listagemEspera/", controlador.findAllListaEspera);
+  // Inserir um pagamento de um evento 
+  router.post("/inserirPagamentoEvento", controlador.inserirPagamentoEvento);
 
-  // Lista os associados da secção Lobitos
-  router.get("/listagemLobitos", controlador.listaLobitos);
+  // Inserir um pagamento de uma quota 
+  router.post("/inserirPagamentoQuota", controlador.inserirPagamentoQuota);
 
-  // Lista os associados da secção Exploradores
-  router.get("/listagemExploradores/", controlador.findAllExploradores);
-
-  // Lista os associados da secção Pioneiros
-  router.get("/listagemPioneiros/", controlador.findAllPioneiros);
-
-  // Lista os associados da secção Caminheiros
-  router.get("/listagemCaminheiros/", controlador.findAllCaminheiros);
+  // Inserir um estado dos documentos
+  router.post("/inserirStatusDoc", controlador.inserirStatusDoc);
 
   // Inserir um associado ao agrupamento
   router.post("/insereEscuteiro", controlador.inserirEscuteiro);
 
+  // Lista os eventos
+  router.get("/listagemEventos/", controlador.listaEventos);
 
-  // // Busca todas as disciplinas com uma chave de pesquisa
-  // router.get("/disciplinas/key/:id", controlador.findKey);
+  // Lista as quotas
+  router.get("/listagemQuotas/", controlador.listaQuotas);
 
-  // // Update a Tutorial with id
-  // router.put("/disciplinas/:id", controlador.update);
+  // Lista os associados em lista de espera
+  router.get("/listagemEspera/", controlador.listaEspera);
 
-  // // Delete a Tutorial with id
-  // router.delete("/disciplinas/:id", controlador.delete);
+  // Lista o status dos documentos
+  router.get("/listagemDocumentos/", controlador.listaDocumentos);
 
-  // // Create a new Tutorial
-  // router.delete("/disciplinas", controlador.deleteAll);
+  // Lista os Lobitos
+  router.get("/listagemLobitos/", controlador.listaLobitos);
 
-  // // Busca todas as disciplinas com uma chave de pesquisa
-  // router.get("/disciplinas/key/:id", controlador.findKey);
+  // Lista os Exploradores
+  router.get("/listagemExploradores/", controlador.listaExploradores);
+
+  // Lista os Pioneiros
+  router.get("/listagemPioneiros/", controlador.listaPioneiros);
+  
+  // Lista os Caminheiros
+  router.get("/listagemCaminheiros/", controlador.listaCaminheiros);
+
+  // Lista os Secretários
+  router.get("/listagemSecretario/", controlador.listaSecretario);
+
+
  
   app.use('/homepage', router);
 };

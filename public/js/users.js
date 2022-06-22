@@ -30,7 +30,6 @@ btnModalLogin.addEventListener("click", () => {
   bsModalLogin.show();
 });
 
-
 function validaLogin() {
   let email = document.getElementById("usernameLogin").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaLogin").value; // tem de ter uma senha
@@ -57,22 +56,18 @@ function validaLogin() {
         if (response.status == 200) {
           console.log(body.user);
           document.getElementById("statusLogin").innerHTML = "Sucesso!";
-          document.getElementById("searchbtn").disabled = false;
-          document.getElementById("searchkey").disabled = false;
+          document.getElementById("btnSubmitLogin").disabled = false;
           document.getElementById("btnLoginClose").click();
+          window.location.replace(body.path)
         } else {
           throw body;
         }
       });
     })
     .catch((body) => {
-      result = body.message;
-      document.getElementById(
-        "statusLogin"
-      ).innerHTML = `${result}`;
+      result = body.erro;
+      document.getElementById("statusLogin").innerHTML = `${result}`;
       console.log("Catch:");
       console.log(result);
     });
-    
 }
-
