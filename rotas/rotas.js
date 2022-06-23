@@ -15,6 +15,12 @@ module.exports = app => {
   // Inserir um pagamento de um evento 
   router.post("/inserirPagamentoEvento", controlador.inserirPagamentoEvento);
 
+  // Apagar evento
+  router.put("/editEvento", controlador.EditEvento);
+
+  // Apagar evento
+  router.delete("/deleteEvento", controlador.DeleteEvento);
+
   // Inserir um pagamento de uma quota 
   router.post("/inserirPagamentoQuota", controlador.inserirPagamentoQuota);
 
@@ -51,6 +57,11 @@ module.exports = app => {
   // Lista os Secretários
   router.get("/listagemSecretario/", controlador.listaSecretario);
 
+
+  // router.get("/evento",  controlador.listaEventos)
+  // router.post("/evento",  controlador.inserirPagamentoEvento)
+  // router.put("/evento",  controlador.EditEvento)
+  // router.delete("/evento",  controlador.DeleteEvento)
 
  
   app.use('/homepage', router);

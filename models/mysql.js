@@ -526,3 +526,43 @@ exports.cRud_allListaSecratarios = () => {
       });
   });
 };
+
+
+exports.cRud_DeleteEvento = (nin) => {
+  return new Promise((resolve, reject) => {
+    query("DELETE FROM events WHERE nin=?", [nin] )
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.Crud_EditarEvento = (nin, event, payment, payment_status) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      nin: nin,
+      event: event,
+      payment: payment,
+      payment_status: payment_status
+    };
+    query(
+      "UPDATE events set event = ?, payment = ?, payment_status = ? where nin = ?",
+      [data.event, data.payment, data.payment_status, data.nin]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na edição de novo evento");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};

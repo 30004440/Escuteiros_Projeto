@@ -427,9 +427,10 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <form>
             <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
-              Evento</label><br>
+              Evento</label>
+        </div>
+        <div class="modal-body">
             <div class="mb-3">
               <label class="form-label">NIN</label>
               <input type="text" class="form-control" id="NINEvento" name="NINEvento" placeholder="NIN" />
@@ -445,7 +446,7 @@
             <div class="mb-3">
               <label for="payment_status">Estado Pagamento</label><br>
               <select id="payment_status" name="payment_status">
-                <option value="" disabled selected>Selecionar Estado do Pagamento</option>
+                <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
                 <option value="Pago">Pago</option>
                 <option value="Não Pago">Não Pago</option>
                 <option value="Pago Parcialmente">Pago Parcialmente</option>
@@ -455,15 +456,13 @@
               <p id="statusPagEvent"></p>
             </div>
             <br>
-            <button class="btn btn-success float-end" id="btnSubmitPagEvent" onclick="inserirPagamentoEvento()">
+            <button class="btn btn-success float-end" id="btnSubmitPagEvent">
               Submeter
             </button>
             <button id="btnCancelaEvento" class="btn btn-warning float-end" data-bs-dismiss="modal">
               Cancelar
             </button>
         </div>
-        </form>
-
       </div>
     </div>
   </div>

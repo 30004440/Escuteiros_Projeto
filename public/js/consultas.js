@@ -69,9 +69,29 @@ const btnModalPagEvent = document.getElementById("btnModalPagEvent");
 btnModalPagEvent.addEventListener("click", () => {
   chamaModalPagEvent();
 });
-function chamaModalPagEvent() {
+function chamaModalPagEvent(isEdit = false, row = undefined) {
   document.getElementById("btnSubmitPagEvent").style.display = "block";
-  document.getElementById("btnCancelaEvento").innerHTML = "Cancelar";
+  document.getElementById("btnSubmitPagEvent").onclick = () => {
+    inserirPagamentoEvento(isEdit);
+  };
+
+  document.getElementById("statusPagEvent").innerHTML = "";
+
+  if (row) {
+    document.getElementById("NINEvento").value = row.nin;
+    document.getElementById("NINEvento").setAttribute('disabled','disabled');
+    document.getElementById("event").value = row.event;
+    document.getElementById("payment").value = row.payment;
+    $('select[name=payment_status]').val(row.payment_status);
+  } else {
+    document.getElementById("NINEvento").value = "";
+    document.getElementById("NINEvento").removeAttribute('disabled');
+    document.getElementById("event").value = "";
+    document.getElementById("payment").value = "";
+    $('select[name=payment_status]').val(-1);
+  }
+  $('select[name=payment_status]').change();
+
   bsModalPagEvent.show();
 }
 const bsModalPagEvent = new bootstrap.Modal(
@@ -175,30 +195,33 @@ function insereRegisto() {
 }
 
 
-function inserirPagamentoEvento() {
+function inserirPagamentoEvento(isEdit = false) {
   let nin = document.getElementById("NINEvento").value;
   let event = document.getElementById("event").value;
   let payment = document.getElementById("payment").value;
   let payment_status = document.getElementById("payment_status").value;
   const statPag = document.getElementById("statusPagEvent");
   if (nin.length < 9) {
-    document.getElementById("passErroNIF").innerHTML =
+    document.getElementById("statusPagEvent").innerHTML =
       "O NIN tem de ter 9 caracteres";
     return;
   }
-  fetch(`${urlBase}/inserirPagamentoEvento`, {
+  const url = urlBase + '/' + (isEdit ? "editEvento" : "inserirPagamentoEvento");
+  fetch(url, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    method: "POST",
+    method: isEdit ? "PUT" : "POST",
     body: `nin=${nin}&event=${event}&payment=${payment}&payment_status=${payment_status}`,
   })
     .then((response) => {
       return response.json().then((body) => {
-        if (response.status == 201) {
+        if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
           statPag.innerHTML = body.message;
           document.getElementById("btnSubmitPagEvent").innerHTML = "Sucesso!";
+          $('#table').bootstrapTable('refresh');
+          $('#modalPagEventos').modal('hide');
         }
       });
     })
@@ -381,17 +404,45 @@ function insereEscuteiro() {
     });
 }
 
+function accoesFormatter (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+}
 
+window.eventAcoes = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalPagEvent(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteEvento(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteEvento(nin) {
+  fetch(`${urlBase}/deleteEvento`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nin=${nin}`,
+  })
+}
 
 async function listarEventos() {
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemEventos/`,
     columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
+      events: eventAcoes,
+      field: 'acoes',
+      formatter: accoesFormatter,
+      title: 'Ações'
     }, {
       field: 'nin',
       title: 'NIN'

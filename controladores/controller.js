@@ -584,3 +584,57 @@ exports.listaSecretario = (req, res) => {
         .send({ message: "Não há Secretários para mostrar!" });
     });
 };
+
+
+
+exports.DeleteEvento = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  dbmySQL
+    .cRud_DeleteEvento(nin)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Evento apagado com sucesso.",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está na remoção do evento da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+exports.EditEvento = async (req, res) => {
+  console.log("Editar Evento");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  const event = req.body.event;
+  const payment = req.body.payment;
+  const payment_status = req.body.payment_status;
+  dbmySQL
+    .Crud_EditarEvento(nin, event, payment, payment_status)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Evento editado com sucesso",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está a edição do evento da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};

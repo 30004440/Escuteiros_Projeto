@@ -234,7 +234,7 @@ body
     max-width: 60rem;
   }
   
-  form  {
+  .modal-body  {
     box-sizing: border-box;
     padding: 1rem;
     border-radius: 1rem;
