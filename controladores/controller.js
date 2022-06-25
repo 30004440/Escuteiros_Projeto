@@ -253,9 +253,9 @@ exports.inserirEspera = async (req, res) => {
   const nome = req.body.name;
   const tlf = req.body.tlf;
   const nif = req.body.nif;
-  const dtNasc = req.body.dtNasc
+  const birthdate = req.body.birthdate
   dbmySQL
-    .Crud_inserirListaEspera(nome, nif, tlf, dtNasc)
+    .Crud_inserirListaEspera(nome, nif, tlf, birthdate)
     .then((dados) => {
       res.status(201).send({
         message:
@@ -439,24 +439,24 @@ exports.inserirEscuteiro = async (req, res) => {
 
 
 // Envia todas as disciplinas
-exports.findAllDocs = (req, res) => {
-  if (!req.body) {
-    // utilizador autenticado
-    console.log(`FindAll - user: ${req.email.name}`);
-    console.log("Mensagem de debug - listar documentos");
-    dbmySQL
-      .cRud_findAllDocs() // R: Read
-      .then((dados) => {
-        res.send(dados);
+// exports.findAllDocs = (req, res) => {
+//   if (!req.body) {
+//     // utilizador autenticado
+//     console.log(`FindAll - user: ${req.email.name}`);
+//     console.log("Mensagem de debug - listar documentos");
+//     dbmySQL
+//       .cRud_findAllDocs() // R: Read
+//       .then((dados) => {
+//         res.send(dados);
 
-      })
-      .catch((err) => {
-        return res
-          .status(400)
-          .send({ message: "Não há documentos para mostrar!" });
-      });
-  }
-};
+//       })
+//       .catch((err) => {
+//         return res
+//           .status(400)
+//           .send({ message: "Não há documentos para mostrar!" });
+//       });
+//   }
+// };
 
 
 // Envia todos os eventos
@@ -632,6 +632,112 @@ exports.EditEvento = async (req, res) => {
     })
     .catch((response) => {
       console.log("o erro está a edição do evento da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+
+exports.DeleteQuota = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  dbmySQL
+    .cRud_DeleteQuota(nin)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Quota apagada com sucesso.",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está na remoção da quota da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+exports.EditQuota = async (req, res) => {
+  console.log("Editar Quota");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  const payment = req.body.payment;
+  const payment_status = req.body.payment_status;
+  const school_year = req.body.school_year;
+  dbmySQL
+    .Crud_EditarQuota(nin, payment, payment_status, school_year)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Quota editada com sucesso",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está a edição da quota da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+
+exports.DeleteEspera = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nif = req.body.nif;
+  dbmySQL
+    .cRud_DeleteEspera(nif)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Evento apagado com sucesso.",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está na remoção da lista de espera da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+exports.EditEspera = async (req, res) => {
+  console.log("Editar Espera");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nome = req.body.name;
+  const tlf = req.body.tlf;
+  const nif = req.body.nif;
+  const birthdate = req.body.birthdate
+  dbmySQL
+    .Crud_EditarEspera(nome, nif, tlf, birthdate)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Lista de Espera editada com sucesso",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está a edição da lista da bd")
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),

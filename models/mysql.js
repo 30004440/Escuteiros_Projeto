@@ -71,7 +71,7 @@ exports.Crud_registar = (email, password, nome, section) => {
     }
 )};
 
-exports.Crud_inserirListaEspera = (nome, nif, tlf, dtNasc) => {
+exports.Crud_inserirListaEspera = (nome, nif, tlf, birthdate) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
@@ -79,11 +79,11 @@ exports.Crud_inserirListaEspera = (nome, nif, tlf, dtNasc) => {
       name: nome,
       nif: nif,
       tlf: tlf,
-      dtNasc: dtNasc,
+      birthdate: birthdate,
     };
     query(
-      "INSERT INTO waitinglist (name, nif, tlf, dtNasc) values (?,?,?,?)",
-      [data.name,data.nif,data.tlf]
+      "INSERT INTO waitinglist (name, nif, tlf, birthdate) values (?,?,?,?)",
+      [data.name,data.nif,data.tlf, data.birthdate]
     )
       .then((result) => {
         console.log(data);
@@ -558,6 +558,86 @@ exports.Crud_EditarEvento = (nin, event, payment, payment_status) => {
         console.log(result);
         if (result.affectedRows != 1)
           reject("Model: Problema na edição de novo evento");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+exports.cRud_DeleteQuota = (nin) => {
+  return new Promise((resolve, reject) => {
+    query("DELETE FROM quota WHERE nin=?", [nin] )
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.Crud_EditarQuota = (nin, payment, payment_status, school_year) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      nin: nin,
+      payment: payment,
+      payment_status: payment_status,
+      school_year: school_year
+    };
+    query(
+      "UPDATE quota set payment = ?, payment_status = ?, school_year = ? where nin = ?",
+      [data.payment, data.payment_status, data.school_year, data.nin]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na edição de quota");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+exports.cRud_DeleteEspera = (nif) => {
+  return new Promise((resolve, reject) => {
+    query("DELETE FROM waitinglist WHERE nif=?", [nif] )
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.Crud_EditarEspera = (nome, nif, tlf, birthdate) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+	name: nome,
+    nif: nif,
+    tlf: tlf,
+    birthdate: birthdate,
+    };
+    query(
+      "UPDATE waitinglist set name = ?, tlf = ?, birthdate = ? where nif = ?",
+      [data.name, data.tlf, data.birthdate, data.nif]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na edição da lista de espera");
         else resolve(result);
       })
       .catch((error) => {

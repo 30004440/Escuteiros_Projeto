@@ -23,9 +23,26 @@ const btnModalEspera = document.getElementById("btnModalEspera");
 btnModalEspera.addEventListener("click", () => {
   chamaModalEspera();
 });
-function chamaModalEspera() {
+function chamaModalEspera (isEdit = false, row = undefined) {
   document.getElementById("btnSubmitEspera").style.display = "block";
-  document.getElementById("btnCancelaEspera").innerHTML = "Cancelar";
+  document.getElementById("btnSubmitEspera").onclick = () => {
+    insereRegisto(isEdit);
+  };
+  document.getElementById("statusPagEvent").innerHTML = "";
+  document.getElementById("btnSubmitEspera").innerHTML = "Submeter";
+  if (row) {
+    document.getElementById("nifEspera").value = row.nif;
+    document.getElementById("nifEspera").setAttribute('disabled','disabled');
+    document.getElementById("nomeEspera").value = row.name;
+    document.getElementById("birthdate").value = row.birthdate;
+    document.getElementById("tlfEspera").value = row.tlf;
+  } else {
+    document.getElementById("nifEspera").value = "";
+    document.getElementById("nifEspera").removeAttribute('disabled');
+    document.getElementById("nomeEspera").value = "";
+    document.getElementById("birthdate").value = "";
+    document.getElementById("tlfEspera").value = "";
+  }
   bsModalEspera.show();
 }
 const bsModalEspera = new bootstrap.Modal(
@@ -53,9 +70,28 @@ const btnModalQuota = document.getElementById("btnModalQuota");
 btnModalQuota.addEventListener("click", () => {
   chamaModalQuota();
 });
-function chamaModalQuota() {
+function chamaModalQuota (isEdit = false, row = undefined) {
   document.getElementById("btnSubmitPagQuota").style.display = "block";
-  document.getElementById("btnCancelaPagQuota").innerHTML = "Cancelar";
+  document.getElementById("btnSubmitPagQuota").onclick = () => {
+  inserirPagamentoQuota(isEdit);
+  };
+  document.getElementById("statusPagQuota").innerHTML = "";
+  document.getElementById("btnSubmitPagQuota").innerHTML = "Submeter";
+  if (row) {
+    document.getElementById("NINQuota").value = row.nin;
+    document.getElementById("NINQuota").setAttribute('disabled','disabled');
+    document.getElementById("paymentQuota").value = row.payment;
+    document.getElementById("anoLec").value = row.school_year;
+    $('select[name=payment_status_Quota]').val(row.payment_status);
+  }	else {
+    document.getElementById("NINQuota").value = "";
+    document.getElementById("NINQuota").removeAttribute('disabled');
+    document.getElementById("paymentQuota").value = "";
+    document.getElementById("anoLec").value = "";
+    $('select[name=payment_status_Quota]').val(-1);
+  }
+  $('select[name=payment_status_Quota]').change();								
+
   bsModalQuota.show();
 }
 const bsModalQuota = new bootstrap.Modal(
@@ -76,6 +112,7 @@ function chamaModalPagEvent(isEdit = false, row = undefined) {
   };
 
   document.getElementById("statusPagEvent").innerHTML = "";
+  document.getElementById("btnSubmitPagEvent").innerHTML = "Submeter";
 
   if (row) {
     document.getElementById("NINEvento").value = row.nin;
@@ -157,10 +194,10 @@ function validaRegisto() {
 }
 
 
-function insereRegisto() {
+function insereRegisto(isEdit = false) {
   let nome = document.getElementById("nomeEspera").value;
   let nif = document.getElementById("nifEspera").value;
-  let dtNasc = document.getElementById("dtNasc").value;
+  let birthdate = document.getElementById("birthdate").value;
   let tlf = document.getElementById("tlfEspera").value;
   const statEsp = document.getElementById("statusInserirEspera");
   if (nif.length < 9) {
@@ -168,19 +205,22 @@ function insereRegisto() {
       "O NIF tem de ter 9 caracteres";
     return;
   }
-  fetch(`${urlBase}/inserirEspera`, {
+  const url = urlBase + '/' + (isEdit ? "editEspera" : "inserirEspera");
+  fetch(url, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    method: "POST",
-    body: `name=${nome}&nif=${nif}&dtNasc=${dtNasc}&tlf=${tlf}`,
+    method: isEdit ? "PUT" : "POST",
+    body: `name=${nome}&nif=${nif}&birthdate=${birthdate}&tlf=${tlf}`,
   })
     .then((response) => {
       return response.json().then((body) => {
-        if (response.status == 201) {
+        if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
           statEsp.innerHTML = body.message;
           document.getElementById("btnSubmitListaEspera").innerHTML = "Sucesso!";
+		  $('#table').bootstrapTable('refresh');
+          $('#ModalEspera').modal('hide');													  
         }
       });
     })
@@ -203,7 +243,7 @@ function inserirPagamentoEvento(isEdit = false) {
   const statPag = document.getElementById("statusPagEvent");
   if (nin.length < 9) {
     document.getElementById("statusPagEvent").innerHTML =
-      "O NIN tem de ter 9 caracteres";
+      "O NIN tem de ter 17 caracteres";
     return;
   }
   const url = urlBase + '/' + (isEdit ? "editEvento" : "inserirPagamentoEvento");
@@ -236,7 +276,7 @@ function inserirPagamentoEvento(isEdit = false) {
 }
 
 
-function inserirPagamentoQuota() {
+function inserirPagamentoQuota(isEdit = false) {
   let nin = document.getElementById("NINQuota").value;
   let payment = document.getElementById("paymentQuota").value;
   let payment_status = document.getElementById("payment_status_Quota").value;
@@ -244,22 +284,25 @@ function inserirPagamentoQuota() {
   const statPag = document.getElementById("statusPagQuota");
   if (nin.length < 9) {
     document.getElementById("passErroNIF").innerHTML =
-      "O NIN tem de ter 9 caracteres";
+      "O NIN tem de ter 17 caracteres";
     return;
   }
-  fetch(`${urlBase}/inserirPagamentoQuota`, {
+    const url = urlBase + '/' + (isEdit ? "editQuota" : "inserirPagamentoQuota");
+  fetch(url, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    method: "POST",
+    method: isEdit ? "PUT" : "POST",
     body: `nin=${nin}&payment=${payment}&payment_status=${payment_status}&school_year=${school_year}`,
   })
     .then((response) => {
       return response.json().then((body) => {
-        if (response.status == 201) {
+        if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
           statPag.innerHTML = body.message;
           document.getElementById("btnSubmitPagQuota").innerHTML = "Sucesso!";
+          $('#table').bootstrapTable('refresh');
+          $('#modalPagQuotas').modal('hide');																		  
         }
       });
     })
@@ -282,7 +325,7 @@ function inserirEstadoDocumento() {
   const statDoc = document.getElementById("statusDoc");
   if (nin.length < 9) {
     document.getElementById("passErroNIF").innerHTML =
-      "O NIN tem de ter 9 caracteres";
+      "O NIN tem de ter 17 caracteres";
     return;
   }
   fetch(`${urlBase}/inserirStatusDoc`, {
@@ -459,16 +502,45 @@ async function listarEventos() {
   })
 }
 
+function accoesFormatterQuotas (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+} 
+
+window.eventAcoesQuotas = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalQuota(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteQuota(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteQuota(nin) {
+  fetch(`${urlBase}/deleteQuota`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nin=${nin}`,
+  })
+}
 
 async function listarQuotas() {
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemQuotas/`,
     columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
+      events: eventAcoesQuotas,
+      field: 'acoes',
+      formatter: accoesFormatterQuotas,
+      title: 'Ações'
     }, {
       field: 'nin',
       title: 'NIN'
@@ -486,15 +558,45 @@ async function listarQuotas() {
 }
 
 
+function accoesFormatterEspera(value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+} 
+
+window.eventAcoesEspera = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalEspera(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteEspera(row.nif);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteEspera(nif) {
+  fetch(`${urlBase}/deleteEspera`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nif=${nif}`,
+  })
+}
+
 async function listarEspera() {
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemEspera/`,
     columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
+      events: eventAcoesEspera,
+      field: 'acoes',
+      formatter: accoesFormatterEspera,
+	  title: 'Ações'
     }, {
       field: 'name',
       title: 'Nome'
@@ -505,7 +607,7 @@ async function listarEspera() {
       field: 'tlf',
       title: 'Telefone'
     }, {
-      field: 'dtNasc',
+      field: 'birthdate',
       title: 'Data de Nascimento'
     }]
   })

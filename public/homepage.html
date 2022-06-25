@@ -8,7 +8,8 @@
   <link rel="stylesheet" type="text/css" href="css/homepage.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" /><!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+  <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.css">
 </head>
 
@@ -60,9 +61,11 @@
               <li><a id="btnModalInsAss" class="nav-link" href="#" onclick="chamaModalInsAss()">Inserir Associado</a>
               </li>
               <li><a id="btnListarLobitos" class="nav-link" href="#" onclick="listarLobitos()">Lobitos</a></li>
-              <li><a id="btnListarExploradores" class="nav-link" href="#" onclick="listarExploradores()">Exploradores</a></li>
+              <li><a id="btnListarExploradores" class="nav-link" href="#"
+                  onclick="listarExploradores()">Exploradores</a></li>
               <li><a id="btnListarPioneiros" class="nav-link" href="#" onclick="listarPioneiros()">Pioneiros</a></li>
-              <li><a id="btnListarCaminheiros" class="nav-link" href="#" onclick="listarCaminheiros()">Caminheiros</a></li>
+              <li><a id="btnListarCaminheiros" class="nav-link" href="#" onclick="listarCaminheiros()">Caminheiros</a>
+              </li>
             </ul>
           </div>
         <li><a id="btnListarSecretarios" class="nav-link" href="#" onclick="listarSecretarios()">Secretários</a></li>
@@ -143,42 +146,43 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <form>
-            <label for="id" style="font-weight: bold; color:#012750; font-size: 20px">Inserir associado em Lista de
-              Espera</label><br>
-            <div class="mb-3">
-              <label class="form-label">Nome</label>
-              <input type="text" class="form-control" id="nomeEspera" name="nomeEspera" placeholder="Nome" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">NIF</label>
-              <input type="text" class="form-control" id="nifEspera" name="nifEspera" placeholder="NIF" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Data de Nascimento</label>
-              <input type="date" class="form-control" id="dtNasc" name="dtNasc" placeholder="Data de Nascimento" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Telefone</label>
-              <input type="text" class="form-control" id="tlfEspera" name="tlfEspera" placeholder="Telefone" />
-              <p id="passErroNIF"></p>
-              <p id="statusInserirEspera"></p>
-            </div>
-            <!-- <div class="modal-footer d-block"> -->
-            <br>
-            <button class="btn btn-success float-end" id="btnSubmitEspera" onclick="insereRegisto()">
-              Submeter
-            </button>
-            <button id="btnCancelaEspera" class="btn btn-warning float-end" data-bs-dismiss="modal">
-              Cancelar
-            </button>
-            <!-- </div> -->
-          </form>
+          <label for="id" style="font-weight: bold; color:#012750; font-size: 20px">Inserir associado em Lista de
+            Espera</label>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nomeEspera" name="nomeEspera" placeholder="Nome" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">NIF</label>
+            <input type="text" class="form-control" id="nifEspera" name="nifEspera" placeholder="NIF" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Data de Nascimento</label>
+            <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Data de Nascimento" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Telefone</label>
+            <input type="text" class="form-control" id="tlfEspera" name="tlfEspera" placeholder="Telefone" />
+          </div>
+          <div>
+            <p id="passErroNIF"></p>
+            <p id="statusInserirEspera"></p>
+          </div>
+          <br>
+          <button class="btn btn-success float-end" id="btnSubmitEspera">
+            Submeter
+          </button>
+          <button id="btnCancelaEspera" class="btn btn-warning float-end" data-bs-dismiss="modal">
+            Cancelar
+          </button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Inserir na Associado -->
   <div class="modal fade" id="area" tabindex="-1" role="dialog" aria-labelledby="area" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -289,12 +293,6 @@
             <label class="form-check-label" for="diabetes">Diabetes</label>
             <input class="form-check-input" type="checkbox" value="alergias" id="alergias">
             <label class="form-check-label" for="alergias">Alergias</label>
-            <!-- <select  id="allergies-multi" name="allergies-multi" class="select" multiple data-mdb-placeholder="Escolha as opções">
-              <option value="Asma">Asma</option>
-              <option value="Epilepsia">Epilepsia</option>
-              <option value="Diabetes">Diabetes</option>
-              <option value="Alergias">Alergias</option>
-            </select><br> -->
             <label for="description_allergies">Descrição Alergias:</label><br>
             <input type="text" id="description_allergies" name="description_allergies"
               placeholder="Descrição Alergias"><br>
@@ -427,41 +425,41 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-            <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
-              Evento</label>
+          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
+            Evento</label>
         </div>
         <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">NIN</label>
-              <input type="text" class="form-control" id="NINEvento" name="NINEvento" placeholder="NIN" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Evento</label>
-              <input type="text" class="form-control" id="event" name="event" placeholder="Evento" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Pagamento</label>
-              <input type="text" class="form-control" id="payment" name="payment" placeholder="Pagamento" />
-            </div>
-            <div class="mb-3">
-              <label for="payment_status">Estado Pagamento</label><br>
-              <select id="payment_status" name="payment_status">
-                <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
-                <option value="Pago">Pago</option>
-                <option value="Não Pago">Não Pago</option>
-                <option value="Pago Parcialmente">Pago Parcialmente</option>
-              </select><br>
-            </div>
-            <div>
-              <p id="statusPagEvent"></p>
-            </div>
-            <br>
-            <button class="btn btn-success float-end" id="btnSubmitPagEvent">
-              Submeter
-            </button>
-            <button id="btnCancelaEvento" class="btn btn-warning float-end" data-bs-dismiss="modal">
-              Cancelar
-            </button>
+          <div class="mb-3">
+            <label class="form-label">NIN</label>
+            <input type="text" class="form-control" id="NINEvento" name="NINEvento" placeholder="NIN" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Evento</label>
+            <input type="text" class="form-control" id="event" name="event" placeholder="Evento" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Pagamento</label>
+            <input type="text" class="form-control" id="payment" name="payment" placeholder="Pagamento" />
+          </div>
+          <div class="mb-3">
+            <label for="payment_status">Estado Pagamento</label><br>
+            <select id="payment_status" name="payment_status">
+              <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
+              <option value="Pago">Pago</option>
+              <option value="Não Pago">Não Pago</option>
+              <option value="Pago Parcialmente">Pago Parcialmente</option>
+            </select><br>
+          </div>
+          <div>
+            <p id="statusPagEvent"></p>
+          </div>
+          <br>
+          <button class="btn btn-success float-end" id="btnSubmitPagEvent">
+            Submeter
+          </button>
+          <button id="btnCancelaEvento" class="btn btn-warning float-end" data-bs-dismiss="modal">
+            Cancelar
+          </button>
         </div>
       </div>
     </div>
@@ -474,54 +472,56 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <form>
-            <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
-              Quotas</label><br>
-            <div class="mb-3">
-              <label class="form-label">NIN</label>
-              <input type="text" class="form-control" id="NINQuota" name="NINQuota" placeholder="NIN" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Pagamento</label>
-              <input type="text" class="form-control" id="paymentQuota" name="paymentQuota" placeholder="Pagamento" />
-            </div>
-            <div class="mb-3">
-              <label for="payment_status_Quota">Estado Pagamento</label><br>
-              <select id="payment_status_Quota" name="payment_status_Quota">
-                <option value="" disabled selected>Selecionar Estado do Pagamento</option>
-                <option value="Pago">Pago</option>
-                <option value="Não Pago">Não Pago</option>
-                <option value="Pago Parcialmente">Pago Parcialmente</option>
-              </select><br>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Ano Lectivo</label>
-              <input type="text" class="form-control" id="anoLec" name="anoLec" placeholder="yyyy/yyyy" />
-            </div>
-            <div>
-              <p id="statusPagQuota"></p>
-            </div>
-            <br>
-            <button class="btn btn-success float-end" id="btnSubmitPagQuota" onclick="inserirPagamentoQuota()">
-              Submeter
-            </button>
-            <button id="btnCancelaPagQuota" class="btn btn-warning float-end" data-bs-dismiss="modal">
-              Cancelar
-            </button>
+          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
+            Quotas</label>
         </div>
-        </form>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">NIN</label>
+            <input type="text" class="form-control" id="NINQuota" name="NINQuota" placeholder="NIN" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Pagamento</label>
+            <input type="text" class="form-control" id="paymentQuota" name="paymentQuota" placeholder="Pagamento" />
+          </div>
+          <div class="mb-3">
+            <label for="payment_status_Quota">Estado Pagamento</label><br>
+            <select id="payment_status_Quota" name="payment_status_Quota">
+              <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
+              <option value="Pago">Pago</option>
+              <option value="Não Pago">Não Pago</option>
+              <option value="Pago Parcialmente">Pago Parcialmente</option>
+            </select><br>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ano Lectivo</label>
+            <input type="text" class="form-control" id="anoLec" name="anoLec" placeholder="yyyy/yyyy" />
+          </div>
+          <div>
+            <p id="statusPagQuota"></p>
+          </div>
+          <br>
+          <button class="btn btn-success float-end" id="btnSubmitPagQuota">
+            Submeter
+          </button>
+          <button id="btnCancelaPagQuota" class="btn btn-warning float-end" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Inserir Status Documentos -->
-  <div class="modal" id="modalStatDoc" tabindex="-1" role="dialog" aria-labelledby="modalStatDoc" aria-hidden="true">
+  <div class="modal fade" id="modalStatDoc" tabindex="-1" role="dialog" aria-labelledby="modalStatDoc"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <!-- <div class="modal-content"> -->
-      <div class="modal-header">
-        <form>
+      <div class="modal-content">
+        <div class="modal-header">
           <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Estado
-            Documentos</label><br>
+            Documentos</label>
+        </div>
+        <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">NIN</label>
             <input type="text" class="form-control" id="NINDoc" name="NINDoc" placeholder="NIN" />
@@ -545,22 +545,21 @@
           <div class="mb-3">
             <label for="received">Recebido</label><br>
             <select id="received" name="received">
-              <option value="" disabled selected>Selecionar Estado da Recepção</option>
+              <option value="-1" disabled selected>Selecionar Estado da Recepção</option>
               <option value="Recebido">Recebido</option>
               <option value="Não Recebido">Não Recebido</option>
             </select><br>
           </div>
           <div>
             <p id="statusDoc"></p>
-          </div>
-          <br>
+          </div><br>
           <button class="btn btn-success float-end" id="btnSubmitstatDoc" onclick="inserirEstadoDocumento()">
             Submeter
           </button>
           <button id="btnCancelaDoc" class="btn btn-warning float-end" data-bs-dismiss="modal">
             Cancelar
           </button>
-        </form>
+        </div>
       </div>
     </div>
   </div>
