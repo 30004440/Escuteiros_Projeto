@@ -193,7 +193,7 @@ exports.cRud_findAllPioneiros = (category) => {
 
 exports.cRud_findAllCaminheiros = (category) => {
   return new Promise((resolve, reject) => {
-    // busca os registos que contêm a chave
+    
     query("SELECT * FROM associados WHERE category=?", [4])
       .then((result) => {
         resolve(result);
@@ -379,14 +379,14 @@ exports.Crud_inserirPagamentoQuota = (nin, payment, payment_status, school_year)
 )};
 
 
-exports.Crud_inserirStatusDoc = (nin, send, assig, received) => {
+exports.Crud_inserirStatusDoc = (nin, send, signature, received) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
       //nometabela: nomedadonocodigo 
       nin: nin,
       send: send,
-      signature: assig,
+      signature: signature,
       received : received
     };
     query(
@@ -527,7 +527,6 @@ exports.cRud_allListaSecratarios = () => {
   });
 };
 
-
 exports.cRud_DeleteEvento = (nin) => {
   return new Promise((resolve, reject) => {
     query("DELETE FROM events WHERE nin=?", [nin] )
@@ -566,7 +565,6 @@ exports.Crud_EditarEvento = (nin, event, payment, payment_status) => {
       });
     }
 )};
-
 
 exports.cRud_DeleteQuota = (nin) => {
   return new Promise((resolve, reject) => {
@@ -638,6 +636,84 @@ exports.Crud_EditarEspera = (nome, nif, tlf, birthdate) => {
         console.log(result);
         if (result.affectedRows != 1)
           reject("Model: Problema na edição da lista de espera");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+exports.cRud_DeleteDoc = (nin) => {
+  return new Promise((resolve, reject) => {
+    query("DELETE FROM statusdocument WHERE nin=?", [nin] )
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.Crud_EditarDoc = (nin, send, signature, received) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      nin: nin,
+      send: send,
+      signature: signature,
+      received : received
+    };
+    query(
+      "UPDATE statusdocument set send = ?, signature = ?, received = ? where nin = ?",
+      [data.send, data.signature, data.received, data.nin]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na edição do estado de um documento");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+exports.cRud_DeleteSecretario = (email) => {
+  return new Promise((resolve, reject) => {
+    query("DELETE FROM secretagrup WHERE email=?", [email] )
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.Crud_EditarSecretario = (email, section) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      email: email,
+      section: section
+    };
+    query(
+      "UPDATE secretagrup set section = ? where email = ?",
+      [data.section, data.email]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na edição de quota");
         else resolve(result);
       })
       .catch((error) => {

@@ -3,15 +3,37 @@ const modalRegistar = document.getElementById("modalRegistar");
 const bsModalRegistar = new bootstrap.Modal(
   modalRegistar,
   (backdrop = "static")
-); // Pode passar opções
+); 
 
 const btnModalRegistar = document.getElementById("btnModalRegistar");
 const pRegistar = document.getElementById("pRegistar");
-
-
 btnModalRegistar.addEventListener("click", () => {
   chamaModalRegistar();
 });
+function chamaModalRegistar(isEdit = false, row = undefined) {
+  document.getElementById("btnSubmitRegistar").style.display = "block";
+  document.getElementById("btnSubmitRegistar").onclick = () => {
+    validaRegisto(isEdit);
+  };
+  document.getElementById("statusRegistar").innerHTML = "";
+  document.getElementById("btnSubmitRegistar").innerHTML = "Submeter";
+  if (row) {
+    document.getElementById("usernameRegistar").value = row.name;
+    document.getElementById("usernameRegistar").setAttribute('disabled','disabled');
+	document.getElementById("senhaRegistar").value = row.nin;
+    document.getElementById("senhaRegistar").setAttribute('disabled','disabled');
+    document.getElementById("emailRegistar").value = row.email;
+    document.getElementById("sectionRegistar").value = row.section;
+  } else {
+    document.getElementById("usernameRegistar").value = "";
+    document.getElementById("usernameRegistar").removeAttribute('disabled');
+	document.getElementById("senhaRegistar").value = "";
+    document.getElementById("senhaRegistar").removeAttribute('disabled');
+    document.getElementById("emailRegistar").value = "";
+    document.getElementById("sectionRegistar").value = "";
+  }
+  bsModalRegistar.show();
+}
 
 function chamaModalRegistar() {
   document.getElementById("btnSubmitRegistar").style.display = "block";
@@ -55,9 +77,30 @@ const btnModalDoc = document.getElementById("btnModalDoc");
 btnModalDoc.addEventListener("click", () => {
   chamaModalDoc();
 });
-function chamaModalDoc() {
+function chamaModalDoc (isEdit = false, row = undefined) {
   document.getElementById("btnSubmitstatDoc").style.display = "block";
-  document.getElementById("btnCancelaDoc").innerHTML = "Cancelar";
+  document.getElementById("btnSubmitstatDoc").onclick = () => {
+    inserirEstadoDocumento(isEdit);
+  };
+  document.getElementById("statusDoc").innerHTML = "";
+  document.getElementById("btnSubmitstatDoc").innerHTML = "Submeter";
+  if (row) {
+    document.getElementById("NINDoc").value = row.nin;
+    document.getElementById("NINDoc").setAttribute('disabled','disabled');
+    $('select[name=send]').val(row.send);
+    $('select[name=signature]').val(row.signature);
+    $('select[name=received]').val(row.received);
+  }	else {
+    document.getElementById("NINDoc").value = "";
+    document.getElementById("NINDoc").removeAttribute('disabled');
+    $('select[name=send]').val(-1);
+    $('select[name=signature]').val(-1);
+    $('select[name=received]').val(-1);
+  }
+  $('select[name=send]').change();
+  $('select[name=signature]').change(); 
+  $('select[name=received]').change(); 
+  
   bsModalDoc.show();
 }
 const bsModalDoc = new bootstrap.Modal(
@@ -110,10 +153,8 @@ function chamaModalPagEvent(isEdit = false, row = undefined) {
   document.getElementById("btnSubmitPagEvent").onclick = () => {
     inserirPagamentoEvento(isEdit);
   };
-
   document.getElementById("statusPagEvent").innerHTML = "";
   document.getElementById("btnSubmitPagEvent").innerHTML = "Submeter";
-
   if (row) {
     document.getElementById("NINEvento").value = row.nin;
     document.getElementById("NINEvento").setAttribute('disabled','disabled');
@@ -219,7 +260,7 @@ function insereRegisto(isEdit = false) {
           console.log(body.message);
           statEsp.innerHTML = body.message;
           document.getElementById("btnSubmitListaEspera").innerHTML = "Sucesso!";
-		  $('#table').bootstrapTable('refresh');
+          $('#table').bootstrapTable('refresh');
           $('#ModalEspera').modal('hide');													  
         }
       });
@@ -241,7 +282,7 @@ function inserirPagamentoEvento(isEdit = false) {
   let payment = document.getElementById("payment").value;
   let payment_status = document.getElementById("payment_status").value;
   const statPag = document.getElementById("statusPagEvent");
-  if (nin.length < 9) {
+  if (nin.length < 17) {
     document.getElementById("statusPagEvent").innerHTML =
       "O NIN tem de ter 17 caracteres";
     return;
@@ -281,7 +322,7 @@ function inserirPagamentoQuota(isEdit = false) {
   let payment = document.getElementById("paymentQuota").value;
   let payment_status = document.getElementById("payment_status_Quota").value;
   let school_year = document.getElementById("anoLec").value;
-  const statPag = document.getElementById("statusPagQuota");
+  const statPagQuota = document.getElementById("statusPagQuota");
   if (nin.length < 9) {
     document.getElementById("passErroNIF").innerHTML =
       "O NIN tem de ter 17 caracteres";
@@ -299,7 +340,7 @@ function inserirPagamentoQuota(isEdit = false) {
       return response.json().then((body) => {
         if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
-          statPag.innerHTML = body.message;
+          statPagQuota.innerHTML = body.message;
           document.getElementById("btnSubmitPagQuota").innerHTML = "Sucesso!";
           $('#table').bootstrapTable('refresh');
           $('#modalPagQuotas').modal('hide');																		  
@@ -317,30 +358,33 @@ function inserirPagamentoQuota(isEdit = false) {
 }
 
 
-function inserirEstadoDocumento() {
+function inserirEstadoDocumento(isEdit = false) {
   let nin = document.getElementById("NINDoc").value;
   let send = document.getElementById("send").value;
-  let assig = document.getElementById("assig").value;
+  let signature = document.getElementById("signature").value;
   let received = document.getElementById("received").value;
   const statDoc = document.getElementById("statusDoc");
-  if (nin.length < 9) {
-    document.getElementById("passErroNIF").innerHTML =
+  if (nin.length < 17) {
+    document.getElementById("statusDoc").innerHTML =
       "O NIN tem de ter 17 caracteres";
     return;
   }
-  fetch(`${urlBase}/inserirStatusDoc`, {
+  const url = urlBase + '/' + (isEdit ? "editDocumento" : "inserirStatusDoc");
+  fetch(url, {	  
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    method: "POST",
-    body: `nin=${nin}&send=${send}&assig=${assig}&received=${received}`,
+    method: isEdit ? "PUT" : "POST",
+    body: `nin=${nin}&send=${send}&signature=${signature}&received=${received}`,
   })
     .then((response) => {
       return response.json().then((body) => {
-        if (response.status == 201) {
+        if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
-          statPag.innerHTML = body.message;
+          statDoc.innerHTML = body.message;
           document.getElementById("btnSubmitstatDoc").innerHTML = "Sucesso!";
+          $('#table').bootstrapTable('refresh');
+          $('#modalStatDoc').modal('hide');																	 
         }
       });
     })
@@ -414,10 +458,10 @@ function insereEscuteiro() {
   let name2 = document.getElementById("name2").value;
   let parent2 = document.getElementById("parent2").value;
   let mobile2 = document.getElementById("mobile2").value;
-  if (nin.length < 5) {
+  if (nin.length < 17) {
     console.log("estamos a entrar na função")
     document.getElementById("passErroNIF").innerHTML =
-      "O NIN tem de ter 12 caracteres";
+      "O NIN tem de ter 17 caracteres";
     return;
   }
   fetch(`${urlBase}/insereEscuteiro`, {
@@ -614,15 +658,45 @@ async function listarEspera() {
 }
 
 
+function accoesFormatterDocumento (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+}
+
+window.eventAcoesDocumento = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalDoc(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteDocumento(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteDocumento(nin) {
+  fetch(`${urlBase}/deleteDocumento`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nin=${nin}`,
+  })
+}
+
 async function listarDocumentos() {
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemDocumentos/`,
     columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
+      events: eventAcoesDocumento,
+      field: 'acoes',
+      formatter: accoesFormatterDocumento,
+      title: 'Ações'
     }, {
       field: 'nin',
       title: 'NIN'
@@ -1515,15 +1589,45 @@ async function listarCaminheiros() {
   })
 }
 
+function accoesFormatterSecretario (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+}
+
+window.eventAcoesSecretario = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalRegistar(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteSecretario(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteSecretario(email) {
+  fetch(`${urlBase}/deleteSecretario`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `email=${email}`,
+  })
+}
+
 async function listarSecretarios() {
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemSecretario/`,
     columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
+      events: eventAcoesSecretario,
+      field: 'acoes',
+      formatter: accoesFormatterSecretario,
+      title: 'Ações'
     }, {
       field: 'email',
       title: 'Email'

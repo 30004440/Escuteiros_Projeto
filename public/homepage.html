@@ -131,7 +131,7 @@
             <button id="btnCancelaRegistar" class="btn btn-warning float-end" data-bs-dismiss="modal">
               Cancelar
             </button>
-            <button class="btn btn-success float-end" id="btnSubmitRegistar" onclick="validaRegisto()">
+            <button class="btn btn-success float-end" id="btnSubmitRegistar">
               Submeter
             </button>
           </div>
@@ -514,13 +514,13 @@
 
   <!-- Inserir Status Documentos -->
   <div class="modal fade" id="modalStatDoc" tabindex="-1" role="dialog" aria-labelledby="modalStatDoc"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Estado
-            Documentos</label>
-        </div>
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Estado
+          Documentos</label>
+      </div>
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">NIN</label>
@@ -529,15 +529,15 @@
           <div class="mb-3">
             <label for="send">Enviado</label><br>
             <select id="send" name="send">
-              <option value="" disabled selected>Selecionar Estado do Envio</option>
+              <option value="-1" disabled selected>Selecionar Estado do Envio</option>
               <option value="Enviado">Enviado</option>
               <option value="Não Enviado">Não Enviado</option>
             </select><br>
           </div>
           <div class="mb-3">
-            <label for="assig">Assinado</label><br>
-            <select id="assig" name="assig">
-              <option value="" disabled selected>Selecionar Estado da Assinatura</option>
+            <label for="signature">Assinado</label><br>
+            <select id="signature" name="signature">
+              <option value="-1" disabled selected>Selecionar Estado da Assinatura</option>
               <option value="Assinado">Assinado</option>
               <option value="Não Assinado">Não Assinado</option>
             </select><br>
@@ -553,7 +553,7 @@
           <div>
             <p id="statusDoc"></p>
           </div><br>
-          <button class="btn btn-success float-end" id="btnSubmitstatDoc" onclick="inserirEstadoDocumento()">
+          <button class="btn btn-success float-end" id="btnSubmitstatDoc">
             Submeter
           </button>
           <button id="btnCancelaDoc" class="btn btn-warning float-end" data-bs-dismiss="modal">

@@ -55,11 +55,11 @@ module.exports = app => {
   // Lista o status dos documentos
   router.get("/listagemDocumentos/", controlador.listaDocumentos);
 
-  // // Editar Documento
-  // router.put("/editDocumento", controlador.editDocumento);
+  // Editar Documento
+  router.put("/editDocumento", controlador.EditDocumento);
 
-  // // Apagar Documento
-  // router.delete("/deleteDocumento", controlador.DeleteDocumento);
+  // Apagar Documento
+  router.delete("/deleteDocumento", controlador.DeleteDocumento);
 
 ///////////////////////////////////////////////////////////////////////////////////
   // Inserir um associado ao agrupamento
@@ -107,12 +107,11 @@ module.exports = app => {
   // Lista os Secretários
   router.get("/listagemSecretario/", controlador.listaSecretario);
 
+  // Editar Secretário
+  router.put("/editSecretario", controlador.editSecretario);
 
-  // // Editar Secretário
-  // router.put("/editSecretario", controlador.editSecretario);
-
-  // // Apagar Secretário
-  // router.delete("/deleteSecretario", controlador.DeleteSecretario);
+  // Apagar Secretário
+  router.delete("/deleteSecretario", controlador.DeleteSecretario);
 
 
   ///////////////////////////////////////////////////////////////////////////////////

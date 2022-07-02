@@ -310,10 +310,10 @@ exports.inserirStatusDoc = async (req, res) => {
   }
   const nin = req.body.nin;
   const send = req.body.send;
-  const assig = req.body.assig;
+  const signature = req.body.signature;
   const received = req.body.received;
   dbmySQL
-    .Crud_inserirStatusDoc(nin, send, assig, received)
+    .Crud_inserirStatusDoc(nin, send, signature, received)
     .then((dados) => {
       res.status(201).send({
         message:
@@ -738,6 +738,117 @@ exports.EditEspera = async (req, res) => {
     })
     .catch((response) => {
       console.log("o erro está a edição da lista da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+
+
+exports.DeleteDocumento = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  dbmySQL
+    .cRud_DeleteDoc(nin)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Estado do documento apagado com sucesso.",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está na remoção do documento da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+exports.EditDocumento = async (req, res) => {
+  console.log("Editar Estado do Documento");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const nin = req.body.nin;
+  const send = req.body.send;
+  const signature = req.body.signature;
+  const received = req.body.received;
+  dbmySQL
+    .Crud_EditarDoc(nin, send, signature, received)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Estado do Documento editado com sucesso",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está a edição do estado do documento da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+
+
+
+
+
+exports.DeleteSecretario = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const email = req.body.email;
+  dbmySQL
+    .cRud_DeleteEvento(email)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Secratário apagado com sucesso.",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está na remoção do secretario da bd")
+      console.log(response);
+      return res.status(400).send({
+        message: JSON.stringify(response),
+      });
+    });
+};
+
+exports.editSecretario = async (req, res) => {
+  console.log("Editar Secretario");
+  if (!req.body) {
+    return res.status(400).send({
+      message: "O conteúdo não pode ser vazio!",
+    });
+  }
+  const email = req.body.email; 
+  const password = hashPassword;
+  const nome = req.body.name;
+  const section = req.body.section;
+  dbmySQL
+    .Crud_EditarEvento(email,password,name,section)
+    .then(() => {
+      res.status(200).send({
+        message:
+          "Secretario editado com sucesso",
+      });
+    })
+    .catch((response) => {
+      console.log("o erro está a edição do evento da bd")
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
