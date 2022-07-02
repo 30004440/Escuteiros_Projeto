@@ -69,38 +69,38 @@ module.exports = app => {
   // Lista os Lobitos
   router.get("/listagemLobitos/", controlador.listaLobitos);
 
-  // // Editar Lobito
-  // router.put("/editLobito", controlador.editLobito);
+  // Editar Lobito
+  router.put("/editLobito", controlador.editEscuteiro);
 
-  // // Apagar Lobito
-  // router.delete("/deleteLobito", controlador.DeleteLobito);
+  // Apagar Lobito
+  router.delete("/deleteLobito", controlador.DeleteEscuteiro);
 
   // Lista os Explorador
   router.get("/listagemExploradores/", controlador.listaExploradores);
 
-  // // Editar Explorador
-  // router.put("/editExplorador", controlador.editExplorador);
+  // Editar Explorador
+  router.put("/editExplorador", controlador.editEscuteiro);
 
-  // // Apagar Explorador
-  // router.delete("/deleteExplorador", controlador.DeleteExplorador);
+  // Apagar Explorador
+  router.delete("/deleteExplorador", controlador.DeleteEscuteiro);
   
   // Lista os Pioneiros
   router.get("/listagemPioneiros/", controlador.listaPioneiros);
 
-  // // Editar Pioneiro
-  // router.put("/editPioneiro", controlador.editPioneiro);
+  // Editar Pioneiro
+  router.put("/editPioneiro", controlador.editEscuteiro);
 
-  // // Apagar Pioneiro
-  // router.delete("/deletePioneiro", controlador.DeletePioneiro);
+  // Apagar Pioneiro
+  router.delete("/deletePioneiro", controlador.DeleteEscuteiro);
     
   // Lista os Caminheiros
   router.get("/listagemCaminheiros/", controlador.listaCaminheiros);
 
-  // // Editar Caminheiro
-  // router.put("/editCaminheiro", controlador.editCaminheiro);
+  // Editar Caminheiro
+  router.put("/editCaminheiro", controlador.editEscuteiro);
 
-  // // Apagar Caminheiro
-  // router.delete("/deleteCaminheiro", controlador.DeleteCaminheiro);
+  // Apagar Caminheiro
+  router.delete("/deleteCaminheiro", controlador.DeleteEscuteiro);
 
 
 ///////////////////////////////////////////////////////////////////////////////////

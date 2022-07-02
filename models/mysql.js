@@ -150,8 +150,6 @@ exports.cRud_allListaEspera = (nif) => {
   });
 };
 
-
-
 exports.cRud_findAllAssociados = (section) => {
   return new Promise((resolve, reject) => {
     // lê todos os registos
@@ -321,7 +319,7 @@ exports.cRud_findAllDocs = () => {
 // };
 
 
-exports.Crud_inserirPagamentoEvento = (nin, event, payment, payment_status) => {
+exports.Crud_inserirPagamentoEvento = (nin, event, payment, payment_status, valueEvent) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
@@ -329,11 +327,12 @@ exports.Crud_inserirPagamentoEvento = (nin, event, payment, payment_status) => {
       nin: nin,
       event: event,
       payment: payment,
-      payment_status: payment_status
+      payment_status: payment_status,
+      valueEvent: valueEvent
     };
     query(
-      "INSERT INTO events (nin, event, payment, payment_status) values (?,?,?,?)",
-      [data.nin, data.event, data.payment, data.payment_status]
+      "INSERT INTO events (nin, event, payment, payment_status, valueEvent) values (?,?,?,?,?)",
+      [data.nin, data.event, data.payment, data.payment_status, data.valueEvent]
     )
       .then((result) => {
         console.log(data);
@@ -539,18 +538,19 @@ exports.cRud_DeleteEvento = (nin) => {
   });
 };
 
-exports.Crud_EditarEvento = (nin, event, payment, payment_status) => {
+exports.Crud_EditarEvento = (nin, event, payment, payment_status, valueEvent) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
       nin: nin,
       event: event,
       payment: payment,
-      payment_status: payment_status
+      payment_status: payment_status, 
+      valueEvent: valueEvent
     };
     query(
-      "UPDATE events set event = ?, payment = ?, payment_status = ? where nin = ?",
-      [data.event, data.payment, data.payment_status, data.nin]
+      "UPDATE events set event = ?, payment = ?, payment_status = ? valueEvent = ? where nin = ?",
+      [data.event, data.payment, data.payment_status, data.valueEvent, data.nin]
     )
       .then((result) => {
         console.log(data);
@@ -698,22 +698,113 @@ exports.cRud_DeleteSecretario = (email) => {
   });
 };
 
-exports.Crud_EditarSecretario = (email, section) => {
+exports.Crud_EditarSecretario = (email, password, nome, section) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
       email: email,
-      section: section
+      password: password,
+      name: nome,
+      section: section,
     };
     query(
-      "UPDATE secretagrup set section = ? where email = ?",
-      [data.section, data.email]
+      "UPDATE secretagrup set section = ?, email = ?, name = ? where email = ?",
+      [data.email,data.password,data.name,data.section]
     )
       .then((result) => {
         console.log(data);
         console.log(result);
         if (result.affectedRows != 1)
-          reject("Model: Problema na edição de quota");
+          reject("Model: Problema na edição do secretário");
+        else resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+    }
+)};
+
+
+
+exports.cRud_DeleteEscuteiro = (nin) => {
+  return new Promise((resolve, reject) => {
+    query("DELETE FROM associados WHERE nin=?", [nin] )
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.Crud_EditarEscuteiro = (nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
+  console.log("entrou no mysql")
+  return new Promise((resolve, reject) => {
+    data = {
+      nin : nin,
+      admissiondate : admissiondate,
+      section : section,
+      name : name,
+      citizencard : citizencard,
+      personsex : personsex,
+      nif : nif,
+      birthdate : birthdate,
+      nationality : nationality,
+      naturalness : naturalness,
+      address : address,
+      vilage : vilage,
+      zipcode : zipcode,
+      city : city,
+      district : district,
+      mobilephone : mobilephone,
+      phone : phone,
+      email : email,
+      school : school,
+      profession : profession,
+      fathername : fathername,
+      fatherprofession : fatherprofession,
+      fathermobilephone : fathermobilephone,
+      fatheremail : fatheremail,
+      mothername : mothername,
+      motherprofession : motherprofession,
+      mothermobilephone : mothermobilephone,
+      motheremail : motheremail,
+      sponsername : sponsername,
+      sponserprofession : sponserprofession,
+      sponsermobilephone : sponsermobilephone,
+      sponsoremail : sponsoremail,
+      healthnumber : healthnumber,
+      allergies : allergies,
+      description_allergies : description_allergies,
+      regular_medication : regular_medication,
+      dietary_restrictions : dietary_restrictions,
+      other_health_problems : other_health_problems,
+      data_processing : data_processing,
+      health_data : health_data,
+      data_voice_image : data_voice_image,
+      social_networks__educating : social_networks__educating,
+      email_educating : email_educating,
+      collective_transport : collective_transport,
+      data_sharing : data_sharing,
+      all_health_data : all_health_data,
+      name1 : name1,
+      parent1 : parent1,
+      mobile1 : mobile1,
+      name2 : name2,
+      parent2 : parent2,
+      mobile2 : mobile2,
+    };
+    query(
+      "UPDATE statusdocument set section = ?, name = ?, citizencard = ?, personsex = ?, nif = ?, birthdate = ?, nationality = ?, naturalness = ?, address = ?, vilage = ?, zipcode = ?, city = ?, district = ?, mobilephone = ?, phone = ?, email = ?, school = ?, profession = ?, fathername = ?, fatherprofession = ?, fathermobilephone = ?, fatheremail = ?, mothername = ?, motherprofession = ?, mothermobilephone = ?, motheremail = ?, sponsername = ?, sponserprofession = ?, sponsermobilephone = ?, sponsoremail = ?, healthnumber = ?, allergies = ?, description_allergies = ?, regular_medication = ?, dietary_restrictions = ?, other_health_problems = ?, data_processing = ?, health_data = ?, data_voice_image = ?, social_networks__educating = ?, email_educating = ?, collective_transport = ?, data_sharing = ?, all_health_data = ?, name1 = ?, parent1 = ?, mobile1 = ?, name2 = ?, parent2 = ?, mobile2 = ? where nin = ?",
+      [data.nin, data.admissiondate, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2]
+    )
+      .then((result) => {
+        console.log(data);
+        console.log(result);
+        if (result.affectedRows != 1)
+          reject("Model: Problema na edição de um escuteiro");
         else resolve(result);
       })
       .catch((error) => {

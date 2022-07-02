@@ -160,12 +160,14 @@ function chamaModalPagEvent(isEdit = false, row = undefined) {
     document.getElementById("NINEvento").setAttribute('disabled','disabled');
     document.getElementById("event").value = row.event;
     document.getElementById("payment").value = row.payment;
+    document.getElementById("valueEvent").value = row.valueEvent
     $('select[name=payment_status]').val(row.payment_status);
   } else {
     document.getElementById("NINEvento").value = "";
     document.getElementById("NINEvento").removeAttribute('disabled');
     document.getElementById("event").value = "";
     document.getElementById("payment").value = "";
+    document.getElementById("valueEvent").value = "";
     $('select[name=payment_status]').val(-1);
   }
   $('select[name=payment_status]').change();
@@ -182,11 +184,147 @@ const btnModalInsAss = document.getElementById("btnModalInsAss");
 btnModalInsAss.addEventListener("click", () => {
   chamaModalInsAss();
 });
-function chamaModalInsAss() {
+function chamaModalInsAss(isEdit = false, row = undefined) {
   document.getElementById("btnSubmitAssocciao").style.display = "block";
-  document.getElementById("btnCancelarAssociacao").innerHTML = "Cancelar";
+  document.getElementById("btnSubmitAssocciao").onclick = () => {
+    insereEscuteiro(isEdit);
+  };
+  document.getElementById("statusInserirEscuteiro").innerHTML = "";
+  document.getElementById("btnSubmitAssocciao").innerHTML = "Submeter";
+  if (row) {
+    document.getElementById("nin").value = row.nin;
+    document.getElementById("nin").setAttribute('disabled','disabled');
+    document.getElementById("admissiondate").value = row.admissiondate;
+    document.getElementById("admissiondate").setAttribute('disabled','disabled');
+	  document.getElementById("name").value = row.name;
+	  document.getElementById("citizencard").value = row.citizencard;
+  	document.getElementById("nif").value = row.nif;
+	  document.getElementById("birthdate").value = row.birthdate;
+	  document.getElementById("nationality").value = row.nationality;
+	  document.getElementById("naturalness").value = row.naturalness;
+	  document.getElementById("address").value = row.address;
+	  document.getElementById("vilage").value = row.vilage;
+	  document.getElementById("zipcode").value = row.zipcode;
+	  document.getElementById("city").value = row.city;
+	  document.getElementById("district").value = row.district;
+	  document.getElementById("mobilephone").value = row.mobilephone;
+	  document.getElementById("phone").value = row.phone;
+	  document.getElementById("email").value = row.email;
+	  document.getElementById("profession").value = row.profession;
+	  document.getElementById("fathername").value = row.fathername;
+	  document.getElementById("fatherprofession").value = row.fatherprofession;
+	  document.getElementById("fathermobilephone").value = row.fathermobilephone;
+	  document.getElementById("fatheremail").value = row.fatheremail;
+	  document.getElementById("mothername").value = row.mothername;
+	  document.getElementById("motherprofession").value = row.motherprofession;
+	  document.getElementById("mothermobilephone").value = row.mothermobilephone;
+  	document.getElementById("motheremail").value = row.motheremail;
+	  document.getElementById("sponsername").value = row.sponsername;
+	  document.getElementById("sponserprofession").value = row.sponserprofession;
+  	document.getElementById("sponsermobilephone").value = row.sponsermobilephone;
+	  document.getElementById("sponsoremail").value = row.sponsoremail;
+  	document.getElementById("healthnumber").value = row.healthnumber;
+  	document.getElementById("asma").value = row.asma;
+  	document.getElementById("epilepsia").value = row.epilepsia;
+  	document.getElementById("diabetes").value = row.diabetes;
+  	document.getElementById("alergias").value = row.alergias;
+  	document.getElementById("description_allergies").value = row.description_allergies;
+  	document.getElementById("regular_medication").value = row.regular_medication;
+  	document.getElementById("dietary_restrictions").value = row.dietary_restrictions;
+  	document.getElementById("other_health_problems").value = row.other_health_problems;
+  	document.getElementById("name1").value = row.name1;
+  	document.getElementById("parent1").value = row.parent1;
+  	document.getElementById("mobile1").value = row.mobile1;
+	  document.getElementById("name2").value = row.name2;
+	  document.getElementById("parent2").value = row.parent2;
+	  document.getElementById("mobile2").value = row.mobile2;
+    $('select[name=section]').val(row.section);
+  	$('select[name=personsex]').val(row.personsex);
+  	$('select[name=school]').val(row.school);
+	  $('select[name=data_processing]').val(row.data_processing);
+	  $('select[name=health_data]').val(row.health_data);
+   	$('select[name=data_voice_image]').val(row.data_voice_image);
+  	$('select[name=social_networks__educating]').val(row.social_networks__educating);
+  	$('select[name=email_educating]').val(row.email_educating);
+  	$('select[name=collective_transport]').val(row.collective_transport);
+	  $('select[name=data_sharing]').val(row.data_sharing);
+  	$('select[name=all_health_data]').val(row.all_health_data);
+  }	else {
+    document.getElementById("nin").value = "";
+    document.getElementById("nin").removeAttribute('disabled');
+	  document.getElementById("admissiondate").value = "";
+    document.getElementById("admissiondate").removeAttribute('disabled');
+  	document.getElementById("section").value = "";
+  	document.getElementById("name").value = "";
+  	document.getElementById("citizencard").value = "";
+		document.getElementById("name").value = "";
+  	document.getElementById("citizencard").value = "";
+	  document.getElementById("nif").value = "";
+  	document.getElementById("birthdate").value = "";
+	  document.getElementById("nationality").value = "";
+  	document.getElementById("naturalness").value = "";
+	  document.getElementById("address").value = "";
+  	document.getElementById("vilage").value = "";
+	  document.getElementById("zipcode").value = "";
+  	document.getElementById("city").value = "";
+	  document.getElementById("district").value = "";
+  	document.getElementById("mobilephone").value = "";
+	  document.getElementById("phone").value = "";
+  	document.getElementById("email").value = "";
+	  document.getElementById("profession").value = "";
+  	document.getElementById("fathername").value = "";
+	  document.getElementById("fatherprofession").value = "";
+  	document.getElementById("fathermobilephone").value = "";
+	  document.getElementById("fatheremail").value = "";
+  	document.getElementById("mothername").value = "";
+	  document.getElementById("motherprofession").value = "";
+  	document.getElementById("mothermobilephone").value = "";
+	  document.getElementById("motheremail").value = "";
+  	document.getElementById("sponsername").value = "";
+	  document.getElementById("sponserprofession").value = "";
+  	document.getElementById("sponsermobilephone").value = "";
+	  document.getElementById("sponsoremail").value = "";
+	  document.getElementById("healthnumber").value = "";
+	  document.getElementById("asma").value = "";
+  	document.getElementById("epilepsia").value = "";
+	  document.getElementById("diabetes").value = "";
+  	document.getElementById("alergias").value = "";
+	  document.getElementById("description_allergies").value = "";
+  	document.getElementById("regular_medication").value = "";
+	  document.getElementById("dietary_restrictions").value = "";
+  	document.getElementById("other_health_problems").value = "";
+	  document.getElementById("name1").value = "";
+  	document.getElementById("parent1").value = "";
+	  document.getElementById("mobile1").value = "";
+  	document.getElementById("name2").value = "";
+	  document.getElementById("parent2").value = "";
+  	document.getElementById("mobile2").value = "";
+    $('select[name=section]').val(-1);
+  	$('select[name=personsex]').val(-1);
+  	$('select[name=school]').val(-1);
+	  $('select[name=data_processing]').val(-1);
+  	$('select[name=health_data]').val(-1);
+	  $('select[name=data_voice_image]').val(-1);
+  	$('select[name=social_networks__educating]').val(-1);
+	  $('select[name=email_educating]').val(-1);
+  	$('select[name=collective_transport]').val(-1);
+	  $('select[name=data_sharing]').val(-1);
+  	$('select[name=all_health_data]').val(-1);
+  }
+    $('select[name=section]').change();	
+	  $('select[name=personsex]').change();	
+	  $('select[name=school]').change();	
+	  $('select[name=data_processing]').change();	
+  	$('select[name=health_data]').change();	
+	  $('select[name=data_voice_image]').change();	
+  	$('select[name=social_networks__educating]').change();	
+	  $('select[name=email_educating]').change();	
+  	$('select[name=collective_transport]').change();	
+	  $('select[name=data_sharing]').change();	
+	  $('select[name=all_health_data]').change();	
+
   bsModalInsAss.show();
-}
+} 
 const bsModalInsAss = new bootstrap.Modal(
   area,
   (backdrop = "static")
@@ -204,23 +342,22 @@ function validaRegisto() {
       "A password tem de ter ao menos 4 carateres";
     return;
   }
-  fetch(`${urlBase}/registar`, {
+  const url = urlBase + '/' + (isEdit ? "editSecretario" : "registar");
+  fetch(url, {		  
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    method: "POST",
+    method: isEdit ? "PUT" : "POST",
     body: `email=${email}&password=${senha}&name=${nome}&section=${section}`,
   })
     .then((response) => {
       return response.json().then((body) => {
-        if (response.status == 201) {
+        if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
           statReg.innerHTML = body.message;
-          document.getElementById("btnSubmitRegistar").style.display = "none";
-          document.getElementById("btnCancelaRegistar").innerHTML =
-            "Fechar este diálogo";
-        } else {
-          throw body;
+          document.getElementById("btnSubmitRegistar").innerHTML = "Sucesso!";
+          $('#table').bootstrapTable('refresh');
+          $('#modalRegistar').modal('hide');
         }
       });
     })
@@ -281,6 +418,7 @@ function inserirPagamentoEvento(isEdit = false) {
   let event = document.getElementById("event").value;
   let payment = document.getElementById("payment").value;
   let payment_status = document.getElementById("payment_status").value;
+  let valueEvent = document.getElementById("valueEvent").value;
   const statPag = document.getElementById("statusPagEvent");
   if (nin.length < 17) {
     document.getElementById("statusPagEvent").innerHTML =
@@ -293,7 +431,7 @@ function inserirPagamentoEvento(isEdit = false) {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: isEdit ? "PUT" : "POST",
-    body: `nin=${nin}&event=${event}&payment=${payment}&payment_status=${payment_status}`,
+    body: `nin=${nin}&event=${event}&payment=${payment}&payment_status=${payment_status}&valueEvent=${valueEvent}`,
   })
     .then((response) => {
       return response.json().then((body) => {
@@ -468,7 +606,7 @@ function insereEscuteiro() {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    method: "POST",
+    method: isEdit ? "PUT" : "POST",
     body: `nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdate=${birthdate}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
   })
     .then((response) => {
@@ -542,6 +680,9 @@ async function listarEventos() {
     }, {
       field: 'payment_status',
       title: 'Estado do Pagamento'
+    }, {
+      field: 'valueEvent',
+      title: 'Valor Total do Evento'
     }]
   })
 }
@@ -713,883 +854,7 @@ async function listarDocumentos() {
   })
 }
 
-async function listarLobitos() {
-  $('#table').bootstrapTable({
-    url: `${urlBase}/listagemLobitos/`,
-    columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
-    },{
-        field: 'nin',
-        title: 'NIN'
-      }, {
-        field: 'admission',
-        title: 'Data Admissão'
-      }, {
-        field: 'section',
-        title: 'Secção'
-      },
-      {
-        field: 'name',
-        title: 'Nome'
-      },
-      {
-        field: 'citizencard',
-        title: 'CC'
-      },
-      {
-        field: 'personsex',
-        title: 'Genero'
-      },
-      {
-        field: 'nif',
-        title: 'NIF'
-      },
-      {
-        field: 'birth',
-        title: 'Data de Nascimento'
-      },
-      {
-        field: 'nationality',
-        title: 'Nacionalidade'
-      },
-      {
-        field: 'naturalness',
-        title: 'Naturalidade'
-      },
-      {
-        field: 'address',
-        title: 'Morada'
-      },
-      {
-        field: 'vilage',
-        title: 'Localidade'
-      },
-      {
-        field: 'zipcode',
-        title: 'Codigo-Postal'
-      },
-      {
-        field: 'city',
-        title: 'Concelho'
-      },
-      {
-        field: 'district',
-        title: 'Distrito'
-      },
-      {
-        field: 'mobilephone',
-        title: 'Telemóvel'
-      },
-      {
-        field: 'phone',
-        title: 'Telefone'
-      },
-      {
-        field: 'email',
-        title: 'Email'
-      },
-      {
-        field: 'school',
-        title: 'Habilitações'
-      },
-      {
-        field: 'profession',
-        title: 'Profissão'
-      },
-      {
-        field: 'fathername',
-        title: 'Nome do Pai'
-      },
-      {
-        field: 'fatherprofession',
-        title: 'Profissão do Pai'
-      },
-      {
-        field: 'fathermobilephone',
-        title: 'Telemóvel do Pai'
-      },
-      {
-        field: 'fatheremail',
-        title: 'Email do Pai'
-      },
-      {
-        field: 'mothername',
-        title: 'Nome da Mãe'
-      },
-      {
-        field: 'motherprofession',
-        title: 'Profissão da Mãe'
-      },
-      {
-        field: 'mothermobilephone',
-        title: 'Telemóvel da Mãe'
-      },
-      {
-        field: 'motheremail',
-        title: 'Email da Mãe'
-      },
-      {
-        field: 'sponsername',
-        title: 'Nome Enc. Educação'
-      },
-      {
-        field: 'sponserprofession',
-        title: 'Profissão Enc. Educação'
-      },
-      {
-        field: 'sponsermobilephone',
-        title: 'Telemóvel Enc. Educação'
-      },
-      {
-        field: 'sponsoremail',
-        title: 'Email Enc. Educação'
-      },
-      {
-        field: 'healthnumber',
-        title: 'Nº Utente'
-      },
-      {
-        field: 'allergies',
-        title: 'Alergias'
-      },
-      {
-        field: 'description_allergies',
-        title: 'Descrição Alergias'
-      },
-      {
-        field: 'regular_medication',
-        title: 'Medicação Regular'
-      },
-      {
-        field: 'dietary_restrictions',
-        title: 'Restrições Alimentares'
-      },
-      {
-        field: 'other_health_problems',
-        title: 'Outros Problemas de Saúde'
-      },
-      {
-        field: 'data_processing',
-        title: 'Consentimento Tratamento Dados'
-      },
-      {
-        field: 'health_data',
-        title: 'Consentimento Saúde'
-      },
-      {
-        field: 'data_voice_image',
-        title: 'Consentimento Voz e/ou Imagem'
-      },
-      {
-        field: 'social_networks__educating',
-        title: 'Consentimento Redes Sociais'
-      },
-      {
-        field: 'email_educating',
-        title: 'Consentimento Email'
-      },
-      {
-        field: 'collective_transport',
-        title: 'Consentimento Transporte'
-      },
-      {
-        field: 'data_sharing',
-        title: 'Consentimento CPP'
-      },
-      {
-        field: 'all_health_data',
-        title: 'Consentimento Total'
-      },
-      {
-        field: 'name1',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent1',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile1',
-        title: 'Telemóvel Emergencia'
-      },
-      {
-        field: 'name2',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent2',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile2',
-        title: 'Telemóvel Emergencia'
-      }
-    ]
-  })
-}
-
-async function listarExploradores() {
-  $('#table').bootstrapTable({
-    url: `${urlBase}/listagemExploradores/`,
-    columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
-    }, {
-        field: 'nin',
-        title: 'NIN'
-      }, {
-        field: 'admission',
-        title: 'Data Admissão'
-      }, {
-        field: 'section',
-        title: 'Secção'
-      },
-      {
-        field: 'name',
-        title: 'Nome'
-      },
-      {
-        field: 'citizencard',
-        title: 'CC'
-      },
-      {
-        field: 'personsex',
-        title: 'Genero'
-      },
-      {
-        field: 'nif',
-        title: 'NIF'
-      },
-      {
-        field: 'birth',
-        title: 'Data de Nascimento'
-      },
-      {
-        field: 'nationality',
-        title: 'Nacionalidade'
-      },
-      {
-        field: 'naturalness',
-        title: 'Naturalidade'
-      },
-      {
-        field: 'address',
-        title: 'Morada'
-      },
-      {
-        field: 'vilage',
-        title: 'Localidade'
-      },
-      {
-        field: 'zipcode',
-        title: 'Codigo-Postal'
-      },
-      {
-        field: 'city',
-        title: 'Concelho'
-      },
-      {
-        field: 'district',
-        title: 'Distrito'
-      },
-      {
-        field: 'mobilephone',
-        title: 'Telemóvel'
-      },
-      {
-        field: 'phone',
-        title: 'Telefone'
-      },
-      {
-        field: 'email',
-        title: 'Email'
-      },
-      {
-        field: 'school',
-        title: 'Habilitações'
-      },
-      {
-        field: 'profession',
-        title: 'Profissão'
-      },
-      {
-        field: 'fathername',
-        title: 'Nome do Pai'
-      },
-      {
-        field: 'fatherprofession',
-        title: 'Profissão do Pai'
-      },
-      {
-        field: 'fathermobilephone',
-        title: 'Telemóvel do Pai'
-      },
-      {
-        field: 'fatheremail',
-        title: 'Email do Pai'
-      },
-      {
-        field: 'mothername',
-        title: 'Nome da Mãe'
-      },
-      {
-        field: 'motherprofession',
-        title: 'Profissão da Mãe'
-      },
-      {
-        field: 'mothermobilephone',
-        title: 'Telemóvel da Mãe'
-      },
-      {
-        field: 'motheremail',
-        title: 'Email da Mãe'
-      },
-      {
-        field: 'sponsername',
-        title: 'Nome Enc. Educação'
-      },
-      {
-        field: 'sponserprofession',
-        title: 'Profissão Enc. Educação'
-      },
-      {
-        field: 'sponsermobilephone',
-        title: 'Telemóvel Enc. Educação'
-      },
-      {
-        field: 'sponsoremail',
-        title: 'Email Enc. Educação'
-      },
-      {
-        field: 'healthnumber',
-        title: 'Nº Utente'
-      },
-      {
-        field: 'allergies',
-        title: 'Alergias'
-      },
-      {
-        field: 'description_allergies',
-        title: 'Descrição Alergias'
-      },
-      {
-        field: 'regular_medication',
-        title: 'Medicação Regular'
-      },
-      {
-        field: 'dietary_restrictions',
-        title: 'Restrições Alimentares'
-      },
-      {
-        field: 'other_health_problems',
-        title: 'Outros Problemas de Saúde'
-      },
-      {
-        field: 'data_processing',
-        title: 'Consentimento Tratamento Dados'
-      },
-      {
-        field: 'health_data',
-        title: 'Consentimento Saúde'
-      },
-      {
-        field: 'data_voice_image',
-        title: 'Consentimento Voz e/ou Imagem'
-      },
-      {
-        field: 'social_networks__educating',
-        title: 'Consentimento Redes Sociais'
-      },
-      {
-        field: 'email_educating',
-        title: 'Consentimento Email'
-      },
-      {
-        field: 'collective_transport',
-        title: 'Consentimento Transporte'
-      },
-      {
-        field: 'data_sharing',
-        title: 'Consentimento CPP'
-      },
-      {
-        field: 'all_health_data',
-        title: 'Consentimento Total'
-      },
-      {
-        field: 'name1',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent1',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile1',
-        title: 'Telemóvel Emergencia'
-      },
-      {
-        field: 'name2',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent2',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile2',
-        title: 'Telemóvel Emergencia'
-      }
-    ]
-  })
-}
-
-async function listarPioneiros() {
-  $('#table').bootstrapTable({
-    url: `${urlBase}/listagemPioneiros/`,
-    columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
-    }, {
-        field: 'nin',
-        title: 'NIN'
-      }, {
-        field: 'admission',
-        title: 'Data Admissão'
-      }, {
-        field: 'section',
-        title: 'Secção'
-      },
-      {
-        field: 'name',
-        title: 'Nome'
-      },
-      {
-        field: 'citizencard',
-        title: 'CC'
-      },
-      {
-        field: 'personsex',
-        title: 'Genero'
-      },
-      {
-        field: 'nif',
-        title: 'NIF'
-      },
-      {
-        field: 'birth',
-        title: 'Data de Nascimento'
-      },
-      {
-        field: 'nationality',
-        title: 'Nacionalidade'
-      },
-      {
-        field: 'naturalness',
-        title: 'Naturalidade'
-      },
-      {
-        field: 'address',
-        title: 'Morada'
-      },
-      {
-        field: 'vilage',
-        title: 'Localidade'
-      },
-      {
-        field: 'zipcode',
-        title: 'Codigo-Postal'
-      },
-      {
-        field: 'city',
-        title: 'Concelho'
-      },
-      {
-        field: 'district',
-        title: 'Distrito'
-      },
-      {
-        field: 'mobilephone',
-        title: 'Telemóvel'
-      },
-      {
-        field: 'phone',
-        title: 'Telefone'
-      },
-      {
-        field: 'email',
-        title: 'Email'
-      },
-      {
-        field: 'school',
-        title: 'Habilitações'
-      },
-      {
-        field: 'profession',
-        title: 'Profissão'
-      },
-      {
-        field: 'fathername',
-        title: 'Nome do Pai'
-      },
-      {
-        field: 'fatherprofession',
-        title: 'Profissão do Pai'
-      },
-      {
-        field: 'fathermobilephone',
-        title: 'Telemóvel do Pai'
-      },
-      {
-        field: 'fatheremail',
-        title: 'Email do Pai'
-      },
-      {
-        field: 'mothername',
-        title: 'Nome da Mãe'
-      },
-      {
-        field: 'motherprofession',
-        title: 'Profissão da Mãe'
-      },
-      {
-        field: 'mothermobilephone',
-        title: 'Telemóvel da Mãe'
-      },
-      {
-        field: 'motheremail',
-        title: 'Email da Mãe'
-      },
-      {
-        field: 'sponsername',
-        title: 'Nome Enc. Educação'
-      },
-      {
-        field: 'sponserprofession',
-        title: 'Profissão Enc. Educação'
-      },
-      {
-        field: 'sponsermobilephone',
-        title: 'Telemóvel Enc. Educação'
-      },
-      {
-        field: 'sponsoremail',
-        title: 'Email Enc. Educação'
-      },
-      {
-        field: 'healthnumber',
-        title: 'Nº Utente'
-      },
-      {
-        field: 'allergies',
-        title: 'Alergias'
-      },
-      {
-        field: 'description_allergies',
-        title: 'Descrição Alergias'
-      },
-      {
-        field: 'regular_medication',
-        title: 'Medicação Regular'
-      },
-      {
-        field: 'dietary_restrictions',
-        title: 'Restrições Alimentares'
-      },
-      {
-        field: 'other_health_problems',
-        title: 'Outros Problemas de Saúde'
-      },
-      {
-        field: 'data_processing',
-        title: 'Consentimento Tratamento Dados'
-      },
-      {
-        field: 'health_data',
-        title: 'Consentimento Saúde'
-      },
-      {
-        field: 'data_voice_image',
-        title: 'Consentimento Voz e/ou Imagem'
-      },
-      {
-        field: 'social_networks__educating',
-        title: 'Consentimento Redes Sociais'
-      },
-      {
-        field: 'email_educating',
-        title: 'Consentimento Email'
-      },
-      {
-        field: 'collective_transport',
-        title: 'Consentimento Transporte'
-      },
-      {
-        field: 'data_sharing',
-        title: 'Consentimento CPP'
-      },
-      {
-        field: 'all_health_data',
-        title: 'Consentimento Total'
-      },
-      {
-        field: 'name1',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent1',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile1',
-        title: 'Telemóvel Emergencia'
-      },
-      {
-        field: 'name2',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent2',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile2',
-        title: 'Telemóvel Emergencia'
-      }
-    ]
-  })
-}
-
-async function listarCaminheiros() {
-  $('#table').bootstrapTable({
-    url: `${urlBase}/listagemCaminheiros/`,
-    columns: [{
-      field: '----',
-      title: 'Editar'
-    }, {
-      field: '----',
-      title: 'Apagar'
-    }, {
-        field: 'nin',
-        title: 'NIN'
-      }, {
-        field: 'admission',
-        title: 'Data Admissão'
-      }, {
-        field: 'section',
-        title: 'Secção'
-      },
-      {
-        field: 'name',
-        title: 'Nome'
-      },
-      {
-        field: 'citizencard',
-        title: 'CC'
-      },
-      {
-        field: 'personsex',
-        title: 'Genero'
-      },
-      {
-        field: 'nif',
-        title: 'NIF'
-      },
-      {
-        field: 'birth',
-        title: 'Data de Nascimento'
-      },
-      {
-        field: 'nationality',
-        title: 'Nacionalidade'
-      },
-      {
-        field: 'naturalness',
-        title: 'Naturalidade'
-      },
-      {
-        field: 'address',
-        title: 'Morada'
-      },
-      {
-        field: 'vilage',
-        title: 'Localidade'
-      },
-      {
-        field: 'zipcode',
-        title: 'Codigo-Postal'
-      },
-      {
-        field: 'city',
-        title: 'Concelho'
-      },
-      {
-        field: 'district',
-        title: 'Distrito'
-      },
-      {
-        field: 'mobilephone',
-        title: 'Telemóvel'
-      },
-      {
-        field: 'phone',
-        title: 'Telefone'
-      },
-      {
-        field: 'email',
-        title: 'Email'
-      },
-      {
-        field: 'school',
-        title: 'Habilitações'
-      },
-      {
-        field: 'profession',
-        title: 'Profissão'
-      },
-      {
-        field: 'fathername',
-        title: 'Nome do Pai'
-      },
-      {
-        field: 'fatherprofession',
-        title: 'Profissão do Pai'
-      },
-      {
-        field: 'fathermobilephone',
-        title: 'Telemóvel do Pai'
-      },
-      {
-        field: 'fatheremail',
-        title: 'Email do Pai'
-      },
-      {
-        field: 'mothername',
-        title: 'Nome da Mãe'
-      },
-      {
-        field: 'motherprofession',
-        title: 'Profissão da Mãe'
-      },
-      {
-        field: 'mothermobilephone',
-        title: 'Telemóvel da Mãe'
-      },
-      {
-        field: 'motheremail',
-        title: 'Email da Mãe'
-      },
-      {
-        field: 'sponsername',
-        title: 'Nome Enc. Educação'
-      },
-      {
-        field: 'sponserprofession',
-        title: 'Profissão Enc. Educação'
-      },
-      {
-        field: 'sponsermobilephone',
-        title: 'Telemóvel Enc. Educação'
-      },
-      {
-        field: 'sponsoremail',
-        title: 'Email Enc. Educação'
-      },
-      {
-        field: 'healthnumber',
-        title: 'Nº Utente'
-      },
-      {
-        field: 'allergies',
-        title: 'Alergias'
-      },
-      {
-        field: 'description_allergies',
-        title: 'Descrição Alergias'
-      },
-      {
-        field: 'regular_medication',
-        title: 'Medicação Regular'
-      },
-      {
-        field: 'dietary_restrictions',
-        title: 'Restrições Alimentares'
-      },
-      {
-        field: 'other_health_problems',
-        title: 'Outros Problemas de Saúde'
-      },
-      {
-        field: 'data_processing',
-        title: 'Consentimento Tratamento Dados'
-      },
-      {
-        field: 'health_data',
-        title: 'Consentimento Saúde'
-      },
-      {
-        field: 'data_voice_image',
-        title: 'Consentimento Voz e/ou Imagem'
-      },
-      {
-        field: 'social_networks__educating',
-        title: 'Consentimento Redes Sociais'
-      },
-      {
-        field: 'email_educating',
-        title: 'Consentimento Email'
-      },
-      {
-        field: 'collective_transport',
-        title: 'Consentimento Transporte'
-      },
-      {
-        field: 'data_sharing',
-        title: 'Consentimento CPP'
-      },
-      {
-        field: 'all_health_data',
-        title: 'Consentimento Total'
-      },
-      {
-        field: 'name1',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent1',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile1',
-        title: 'Telemóvel Emergencia'
-      },
-      {
-        field: 'name2',
-        title: 'Nome Emergencia'
-      },
-      {
-        field: 'parent2',
-        title: 'Parentesco'
-      },
-      {
-        field: 'mobile2',
-        title: 'Telemóvel Emergencia'
-      }
-    ]
-  })
-}
-
-function accoesFormatterSecretario (value, row, index) {
+function accoesFormatterLobitos (value, row, index) {
   return [
     '<a class="edit" href="javascript:void(0)" title="Edit">',
     '<i class="fa fa-edit"></i>',
@@ -1600,12 +865,1013 @@ function accoesFormatterSecretario (value, row, index) {
   ].join('')
 }
 
-window.eventAcoesSecretario = {
+window.eventAcoesLobitos = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalInsAss(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteLobito(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteLobito(nin) {
+  fetch(`${urlBase}/deleteLobito`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nin=${nin}`,
+  })
+}
+
+
+async function listarLobitos() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemLobitos/`,
+    columns: [{
+      events: eventAcoesLobitos,
+      field: 'acoes',
+      formatter: accoesFormatterLobitos,
+      title: 'Ações'
+    }, {
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+function accoesFormatterExploradores (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+}
+
+window.eventAcoesExploradores = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalInsAss(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteExplorador(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteExplorador(nin) {
+  fetch(`${urlBase}/deleteExplorador`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nin=${nin}`,
+  })
+}
+
+
+async function listarExploradores() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemExploradores/`,
+    columns: [{
+      events: eventAcoesExploradores,
+      field: 'acoes',
+      formatter: accoesFormatterExploradores,
+      title: 'Ações'
+    }, {
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+
+function accoesFormatterPioneiros (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+}
+
+window.eventAcoesPioneiros = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalInsAss(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deletePioneiro(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deletePioneiro(nin) {
+  fetch(`${urlBase}/deletePioneiro`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nin=${nin}`,
+  })
+}
+
+
+async function listarPioneiros() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemPioneiros/`,
+    columns: [{
+      events: eventAcoesPioneiros,
+      field: 'acoes',
+      formatter: accoesFormatterPioneiros,
+      title: 'Ações'
+    }, {
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+function accoesFormatterCaminheiros (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+}
+
+window.eventAcoesCaminheiros = {
+  'click .edit': function (e, value, row, index) {
+    chamaModalInsAss(true, row);
+  },
+  'click .remove': function (e, value, row, index) {
+    deleteCaminheiro(row.nin);
+    $('#table').bootstrapTable('refresh');
+  }
+}
+
+function deleteCaminheiro(nin) {
+  fetch(`${urlBase}/deleteCaminheiro`, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "DELETE",
+    body: `nin=${nin}`,
+  })
+}
+
+
+async function listarCaminheiros() {
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemCaminheiros/`,
+    columns: [{
+      events: eventAcoesCaminheiros,
+      field: 'acoes',
+      formatter: accoesFormatterCaminheiros,
+      title: 'Ações'
+    }, {
+        field: 'nin',
+        title: 'NIN'
+      }, {
+        field: 'admission',
+        title: 'Data Admissão'
+      }, {
+        field: 'section',
+        title: 'Secção'
+      },
+      {
+        field: 'name',
+        title: 'Nome'
+      },
+      {
+        field: 'citizencard',
+        title: 'CC'
+      },
+      {
+        field: 'personsex',
+        title: 'Genero'
+      },
+      {
+        field: 'nif',
+        title: 'NIF'
+      },
+      {
+        field: 'birth',
+        title: 'Data de Nascimento'
+      },
+      {
+        field: 'nationality',
+        title: 'Nacionalidade'
+      },
+      {
+        field: 'naturalness',
+        title: 'Naturalidade'
+      },
+      {
+        field: 'address',
+        title: 'Morada'
+      },
+      {
+        field: 'vilage',
+        title: 'Localidade'
+      },
+      {
+        field: 'zipcode',
+        title: 'Codigo-Postal'
+      },
+      {
+        field: 'city',
+        title: 'Concelho'
+      },
+      {
+        field: 'district',
+        title: 'Distrito'
+      },
+      {
+        field: 'mobilephone',
+        title: 'Telemóvel'
+      },
+      {
+        field: 'phone',
+        title: 'Telefone'
+      },
+      {
+        field: 'email',
+        title: 'Email'
+      },
+      {
+        field: 'school',
+        title: 'Habilitações'
+      },
+      {
+        field: 'profession',
+        title: 'Profissão'
+      },
+      {
+        field: 'fathername',
+        title: 'Nome do Pai'
+      },
+      {
+        field: 'fatherprofession',
+        title: 'Profissão do Pai'
+      },
+      {
+        field: 'fathermobilephone',
+        title: 'Telemóvel do Pai'
+      },
+      {
+        field: 'fatheremail',
+        title: 'Email do Pai'
+      },
+      {
+        field: 'mothername',
+        title: 'Nome da Mãe'
+      },
+      {
+        field: 'motherprofession',
+        title: 'Profissão da Mãe'
+      },
+      {
+        field: 'mothermobilephone',
+        title: 'Telemóvel da Mãe'
+      },
+      {
+        field: 'motheremail',
+        title: 'Email da Mãe'
+      },
+      {
+        field: 'sponsername',
+        title: 'Nome Enc. Educação'
+      },
+      {
+        field: 'sponserprofession',
+        title: 'Profissão Enc. Educação'
+      },
+      {
+        field: 'sponsermobilephone',
+        title: 'Telemóvel Enc. Educação'
+      },
+      {
+        field: 'sponsoremail',
+        title: 'Email Enc. Educação'
+      },
+      {
+        field: 'healthnumber',
+        title: 'Nº Utente'
+      },
+      {
+        field: 'allergies',
+        title: 'Alergias'
+      },
+      {
+        field: 'description_allergies',
+        title: 'Descrição Alergias'
+      },
+      {
+        field: 'regular_medication',
+        title: 'Medicação Regular'
+      },
+      {
+        field: 'dietary_restrictions',
+        title: 'Restrições Alimentares'
+      },
+      {
+        field: 'other_health_problems',
+        title: 'Outros Problemas de Saúde'
+      },
+      {
+        field: 'data_processing',
+        title: 'Consentimento Tratamento Dados'
+      },
+      {
+        field: 'health_data',
+        title: 'Consentimento Saúde'
+      },
+      {
+        field: 'data_voice_image',
+        title: 'Consentimento Voz e/ou Imagem'
+      },
+      {
+        field: 'social_networks__educating',
+        title: 'Consentimento Redes Sociais'
+      },
+      {
+        field: 'email_educating',
+        title: 'Consentimento Email'
+      },
+      {
+        field: 'collective_transport',
+        title: 'Consentimento Transporte'
+      },
+      {
+        field: 'data_sharing',
+        title: 'Consentimento CPP'
+      },
+      {
+        field: 'all_health_data',
+        title: 'Consentimento Total'
+      },
+      {
+        field: 'name1',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent1',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile1',
+        title: 'Telemóvel Emergencia'
+      },
+      {
+        field: 'name2',
+        title: 'Nome Emergencia'
+      },
+      {
+        field: 'parent2',
+        title: 'Parentesco'
+      },
+      {
+        field: 'mobile2',
+        title: 'Telemóvel Emergencia'
+      }
+    ]
+  })
+}
+
+function accoesFormatterSecretarios (value, row, index) {
+  return [
+    '<a class="edit" href="javascript:void(0)" title="Edit">',
+    '<i class="fa fa-edit"></i>',
+    '</a>  ',
+    '<a class="remove" href="javascript:void(0)" title="Remove">',
+    '<i class="fa fa-trash"></i>',
+    '</a>'
+  ].join('')
+}
+
+window.eventAcoesSecretarios = {
   'click .edit': function (e, value, row, index) {
     chamaModalRegistar(true, row);
   },
   'click .remove': function (e, value, row, index) {
-    deleteSecretario(row.nin);
+    deleteSecretario(row.email);
     $('#table').bootstrapTable('refresh');
   }
 }
@@ -1624,9 +1890,9 @@ async function listarSecretarios() {
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemSecretario/`,
     columns: [{
-      events: eventAcoesSecretario,
+      events: eventAcoesSecretarios,
       field: 'acoes',
-      formatter: accoesFormatterSecretario,
+      formatter: accoesFormatterSecretarios,
       title: 'Ações'
     }, {
       field: 'email',
