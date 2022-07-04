@@ -549,7 +549,7 @@ exports.Crud_EditarEvento = (nin, event, payment, payment_status, valueEvent) =>
       valueEvent: valueEvent
     };
     query(
-      "UPDATE events set event = ?, payment = ?, payment_status = ? valueEvent = ? where nin = ?",
+      "UPDATE events set event = ?, payment = ?, payment_status = ?, valueEvent = ? where nin = ?",
       [data.event, data.payment, data.payment_status, data.valueEvent, data.nin]
     )
       .then((result) => {

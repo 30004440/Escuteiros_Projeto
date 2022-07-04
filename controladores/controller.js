@@ -293,7 +293,7 @@ exports.inserirPagamentoEvento = async (req, res) => {
       console.log(JSON.stringify(dados));
     })
     .catch((response) => {
-      console.log("o erro está a inserção da bd")
+      console.log("o erro está a inserção da bd - eventos")
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
@@ -323,7 +323,7 @@ exports.inserirStatusDoc = async (req, res) => {
       console.log(JSON.stringify(dados));
     })
     .catch((response) => {
-      console.log("o erro está a inserção da bd")
+      console.log("o erro está a inserção da bd - documentos")
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
@@ -353,7 +353,7 @@ exports.inserirPagamentoQuota = async (req, res) => {
       console.log(JSON.stringify(dados));
     })
     .catch((response) => {
-      console.log("o erro está a inserção da bd")
+      console.log("o erro está a inserção da bd - quota")
       console.log(response);
       return res.status(400).send({
         message: JSON.stringify(response),
@@ -623,8 +623,9 @@ exports.EditEvento = async (req, res) => {
   const event = req.body.event;
   const payment = req.body.payment;
   const payment_status = req.body.payment_status;
+  const valueEvent = req.body.valueEvent;
   dbmySQL
-    .Crud_EditarEvento(nin, event, payment, payment_status)
+    .Crud_EditarEvento(nin, event, payment, payment_status, valueEvent)
     .then(() => {
       res.status(200).send({
         message:

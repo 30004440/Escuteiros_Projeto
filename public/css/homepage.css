@@ -51,6 +51,7 @@ body
 .sub-menu-1
 {
     display: none;
+    z-index: 9999;
 }
 
 .menu-nav ul li:hover .sub-menu-1
@@ -92,6 +93,7 @@ body
 .sub-menu-2
 {
     display: none;
+    z-index: 9999;
 }
 
 .menu-nav ul li:hover .sub-menu-2
@@ -130,6 +132,7 @@ body
 .sub-menu-3
 {
     display: none;
+    z-index: 9999;
 }
 
 .menu-nav ul li:hover .sub-menu-3
@@ -169,6 +172,7 @@ body
 .sub-menu-4
 {
     display: none;
+    z-index: 9999;
 }
 
 .menu-nav ul li:hover .sub-menu-4

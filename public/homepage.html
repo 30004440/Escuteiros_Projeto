@@ -67,7 +67,7 @@
               </li>
             </ul>
           </div>
-        <li><a id="btnListarSecretarios" class="nav-link" href="#" onclick="listarSecretarios()">Secretários</a></li>
+        <li><a id="btnListarSecretarios" href="#" onclick="listarSecretarios()">Secretários</a></li>
         <li><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="currentColor"
               class="bi bi-house-door-fill" viewBox="0 0 16 17">
               <path
@@ -183,7 +183,7 @@
 
   <!-- Inserir na Associado -->
   <div class="modal fade" id="area" tabindex="-1" role="dialog" aria-labelledby="area" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <form id="formulario" autocomplete="off">
@@ -191,11 +191,17 @@
               Agrupamento</label><br>
             <label for="obr" style="font-weight: bold; color:#617080; font-size: 20px">Os campos com * são
               obrigatórios</label><br>
+              <br>
             <label for="id" style="font-weight: bold; color:#617080; font-size: 16px">IDENTIFICAÇÃO:</label><br>
+            <div class="mb-3">
             <label for="nin">*NIN:</label><br>
             <input type="text" id="nin" name="nin" placeholder="Número de Identificação Nacional"><br>
+            </div>
+            <div class="mb-3">
             <label for="admissiondate">*Data de Admissão:</label><br>
             <input type="date" id="admissiondate" name="admissiondate"><br>
+            </div>
+            <div class="mb-3">
             <label for="section">*Secção:</label><br>
             <select id="section" name="section">
               <option value="-1" disabled selected>Secção</option>
@@ -204,40 +210,72 @@
               <option value="Pioneiros">Pioneiros</option>
               <option value="Caminheiros">Caminheiros</option>
             </select><br>
+            </div>
+            <div class="mb-3">
             <label for="name">*Nome Completo:</label><br>
             <input type="text" id="name" name="name" placeholder="Nome Completo"><br>
+          </div>
+          <div class="mb-3">
             <label for="citizencard">*Cartão Cidadão:</label><br>
             <input type="text" id="citizencard" name="citizencard" placeholder="Número Cartão Cidadão"><br>
-            <label for="personsex">*Sexo:</label><br>
+          </div>
+          <div class="mb-3">
+             <label for="personsex">*Sexo:</label><br>
             <select id="personsex" name="personsex">
               <option value="-1" disabled selected>Genero</option>
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
             </select><br>
+          </div>
+          <div class="mb-3">
             <label for="nif">*NIF:</label><br>
             <input type="text" id="nif" name="nif" placeholder="Número Idenfificação Fiscal"><br>
+          </div>
+          <div class="mb-3">
             <label for="birthdate">*Data Nascimento:</label><br>
             <input type="date" id="birthdate" name="birthdate"><br>
+          </div>
+          <div class="mb-3">
             <label for="nationality">*Nacionalidade:</label><br>
             <input type="text" id="nationality" name="nationality" placeholder="Nacionalidade"><br>
+          </div>
+          <div class="mb-3">
             <label for="naturalness">*Naturalidade:</label><br>
             <input type="text" id="naturalness" name="naturalness" placeholder="Naturalidade"><br>
+          </div>
+          <div class="mb-3">
             <label for="address">*Morada:</label><br>
             <input type="text" id="address" name="address" placeholder="Morada"><br>
+          </div>
+          <div class="mb-3">
             <label for="vilage">*Localidade:</label><br>
             <input type="text" id="vilage" name="vilage" placeholder="Localidade"><br>
+          </div>
+          <div class="mb-3">
             <label for="zipcode">*Codigo Postal:</label><br>
             <input type="text" id="zipcode" name="zipcode" placeholder="0000-000"><br>
+          </div>
+          <div class="mb-3">
             <label for="city">*Concelho:</label><br>
             <input type="text" id="city" name="city" placeholder="Concelho"><br>
+          </div>
+          <div class="mb-3">
             <label for="district">*Distrito:</label><br>
             <input type="text" id="district" name="district" placeholder="Distrito"><br>
+          </div>
+          <div class="mb-3">
             <label for="mobilephone">Telemóvel:</label><br>
             <input type="text" id="mobilephone" name="mobilephone" placeholder="912345678"><br>
+          </div>
+          <div class="mb-3">
             <label for="phone">Telefone:</label><br>
             <input type="text" id="phone" name="phone" placeholder="212123456"><br>
+          </div>
+          <div class="mb-3">
             <label for="email">Email:</label><br>
             <input type="email" id="email" name="email" placeholder="omeuemail@email.com"><br>
+          </div>
+          <div class="mb-3">
             <label for="school">Habilidações:</label><br>
             <select id="school" name="school">
               <option value="-1" disabled selected>Habilitações</option>
@@ -249,41 +287,62 @@
               <option value="Mestrado">Mestrado</option>
               <option value="Doutoramento">Doutoramento</option>
             </select><br>
+          </div>
+          <div class="mb-3">
             <label for="profession">Profissão:</label><br>
             <input type="text" id="profession" name="profession" placeholder="Profissão"><br>
-
+          </div>
+          <br>
             <label for="fil" style="font-weight: bold; color:#617080; font-size: 20px">FILIAÇÃO:</label><br>
+          <div class="mb-3">
             <label for="fathername">Nome Pai:</label><br>
             <input type="text" id="fathername" name="fathername" placeholder="Nome Pai"><br>
+          </div>
+          <div class="mb-3">
             <label for="fatherprofession">Profissão Pai:</label><br>
             <input type="text" id="fatherprofession" name="fatherprofession" placeholder="Profissão Pai"><br>
+          </div>
+          <div class="mb-3">
             <label for="fathermobilephone">Telemóvel Pai:</label><br>
             <input type="text" id="fathermobilephone" name="fathermobilephone" placeholder="912345678"><br>
+          </div>
+          <div class="mb-3">
             <label for="fatheremail">Email Pai:</label><br>
             <input type="email" id="fatheremail" name="fatheremail" placeholder="oemaildopai@email.com"><br>
 
-            <label for="mothername">Nome Mãe:</label><br>
+      
+          <div class="mb-3"> <label for="mothername">Nome Mãe:</label><br>
+       
             <input type="text" id="mothername" name="mothername" placeholder="Nome Mãe"><br>
-            <label for="motherprofession">Profissão Mãe:</label><br>
+          </div>
+          <div class="mb-3"><label for="motherprofession">Profissão Mãe:</label><br>
             <input type="text" id="motherprofession" name="motherprofession" placeholder="Profissão Mãe"><br>
-            <label for="mothermobilephone">Telemóvel Mãe:</label><br>
+          </div>
+          <div class="mb-3"><label for="mothermobilephone">Telemóvel Mãe:</label><br>
             <input type="text" id="mothermobilephone" name="mothermobilephone" placeholder="912345678"><br>
-            <label for="motheremail">Email Mãe:</label><br>
+          </div>
+          <div class="mb-3"><label for="motheremail">Email Mãe:</label><br>
             <input type="email" id="motheremail" name="motheremail" placeholder="oemaildamae@email.com"><br>
-
-            <label for="sponsername">*Nome Encarregado de Educação:</label><br>
+       
+        </div>
+        <div class="mb-3"><label for="sponsername">*Nome Encarregado de Educação:</label><br>
             <input type="text" id="sponsername" name="sponsername" placeholder="Nome Enc. Educação"><br>
-            <label for="sponserprofession">*Profissão Encarregado de Educação:</label><br>
+          </div>
+          <div class="mb-3"> <label for="sponserprofession">*Profissão Encarregado de Educação:</label><br>
             <input type="text" id="sponserprofession" name="sponserprofession" placeholder="Profissão Enc Educação"><br>
-            <label for="sponsermobilephone">*Telemóvel Encarregado de Educação:</label><br>
+          </div>
+          <div class="mb-3"> <label for="sponsermobilephone">*Telemóvel Encarregado de Educação:</label><br>
             <input type="text" id="sponsermobilephone" name="sponsermobilephone" placeholder="212123456"><br>
-            <label for="sponsoremail">Email Encarregado de Educação:</label><br>
+          </div>
+          <div class="mb-3"> <label for="sponsoremail">Email Encarregado de Educação:</label><br>
             <input type="email" id="sponsoremail" name="sponsoremail" placeholder="oemaildoenceducacao@email.com"><br>
-
+          </div>
+          <br>
             <label for="ddSau" style="font-weight: bold; color:#617080; font-size: 20px">DADOS DE SAÚDE:</label><br>
-            <label for="healthnumber">*Numero de Utente:</label><br>
+          <div class="mb-3"><label for="healthnumber">*Numero de Utente:</label><br>
             <input type="text" id="healthnumber" name="healthnumber" placeholder="Número de Utente de Saúde"><br>
-            <label for="allergies">Opções Alergias:</label><br>
+          </div>
+          <div class="mb-3"> <label for="allergies">Opções Alergias:</label><br>
             <input class="form-check-input" type="checkbox" value="asma" id="asma">
             <label class="form-check-label" for="asma">Asma</label>
             <input class="form-check-input" type="checkbox" value="epilepsia" id="epilepsia">
@@ -292,92 +351,88 @@
             <label class="form-check-label" for="diabetes">Diabetes</label>
             <input class="form-check-input" type="checkbox" value="alergias" id="alergias">
             <label class="form-check-label" for="alergias">Alergias</label>
-            <label for="description_allergies">Descrição Alergias:</label><br>
+          </div>
+          <div class="mb-3"><label for="description_allergies">Descrição Alergias:</label><br>
             <input type="text" id="description_allergies" name="description_allergies"
               placeholder="Descrição Alergias"><br>
-            <label for="regular_medication">Medicação Relgular:</label><br>
+            </div>
+            <div class="mb-3"> <label for="regular_medication">Medicação Relgular:</label><br>
             <input type="text" id="regular_medication" name="regular_medication" placeholder="Medicação Regular"><br>
-            <label for="dietary_restrictions">Restrições Alimentares:</label><br>
+          </div>
+          <div class="mb-3"> <label for="dietary_restrictions">Restrições Alimentares:</label><br>
             <input type="text" id="dietary_restrictions" name="dietary_restrictions"
               placeholder="Restrições Alimentares"><br>
-            <label for="other_health_problems">Outros Problemas de Saúde:</label><br>
+            </div>
+            <div class="mb-3"> <label for="other_health_problems">Outros Problemas de Saúde:</label><br>
             <input type="text" id="other_health_problems" name="other_health_problems"
               placeholder="Outros Problemas de Saúde"><br>
-
+            </div>
+            <br>
             <label for="cantEme" style="font-weight: bold; color:#617080; font-size: 20px">CONTACTOS DE EMERGÊNCIA
               ADICIONAIS:</label><br>
-            <label for="name1">Nome:</label><br>
+            <div class="mb-3"> <label for="name1">Nome:</label><br>
             <input type="text" id="name1" name="name1" placeholder="Nome"><br>
-            <label for="parent1">Parestesco:</label><br>
+          </div>
+          <div class="mb-3"> <label for="parent1">Parestesco:</label><br>
             <input type="text" id="parent1" name="parent1" placeholder="Parestesco"><br>
-            <label for="mobile1">Telemóvel:</label><br>
+          </div>
+          <div class="mb-3"> <label for="mobile1">Telemóvel:</label><br>
             <input type="text" id="mobile1" name="mobile1" placeholder="912345678"><br>
-            <label for="name2">Nome:</label><br>
+          </div>
+          <div class="mb-3"> <label for="name2">Nome:</label><br>
             <input type="text" id="name2" name="name2" placeholder="Nome"><br>
-            <label for="parent2">Parestesco:</label><br>
+          </div>
+          <div class="mb-3"><label for="parent2">Parestesco:</label><br>
             <input type="text" id="parent2" name="parent2" placeholder="Parestesco"><br>
-            <label for="mobile2">Telemóvel:</label><br>
+          </div>
+          <div class="mb-3"><label for="mobile2">Telemóvel:</label><br>
             <input type="text" id="mobile2" name="mobile2" placeholder="912345678"><br>
-
+          </div>
             <label for="conse" style="font-weight: bold; color:#617080; font-size: 20px">CONSENTIMENTOS:</label><br>
-            <label for="data_processing">*Autorizo o tratamento dos meus dados de identificação pessoal para envio e
-              divulgação, através
-              da morada, de SMS ou de
+          <div class="mb-3"> <label for="data_processing">*Autorizo o tratamento dos meus dados de identificação pessoal para envio e
+              divulgação, através da morada, de SMS ou de
               endereço eletrónico, de comunicações promocionais relativas a produtos do CNE, de comunicações
-              informativas
-              sobre
-              atividades e eventos organizados e/ou promovidos pelo CNE e respetivos convites, da revista “Flor de Lis”,
-              do
-              “Boletim
-              Eletrónico de Informação do CNE” e/ou de outras newsletters do CNE, bem como para o registo nas respetivas
-              atividades e
-              eventos organizados e/ou promovidos pelo CNE.</label><br>
+              informativas sobre atividades e eventos organizados e/ou promovidos pelo CNE e respetivos convites, da revista “Flor de Lis”,
+              do “Boletim Eletrónico de Informação do CNE” e/ou de outras newsletters do CNE, bem como para o registo nas respetivas
+              atividades e eventos organizados e/ou promovidos pelo CNE.</label><br>
             <select id="data_processing" name="data_processing">
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
             </select><br>
-            <label for="health_data">*Autorizo a recolha dos meus dados relativos à saúde unicamente para gestão das
-              atividades
-              promovidas e/ou organizados
-              pelo CNE.</label><br>
+          </div>
+          <div class="mb-3"> <label for="health_data">*Autorizo a recolha dos meus dados relativos à saúde unicamente para gestão das
+              atividades promovidas e/ou organizados pelo CNE.</label><br>
             <select id="health_data" name="health_data">
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
             </select><br>
-            <label for="data_voice_image">*Autorizo o tratamento dos meus dados de voz e/ou imagem captados durante as
-              atividades
-              escutistas promovidas ou
-              organizadas pelo Corpo Nacional de Escutas (CNE), cedendo os direitos sobre os mesmos ao CNE por cinco
-              anos, a
-              título
-              gratuito e sem necessidade de consulta prévia sobre as formas de utilização, agindo sempre o CNE de boa fé
-              e de
-              acordo
-              com a sua Lei e Princípios. O tratamento tem por finalidade o arquivo histórico, a promoção e divulgação
-              dos
-              projetos, eventos
-              e atividades promovidas e/ou organizadas pelo CNE nos diversos meios de comunicação ao dispor,
-              nomeadamente em
-              cartazes, flyers, produtos de merchandising exclusivo do CNE, redes sociais, sítios de internet,
-              televisão,
-              rádio e outros
-              equivalentes.</label><br>
+          </div>
+          <div class="mb-3"> <label for="data_voice_image">*Autorizo o tratamento dos meus dados de voz e/ou imagem captados durante as
+              atividades escutistas promovidas ou organizadas pelo Corpo Nacional de Escutas (CNE), cedendo os direitos sobre os mesmos ao CNE por cinco
+              anos, a título gratuito e sem necessidade de consulta prévia sobre as formas de utilização, agindo sempre o CNE de boa fé
+              e de acordo com a sua Lei e Princípios. O tratamento tem por finalidade o arquivo histórico, a promoção e divulgação
+              dos projetos, eventos e atividades promovidas e/ou organizadas pelo CNE nos diversos meios de comunicação ao dispor,
+              nomeadamente em cartazes, flyers, produtos de merchandising exclusivo do CNE, redes sociais, sítios de internet,
+              televisão, rádio e outros equivalentes.</label><br>
             <select id="data_voice_image" name="data_voice_image">
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
             </select><br>
-            <label for="social_networks__educating">*Tenho conhecimento que o meu educando possui perfil nas redes
+          </div>
+          <div class="mb-3"><label for="social_networks__educating">*Tenho conhecimento que o meu educando possui perfil nas redes
               sociais.</label><br>
             <select id="social_networks__educating" name="social_networks__educating">
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
             </select><br>
-            <label for="email_educating">*Tenho conhecimento que o meu educando possui endereço de email.</label><br>
+          </div>
+          <div class="mb-3"><label for="email_educating">*Tenho conhecimento que o meu educando possui endereço de email.</label><br>
             <select id="email_educating" name="email_educating">
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
             </select><br>
-            <label for="collective_transport">*Autorizo que, sempre que se torne necessário (por facilidade operacional
+          </div>
+          <div class="mb-3"><label for="collective_transport">*Autorizo que, sempre que se torne necessário (por facilidade operacional
               e/ou
               económica), que o
               meu educando seja transportado em sistema de boleia em viatura conduzida por um dos animadores
@@ -387,7 +442,8 @@
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
             </select><br>
-            <label for="data_sharing">*Tomei conhecimento de que os endereços de email fornecidos serão partilhados com
+          </div>
+          <div class="mb-3"> <label for="data_sharing">*Tomei conhecimento de que os endereços de email fornecidos serão partilhados com
               a
               Comissão
               Permanente de Pais (cpp.242@escutismo.pt) para serem utilizados no estrito âmbito de iniciativas do
@@ -396,6 +452,8 @@
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
             </select><br>
+          </div>
+          <div class="mb-3">
             <label for="all_health_data">*Declaro que foi providenciada toda a informação médica relevante.</label><br>
             <select id="all_health_data" name="all_health_data">
               <option value="Sim">Sim</option>
@@ -451,18 +509,19 @@
               <option value="Pago">Pago</option>
               <option value="Não Pago">Não Pago</option>
               <option value="Pago Parcialmente">Pago Parcialmente</option>
-            </select><br>
+            </select>
           </div>
           <div>
             <p id="statusPagEvent"></p>
           </div>
-          <br>
-          <button class="btn btn-success float-end" id="btnSubmitPagEvent">
-            Submeter
-          </button>
-          <button id="btnCancelaEvento" class="btn btn-warning float-end" data-bs-dismiss="modal">
-            Cancelar
-          </button>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="btnCancelaEvento" class="btn btn-warning float-end" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button class="btn btn-success float-end" id="btnSubmitPagEvent">
+              Submeter
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -503,13 +562,14 @@
           <div>
             <p id="statusPagQuota"></p>
           </div>
-          <br>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
           <button class="btn btn-success float-end" id="btnSubmitPagQuota">
             Submeter
           </button>
           <button id="btnCancelaPagQuota" class="btn btn-warning float-end" data-bs-dismiss="modal">
             Cancelar
           </button>
+        </div>
         </div>
       </div>
     </div>
