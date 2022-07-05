@@ -55,6 +55,9 @@ module.exports = app => {
   // Lista o status dos documentos
   router.get("/listagemDocumentos/", controlador.listaDocumentos);
 
+  // Lista o status dos documentos não pagos
+  router.get("/listagemDocumentosNaoAssinados/", controlador.listaDocumentosNaoAssinados);
+
   // Editar Documento
   router.put("/editDocumento", controlador.EditDocumento);
 
@@ -65,21 +68,16 @@ module.exports = app => {
   // Inserir um associado ao agrupamento
   router.post("/insereEscuteiro", controlador.inserirEscuteiro);
 
+  // Editar Caminheiro
+  router.put("/editEscuteiro", controlador.editEscuteiro);
 
   // Lista os Lobitos
   router.get("/listagemLobitos/", controlador.listaLobitos);
-
-  // Editar Lobito
-  router.put("/editLobito", controlador.editEscuteiro);
-
   // Apagar Lobito
   router.delete("/deleteLobito", controlador.DeleteEscuteiro);
 
   // Lista os Explorador
   router.get("/listagemExploradores/", controlador.listaExploradores);
-
-  // Editar Explorador
-  router.put("/editExplorador", controlador.editEscuteiro);
 
   // Apagar Explorador
   router.delete("/deleteExplorador", controlador.DeleteEscuteiro);
@@ -87,17 +85,11 @@ module.exports = app => {
   // Lista os Pioneiros
   router.get("/listagemPioneiros/", controlador.listaPioneiros);
 
-  // Editar Pioneiro
-  router.put("/editPioneiro", controlador.editEscuteiro);
-
   // Apagar Pioneiro
   router.delete("/deletePioneiro", controlador.DeleteEscuteiro);
     
   // Lista os Caminheiros
   router.get("/listagemCaminheiros/", controlador.listaCaminheiros);
-
-  // Editar Caminheiro
-  router.put("/editCaminheiro", controlador.editEscuteiro);
 
   // Apagar Caminheiro
   router.delete("/deleteCaminheiro", controlador.DeleteEscuteiro);

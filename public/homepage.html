@@ -50,6 +50,7 @@
             <ul>
               <li><a id="btnModalDoc" class="nav-link" href="#" onclick="chamaModalDoc()">Inserir</a></li>
               <li><a id="btnListarDocumentos" class="nav-link" href="#" onclick="listarDocumentos()">Listar</a></li>
+              <li><a id="btnListarDocumentosNaoAssinados" class="nav-link" href="#" onclick="listarDocumentosNaoAssinados()">Listar Não Assinados</a></li>
             </ul>
           </div>
         </li>
@@ -61,7 +62,8 @@
               <li><a id="btnModalInsAss" class="nav-link" href="#" onclick="chamaModalInsAss()">Inserir Associado</a>
               </li>
               <li><a id="btnListarLobitos" class="nav-link" href="#" onclick="listarLobitos()">Lobitos</a></li>
-              <li><a id="btnListarExploradores" class="nav-link" href="#" onclick="listarExploradores()">Exploradores</a></li>
+              <li><a id="btnListarExploradores" class="nav-link" href="#"
+                  onclick="listarExploradores()">Exploradores</a></li>
               <li><a id="btnListarPioneiros" class="nav-link" href="#" onclick="listarPioneiros()">Pioneiros</a></li>
               <li><a id="btnListarCaminheiros" class="nav-link" href="#" onclick="listarCaminheiros()">Caminheiros</a>
               </li>
@@ -80,12 +82,159 @@
         </li>
   </header>
 
-
   <div id="content">
     <table id="table"></table>
   </div>
 
 
+  <!-- Inserir Pagamentos Eventos -->
+  <div class="modal fade" id="modalPagEventos" tabindex="-1" role="dialog" aria-labelledby="modalPagEventos"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
+            Evento</label>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">NIN</label>
+            <input type="text" class="form-control" id="NINEvento" name="NINEvento" placeholder="NIN" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Evento</label>
+            <input type="text" class="form-control" id="event" name="event" placeholder="Evento" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Pagamento</label>
+            <input type="text" class="form-control" id="payment" name="payment" placeholder="Pagamento" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Valor Evento</label>
+            <input type="text" class="form-control" id="valueEvent" name="valueEvent" placeholder="Valor Evento" />
+          </div>
+          <div class="mb-3">
+            <label for="payment_status">Estado Pagamento</label><br>
+            <select id="payment_status" name="payment_status">
+              <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
+              <option value="Pago">Pago</option>
+              <option value="Não Pago">Não Pago</option>
+              <option value="Pago Parcialmente">Pago Parcialmente</option>
+            </select>
+          </div>
+          <div>
+            <p id="statusPagEvent"></p>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="btnCancelaEvento" class="btn btn-warning float-end" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button class="btn btn-success float-end" id="btnSubmitPagEvent">
+              Submeter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inserir Pagamentos Quotas -->
+  <div class="modal fade" id="modalPagQuotas" tabindex="-1" role="dialog" aria-labelledby="modalPagQuotas"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
+            Quotas</label>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">NIN</label>
+            <input type="text" class="form-control" id="NINQuota" name="NINQuota" placeholder="NIN" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Pagamento</label>
+            <input type="text" class="form-control" id="paymentQuota" name="paymentQuota" placeholder="Pagamento" />
+          </div>
+          <div class="mb-3">
+            <label for="payment_status_Quota">Estado Pagamento</label><br>
+            <select id="payment_status_Quota" name="payment_status_Quota">
+              <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
+              <option value="Pago">Pago</option>
+              <option value="Não Pago">Não Pago</option>
+              <option value="Pago Parcialmente">Pago Parcialmente</option>
+            </select><br>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ano Lectivo</label>
+            <input type="text" class="form-control" id="anoLec" name="anoLec" placeholder="yyyy/yyyy" />
+          </div>
+          <div>
+            <p id="statusPagQuota"></p>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
+          <button class="btn btn-success float-end" id="btnSubmitPagQuota">
+            Submeter
+          </button>
+          <button id="btnCancelaPagQuota" class="btn btn-warning float-end" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inserir Status Documentos -->
+  <div class="modal fade" id="modalStatDoc" tabindex="-1" role="dialog" aria-labelledby="modalStatDoc"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Estado
+            Documentos</label>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">NIN</label>
+            <input type="text" class="form-control" id="NINDoc" name="NINDoc" placeholder="NIN" />
+          </div>
+          <div class="mb-3">
+            <label for="send">Enviado</label><br>
+            <select id="send" name="send">
+              <option value="-1" disabled selected>Selecionar Estado do Envio</option>
+              <option value="Enviado">Enviado</option>
+              <option value="Não Enviado">Não Enviado</option>
+            </select><br>
+          </div>
+          <div class="mb-3">
+            <label for="signature">Assinado</label><br>
+            <select id="signature" name="signature">
+              <option value="-1" disabled selected>Selecionar Estado da Assinatura</option>
+              <option value="Assinado">Assinado</option>
+              <option value="Não Assinado">Não Assinado</option>
+            </select><br>
+          </div>
+          <div class="mb-3">
+            <label for="received">Recebido</label><br>
+            <select id="received" name="received">
+              <option value="-1" disabled selected>Selecionar Estado da Recepção</option>
+              <option value="Recebido">Recebido</option>
+              <option value="Não Recebido">Não Recebido</option>
+            </select><br>
+          </div>
+          <div>
+            <p id="statusDoc"></p>
+          </div><br>
+          <button class="btn btn-success float-end" id="btnSubmitstatDoc">
+            Submeter
+          </button>
+          <button id="btnCancelaDoc" class="btn btn-warning float-end" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal para registar novo utilizador -->
   <div class="modal fade" id="modalRegistar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -139,7 +288,6 @@
     </div>
   </div>
 
-
   <!-- Inserir na Lista de Espera -->
   <div class="modal fade" id="ModalEspera" tabindex="-1" role="dialog" aria-labelledby="ModalEspera" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -183,25 +331,25 @@
 
   <!-- Inserir na Associado -->
   <div class="modal fade" id="area" tabindex="-1" role="dialog" aria-labelledby="area" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <form id="formulario" autocomplete="off">
-            <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir associado ao
-              Agrupamento</label><br>
-            <label for="obr" style="font-weight: bold; color:#617080; font-size: 20px">Os campos com * são
-              obrigatórios</label><br>
-              <br>
-            <label for="id" style="font-weight: bold; color:#617080; font-size: 16px">IDENTIFICAÇÃO:</label><br>
-            <div class="mb-3">
+          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir associado ao
+            Agrupamento</label>
+        </div>
+        <div class="modal-body">
+          <label for="obr" style="font-weight: bold; color:#617080; font-size: 20px">Os campos com * são
+            obrigatórios</label>
+          <label for="id" style="font-weight: bold; color:#617080; font-size: 16px">IDENTIFICAÇÃO:</label><br>
+          <div class="mb-3">
             <label for="nin">*NIN:</label><br>
             <input type="text" id="nin" name="nin" placeholder="Número de Identificação Nacional"><br>
-            </div>
-            <div class="mb-3">
+          </div>
+          <div class="mb-3">
             <label for="admissiondate">*Data de Admissão:</label><br>
             <input type="date" id="admissiondate" name="admissiondate"><br>
-            </div>
-            <div class="mb-3">
+          </div>
+          <div class="mb-3">
             <label for="section">*Secção:</label><br>
             <select id="section" name="section">
               <option value="-1" disabled selected>Secção</option>
@@ -210,8 +358,8 @@
               <option value="Pioneiros">Pioneiros</option>
               <option value="Caminheiros">Caminheiros</option>
             </select><br>
-            </div>
-            <div class="mb-3">
+          </div>
+          <div class="mb-3">
             <label for="name">*Nome Completo:</label><br>
             <input type="text" id="name" name="name" placeholder="Nome Completo"><br>
           </div>
@@ -220,7 +368,7 @@
             <input type="text" id="citizencard" name="citizencard" placeholder="Número Cartão Cidadão"><br>
           </div>
           <div class="mb-3">
-             <label for="personsex">*Sexo:</label><br>
+            <label for="personsex">*Sexo:</label><br>
             <select id="personsex" name="personsex">
               <option value="-1" disabled selected>Genero</option>
               <option value="Masculino">Masculino</option>
@@ -293,7 +441,7 @@
             <input type="text" id="profession" name="profession" placeholder="Profissão"><br>
           </div>
           <br>
-            <label for="fil" style="font-weight: bold; color:#617080; font-size: 20px">FILIAÇÃO:</label><br>
+          <label for="fil" style="font-weight: bold; color:#617080; font-size: 20px">FILIAÇÃO:</label><br>
           <div class="mb-3">
             <label for="fathername">Nome Pai:</label><br>
             <input type="text" id="fathername" name="fathername" placeholder="Nome Pai"><br>
@@ -310,330 +458,196 @@
             <label for="fatheremail">Email Pai:</label><br>
             <input type="email" id="fatheremail" name="fatheremail" placeholder="oemaildopai@email.com"><br>
 
-      
-          <div class="mb-3"> <label for="mothername">Nome Mãe:</label><br>
-       
-            <input type="text" id="mothername" name="mothername" placeholder="Nome Mãe"><br>
-          </div>
-          <div class="mb-3"><label for="motherprofession">Profissão Mãe:</label><br>
-            <input type="text" id="motherprofession" name="motherprofession" placeholder="Profissão Mãe"><br>
-          </div>
-          <div class="mb-3"><label for="mothermobilephone">Telemóvel Mãe:</label><br>
-            <input type="text" id="mothermobilephone" name="mothermobilephone" placeholder="912345678"><br>
-          </div>
-          <div class="mb-3"><label for="motheremail">Email Mãe:</label><br>
-            <input type="email" id="motheremail" name="motheremail" placeholder="oemaildamae@email.com"><br>
-       
-        </div>
-        <div class="mb-3"><label for="sponsername">*Nome Encarregado de Educação:</label><br>
-            <input type="text" id="sponsername" name="sponsername" placeholder="Nome Enc. Educação"><br>
-          </div>
-          <div class="mb-3"> <label for="sponserprofession">*Profissão Encarregado de Educação:</label><br>
-            <input type="text" id="sponserprofession" name="sponserprofession" placeholder="Profissão Enc Educação"><br>
-          </div>
-          <div class="mb-3"> <label for="sponsermobilephone">*Telemóvel Encarregado de Educação:</label><br>
-            <input type="text" id="sponsermobilephone" name="sponsermobilephone" placeholder="212123456"><br>
-          </div>
-          <div class="mb-3"> <label for="sponsoremail">Email Encarregado de Educação:</label><br>
-            <input type="email" id="sponsoremail" name="sponsoremail" placeholder="oemaildoenceducacao@email.com"><br>
-          </div>
-          <br>
+
+            <div class="mb-3"> <label for="mothername">Nome Mãe:</label><br>
+
+              <input type="text" id="mothername" name="mothername" placeholder="Nome Mãe"><br>
+            </div>
+            <div class="mb-3"><label for="motherprofession">Profissão Mãe:</label><br>
+              <input type="text" id="motherprofession" name="motherprofession" placeholder="Profissão Mãe"><br>
+            </div>
+            <div class="mb-3"><label for="mothermobilephone">Telemóvel Mãe:</label><br>
+              <input type="text" id="mothermobilephone" name="mothermobilephone" placeholder="912345678"><br>
+            </div>
+            <div class="mb-3"><label for="motheremail">Email Mãe:</label><br>
+              <input type="email" id="motheremail" name="motheremail" placeholder="oemaildamae@email.com"><br>
+
+            </div>
+            <div class="mb-3"><label for="sponsername">*Nome Encarregado de Educação:</label><br>
+              <input type="text" id="sponsername" name="sponsername" placeholder="Nome Enc. Educação"><br>
+            </div>
+            <div class="mb-3"> <label for="sponserprofession">*Profissão Encarregado de Educação:</label><br>
+              <input type="text" id="sponserprofession" name="sponserprofession"
+                placeholder="Profissão Enc Educação"><br>
+            </div>
+            <div class="mb-3"> <label for="sponsermobilephone">*Telemóvel Encarregado de Educação:</label><br>
+              <input type="text" id="sponsermobilephone" name="sponsermobilephone" placeholder="212123456"><br>
+            </div>
+            <div class="mb-3"> <label for="sponsoremail">Email Encarregado de Educação:</label><br>
+              <input type="email" id="sponsoremail" name="sponsoremail" placeholder="oemaildoenceducacao@email.com"><br>
+            </div>
+            <br>
             <label for="ddSau" style="font-weight: bold; color:#617080; font-size: 20px">DADOS DE SAÚDE:</label><br>
-          <div class="mb-3"><label for="healthnumber">*Numero de Utente:</label><br>
-            <input type="text" id="healthnumber" name="healthnumber" placeholder="Número de Utente de Saúde"><br>
-          </div>
-          <div class="mb-3"> <label for="allergies">Opções Alergias:</label><br>
-            <input class="form-check-input" type="checkbox" value="asma" id="asma">
-            <label class="form-check-label" for="asma">Asma</label>
-            <input class="form-check-input" type="checkbox" value="epilepsia" id="epilepsia">
-            <label class="form-check-label" for="epilepsia">Epilepsia</label>
-            <input class="form-check-input" type="checkbox" value="diabetes" id="diabetes">
-            <label class="form-check-label" for="diabetes">Diabetes</label>
-            <input class="form-check-input" type="checkbox" value="alergias" id="alergias">
-            <label class="form-check-label" for="alergias">Alergias</label>
-          </div>
-          <div class="mb-3"><label for="description_allergies">Descrição Alergias:</label><br>
-            <input type="text" id="description_allergies" name="description_allergies"
-              placeholder="Descrição Alergias"><br>
+            <div class="mb-3"><label for="healthnumber">*Numero de Utente:</label><br>
+              <input type="text" id="healthnumber" name="healthnumber" placeholder="Número de Utente de Saúde"><br>
+            </div>
+            <div class="mb-3"> <label for="allergies">Opções Alergias:</label><br>
+              <input class="form-check-input" type="checkbox" value="asma" id="asma">
+              <label class="form-check-label" for="asma">Asma</label>
+              <input class="form-check-input" type="checkbox" value="epilepsia" id="epilepsia">
+              <label class="form-check-label" for="epilepsia">Epilepsia</label>
+              <input class="form-check-input" type="checkbox" value="diabetes" id="diabetes">
+              <label class="form-check-label" for="diabetes">Diabetes</label>
+              <input class="form-check-input" type="checkbox" value="alergias" id="alergias">
+              <label class="form-check-label" for="alergias">Alergias</label>
+            </div>
+            <div class="mb-3"><label for="description_allergies">Descrição Alergias:</label><br>
+              <input type="text" id="description_allergies" name="description_allergies"
+                placeholder="Descrição Alergias"><br>
             </div>
             <div class="mb-3"> <label for="regular_medication">Medicação Relgular:</label><br>
-            <input type="text" id="regular_medication" name="regular_medication" placeholder="Medicação Regular"><br>
-          </div>
-          <div class="mb-3"> <label for="dietary_restrictions">Restrições Alimentares:</label><br>
-            <input type="text" id="dietary_restrictions" name="dietary_restrictions"
-              placeholder="Restrições Alimentares"><br>
+              <input type="text" id="regular_medication" name="regular_medication" placeholder="Medicação Regular"><br>
+            </div>
+            <div class="mb-3"> <label for="dietary_restrictions">Restrições Alimentares:</label><br>
+              <input type="text" id="dietary_restrictions" name="dietary_restrictions"
+                placeholder="Restrições Alimentares"><br>
             </div>
             <div class="mb-3"> <label for="other_health_problems">Outros Problemas de Saúde:</label><br>
-            <input type="text" id="other_health_problems" name="other_health_problems"
-              placeholder="Outros Problemas de Saúde"><br>
+              <input type="text" id="other_health_problems" name="other_health_problems"
+                placeholder="Outros Problemas de Saúde"><br>
             </div>
             <br>
             <label for="cantEme" style="font-weight: bold; color:#617080; font-size: 20px">CONTACTOS DE EMERGÊNCIA
               ADICIONAIS:</label><br>
             <div class="mb-3"> <label for="name1">Nome:</label><br>
-            <input type="text" id="name1" name="name1" placeholder="Nome"><br>
-          </div>
-          <div class="mb-3"> <label for="parent1">Parestesco:</label><br>
-            <input type="text" id="parent1" name="parent1" placeholder="Parestesco"><br>
-          </div>
-          <div class="mb-3"> <label for="mobile1">Telemóvel:</label><br>
-            <input type="text" id="mobile1" name="mobile1" placeholder="912345678"><br>
-          </div>
-          <div class="mb-3"> <label for="name2">Nome:</label><br>
-            <input type="text" id="name2" name="name2" placeholder="Nome"><br>
-          </div>
-          <div class="mb-3"><label for="parent2">Parestesco:</label><br>
-            <input type="text" id="parent2" name="parent2" placeholder="Parestesco"><br>
-          </div>
-          <div class="mb-3"><label for="mobile2">Telemóvel:</label><br>
-            <input type="text" id="mobile2" name="mobile2" placeholder="912345678"><br>
-          </div>
-            <label for="conse" style="font-weight: bold; color:#617080; font-size: 20px">CONSENTIMENTOS:</label><br>
-          <div class="mb-3"> <label for="data_processing">*Autorizo o tratamento dos meus dados de identificação pessoal para envio e
-              divulgação, através da morada, de SMS ou de
-              endereço eletrónico, de comunicações promocionais relativas a produtos do CNE, de comunicações
-              informativas sobre atividades e eventos organizados e/ou promovidos pelo CNE e respetivos convites, da revista “Flor de Lis”,
-              do “Boletim Eletrónico de Informação do CNE” e/ou de outras newsletters do CNE, bem como para o registo nas respetivas
-              atividades e eventos organizados e/ou promovidos pelo CNE.</label><br>
-            <select id="data_processing" name="data_processing">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-          </div>
-          <div class="mb-3"> <label for="health_data">*Autorizo a recolha dos meus dados relativos à saúde unicamente para gestão das
-              atividades promovidas e/ou organizados pelo CNE.</label><br>
-            <select id="health_data" name="health_data">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-          </div>
-          <div class="mb-3"> <label for="data_voice_image">*Autorizo o tratamento dos meus dados de voz e/ou imagem captados durante as
-              atividades escutistas promovidas ou organizadas pelo Corpo Nacional de Escutas (CNE), cedendo os direitos sobre os mesmos ao CNE por cinco
-              anos, a título gratuito e sem necessidade de consulta prévia sobre as formas de utilização, agindo sempre o CNE de boa fé
-              e de acordo com a sua Lei e Princípios. O tratamento tem por finalidade o arquivo histórico, a promoção e divulgação
-              dos projetos, eventos e atividades promovidas e/ou organizadas pelo CNE nos diversos meios de comunicação ao dispor,
-              nomeadamente em cartazes, flyers, produtos de merchandising exclusivo do CNE, redes sociais, sítios de internet,
-              televisão, rádio e outros equivalentes.</label><br>
-            <select id="data_voice_image" name="data_voice_image">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-          </div>
-          <div class="mb-3"><label for="social_networks__educating">*Tenho conhecimento que o meu educando possui perfil nas redes
-              sociais.</label><br>
-            <select id="social_networks__educating" name="social_networks__educating">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-          </div>
-          <div class="mb-3"><label for="email_educating">*Tenho conhecimento que o meu educando possui endereço de email.</label><br>
-            <select id="email_educating" name="email_educating">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-          </div>
-          <div class="mb-3"><label for="collective_transport">*Autorizo que, sempre que se torne necessário (por facilidade operacional
-              e/ou
-              económica), que o
-              meu educando seja transportado em sistema de boleia em viatura conduzida por um dos animadores
-              da Secção ou por um dos Pais do Agrupamento, garantindo que me é comunicado quem realizará esse
-              transporte e que as regras (utilização de banco/cadeirinha) são respeitadas.</label><br>
-            <select id="collective_transport" name="collective_transport">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-          </div>
-          <div class="mb-3"> <label for="data_sharing">*Tomei conhecimento de que os endereços de email fornecidos serão partilhados com
-              a
-              Comissão
-              Permanente de Pais (cpp.242@escutismo.pt) para serem utilizados no estrito âmbito de iniciativas do
-              agrupamento que careçam de apoio dos Pais.</label><br>
-            <select id="data_sharing" name="data_sharing">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-          </div>
-          <div class="mb-3">
-            <label for="all_health_data">*Declaro que foi providenciada toda a informação médica relevante.</label><br>
-            <select id="all_health_data" name="all_health_data">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select><br>
-            <p id="ErroInserirEscuteiro"></p>
-            <p id="statusInserirEscuteiro"></p>
-
-
-            <div class="modal-footer d-block">
-              <button class="btn btn-success float-end" id="btnSubmitAssocciao">
-                Submeter</button>
-              <button id="btnCancelarAssociacao" class="btn btn-warning float-end"
-                data-bs-dismiss="modal">Cancelar</button>
+              <input type="text" id="name1" name="name1" placeholder="Nome"><br>
             </div>
-          </form>
+            <div class="mb-3"> <label for="parent1">Parestesco:</label><br>
+              <input type="text" id="parent1" name="parent1" placeholder="Parestesco"><br>
+            </div>
+            <div class="mb-3"> <label for="mobile1">Telemóvel:</label><br>
+              <input type="text" id="mobile1" name="mobile1" placeholder="912345678"><br>
+            </div>
+            <div class="mb-3"> <label for="name2">Nome:</label><br>
+              <input type="text" id="name2" name="name2" placeholder="Nome"><br>
+            </div>
+            <div class="mb-3"><label for="parent2">Parestesco:</label><br>
+              <input type="text" id="parent2" name="parent2" placeholder="Parestesco"><br>
+            </div>
+            <div class="mb-3"><label for="mobile2">Telemóvel:</label><br>
+              <input type="text" id="mobile2" name="mobile2" placeholder="912345678"><br>
+            </div>
+            <label for="conse" style="font-weight: bold; color:#617080; font-size: 20px">CONSENTIMENTOS:</label><br>
+            <div class="mb-3"> <label for="data_processing">*Autorizo o tratamento dos meus dados de identificação
+                pessoal para envio e
+                divulgação, através da morada, de SMS ou de
+                endereço eletrónico, de comunicações promocionais relativas a produtos do CNE, de comunicações
+                informativas sobre atividades e eventos organizados e/ou promovidos pelo CNE e respetivos convites, da
+                revista “Flor de Lis”,
+                do “Boletim Eletrónico de Informação do CNE” e/ou de outras newsletters do CNE, bem como para o
+                registo nas respetivas
+                atividades e eventos organizados e/ou promovidos pelo CNE.</label><br>
+              <select id="data_processing" name="data_processing">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+            </div>
+            <div class="mb-3"> <label for="health_data">*Autorizo a recolha dos meus dados relativos à saúde
+                unicamente para gestão das
+                atividades promovidas e/ou organizados pelo CNE.</label><br>
+              <select id="health_data" name="health_data">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+            </div>
+            <div class="mb-3"> <label for="data_voice_image">*Autorizo o tratamento dos meus dados de voz e/ou imagem
+                captados durante as
+                atividades escutistas promovidas ou organizadas pelo Corpo Nacional de Escutas (CNE), cedendo os
+                direitos sobre os mesmos ao CNE por cinco
+                anos, a título gratuito e sem necessidade de consulta prévia sobre as formas de utilização, agindo
+                sempre o CNE de boa fé
+                e de acordo com a sua Lei e Princípios. O tratamento tem por finalidade o arquivo histórico, a
+                promoção e divulgação
+                dos projetos, eventos e atividades promovidas e/ou organizadas pelo CNE nos diversos meios de
+                comunicação ao dispor,
+                nomeadamente em cartazes, flyers, produtos de merchandising exclusivo do CNE, redes sociais, sítios de
+                internet,
+                televisão, rádio e outros equivalentes.</label><br>
+              <select id="data_voice_image" name="data_voice_image">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+            </div>
+            <div class="mb-3"><label for="social_networks__educating">*Tenho conhecimento que o meu educando possui
+                perfil nas redes
+                sociais.</label><br>
+              <select id="social_networks__educating" name="social_networks__educating">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+            </div>
+            <div class="mb-3"><label for="email_educating">*Tenho conhecimento que o meu educando possui endereço de
+                email.</label><br>
+              <select id="email_educating" name="email_educating">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+            </div>
+            <div class="mb-3"><label for="collective_transport">*Autorizo que, sempre que se torne necessário (por
+                facilidade operacional
+                e/ou
+                económica), que o
+                meu educando seja transportado em sistema de boleia em viatura conduzida por um dos animadores
+                da Secção ou por um dos Pais do Agrupamento, garantindo que me é comunicado quem realizará esse
+                transporte e que as regras (utilização de banco/cadeirinha) são respeitadas.</label><br>
+              <select id="collective_transport" name="collective_transport">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+            </div>
+            <div class="mb-3"> <label for="data_sharing">*Tomei conhecimento de que os endereços de email fornecidos
+                serão partilhados com
+                a
+                Comissão
+                Permanente de Pais (cpp.242@escutismo.pt) para serem utilizados no estrito âmbito de iniciativas do
+                agrupamento que careçam de apoio dos Pais.</label><br>
+              <select id="data_sharing" name="data_sharing">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+            </div>
+            <div class="mb-3">
+              <label for="all_health_data">*Declaro que foi providenciada toda a informação médica
+                relevante.</label><br>
+              <select id="all_health_data" name="all_health_data">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+              </select><br>
+              <p id="ErroInserirEscuteiro"></p>
+              <p id="statusInserirEscuteiro"></p>
+
+
+              <div class="modal-footer d-block">
+                <button class="btn btn-success float-end" id="btnSubmitAssocciao">
+                  Submeter</button>
+                <button id="btnCancelarAssociacao" class="btn btn-warning float-end"
+                  data-bs-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-
-  <!-- Inserir Pagamentos Eventos -->
-  <div class="modal fade" id="modalPagEventos" tabindex="-1" role="dialog" aria-labelledby="modalPagEventos"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
-            Evento</label>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">NIN</label>
-            <input type="text" class="form-control" id="NINEvento" name="NINEvento" placeholder="NIN" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Evento</label>
-            <input type="text" class="form-control" id="event" name="event" placeholder="Evento" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Pagamento</label>
-            <input type="text" class="form-control" id="payment" name="payment" placeholder="Pagamento" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Valor Evento</label>
-            <input type="text" class="form-control" id="valueEvent" name="valueEvent" placeholder="Valor Evento" />
-          </div>
-          <div class="mb-3">
-            <label for="payment_status">Estado Pagamento</label><br>
-            <select id="payment_status" name="payment_status">
-              <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
-              <option value="Pago">Pago</option>
-              <option value="Não Pago">Não Pago</option>
-              <option value="Pago Parcialmente">Pago Parcialmente</option>
-            </select>
-          </div>
-          <div>
-            <p id="statusPagEvent"></p>
-          </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="btnCancelaEvento" class="btn btn-warning float-end" data-bs-dismiss="modal">
-              Cancelar
-            </button>
-            <button class="btn btn-success float-end" id="btnSubmitPagEvent">
-              Submeter
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Inserir Pagamentos Quotas -->
-  <div class="modal fade" id="modalPagQuotas" tabindex="-1" role="dialog" aria-labelledby="modalPagQuotas"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Pagamento de
-            Quotas</label>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">NIN</label>
-            <input type="text" class="form-control" id="NINQuota" name="NINQuota" placeholder="NIN" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Pagamento</label>
-            <input type="text" class="form-control" id="paymentQuota" name="paymentQuota" placeholder="Pagamento" />
-          </div>
-          <div class="mb-3">
-            <label for="payment_status_Quota">Estado Pagamento</label><br>
-            <select id="payment_status_Quota" name="payment_status_Quota">
-              <option value="-1" disabled selected>Selecionar Estado do Pagamento</option>
-              <option value="Pago">Pago</option>
-              <option value="Não Pago">Não Pago</option>
-              <option value="Pago Parcialmente">Pago Parcialmente</option>
-            </select><br>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Ano Lectivo</label>
-            <input type="text" class="form-control" id="anoLec" name="anoLec" placeholder="yyyy/yyyy" />
-          </div>
-          <div>
-            <p id="statusPagQuota"></p>
-          </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
-          <button class="btn btn-success float-end" id="btnSubmitPagQuota">
-            Submeter
-          </button>
-          <button id="btnCancelaPagQuota" class="btn btn-warning float-end" data-bs-dismiss="modal">
-            Cancelar
-          </button>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Inserir Status Documentos -->
-  <div class="modal fade" id="modalStatDoc" tabindex="-1" role="dialog" aria-labelledby="modalStatDoc"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <label for="id" style="font-weight: bold; color:#617080; font-size: 20px">Inserir Estado
-          Documentos</label>
-      </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">NIN</label>
-            <input type="text" class="form-control" id="NINDoc" name="NINDoc" placeholder="NIN" />
-          </div>
-          <div class="mb-3">
-            <label for="send">Enviado</label><br>
-            <select id="send" name="send">
-              <option value="-1" disabled selected>Selecionar Estado do Envio</option>
-              <option value="Enviado">Enviado</option>
-              <option value="Não Enviado">Não Enviado</option>
-            </select><br>
-          </div>
-          <div class="mb-3">
-            <label for="signature">Assinado</label><br>
-            <select id="signature" name="signature">
-              <option value="-1" disabled selected>Selecionar Estado da Assinatura</option>
-              <option value="Assinado">Assinado</option>
-              <option value="Não Assinado">Não Assinado</option>
-            </select><br>
-          </div>
-          <div class="mb-3">
-            <label for="received">Recebido</label><br>
-            <select id="received" name="received">
-              <option value="-1" disabled selected>Selecionar Estado da Recepção</option>
-              <option value="Recebido">Recebido</option>
-              <option value="Não Recebido">Não Recebido</option>
-            </select><br>
-          </div>
-          <div>
-            <p id="statusDoc"></p>
-          </div><br>
-          <button class="btn btn-success float-end" id="btnSubmitstatDoc">
-            Submeter
-          </button>
-          <button id="btnCancelaDoc" class="btn btn-warning float-end" data-bs-dismiss="modal">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script>
+  <!-- Moment lib to format dates -->
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script src="js/consultas.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script>
-<script src="js/consultas.js"></script>
 
 </html>

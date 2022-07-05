@@ -245,7 +245,7 @@ body
     background-color: rgb(255, 255, 255);
     border: 2px solid hsl(0, 0%, 100%);
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1 1;
     gap: 1rem;
   }
   

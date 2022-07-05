@@ -438,28 +438,6 @@ exports.inserirEscuteiro = async (req, res) => {
     });
 };
 
-
-// Envia todas as disciplinas
-// exports.findAllDocs = (req, res) => {
-//   if (!req.body) {
-//     // utilizador autenticado
-//     console.log(`FindAll - user: ${req.email.name}`);
-//     console.log("Mensagem de debug - listar documentos");
-//     dbmySQL
-//       .cRud_findAllDocs() // R: Read
-//       .then((dados) => {
-//         res.send(dados);
-
-//       })
-//       .catch((err) => {
-//         return res
-//           .status(400)
-//           .send({ message: "Não há documentos para mostrar!" });
-//       });
-//   }
-// };
-
-
 // Envia todos os eventos
 exports.listaEventos = (req, res) => {
   dbmySQL
@@ -502,7 +480,35 @@ exports.listaEspera = (req, res) => {
     });
 };
 
-// Envia todos da lista de espera
+// Envia todos os documentos
+exports.listaDocumentos = (req, res) => {
+  dbmySQL
+    .cRud_allListaDocumentos()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há lista de espera para mostrar!" });
+    });
+};
+
+// Envia todos os documentos não assinados
+exports.listaDocumentosNaoAssinados = (req, res) => {
+  dbmySQL
+    .cRud_allListaDocumentosNaoAssinados()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há lista de documentos não assinados para mostrar!" });
+    });
+};
+
+// Envia todos os documentos não pagos
 exports.listaDocumentos = (req, res) => {
   dbmySQL
     .cRud_allListaDocumentos()
@@ -833,12 +839,10 @@ exports.editSecretario = async (req, res) => {
       message: "O conteúdo não pode ser vazio!",
     });
   }
-  const email = req.body.email; 
-  const password = hashPassword;
-  const nome = req.body.name;
+  const email = req.body.email;
   const section = req.body.section;
   dbmySQL
-    .Crud_EditarSecretario(email,password,nome,section)
+    .Crud_EditarSecretario(email,section)
     .then(() => {
       res.status(200).send({
         message:

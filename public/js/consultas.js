@@ -1,9 +1,14 @@
 const urlBase = "https://localhost:8888/homepage";
+
 const modalRegistar = document.getElementById("modalRegistar");
 const bsModalRegistar = new bootstrap.Modal(
   modalRegistar,
   (backdrop = "static")
-); 
+);
+
+function cleanAndRebuildTableTemplate() {
+  document.getElementById("content").innerHTML = "<table id=\"table\"></table>";
+}
 
 const btnModalRegistar = document.getElementById("btnModalRegistar");
 const pRegistar = document.getElementById("pRegistar");
@@ -32,12 +37,6 @@ function chamaModalRegistar(isEdit = false, row = undefined) {
     document.getElementById("emailRegistar").value = "";
     document.getElementById("sectionRegistar").value = "";
   }
-  bsModalRegistar.show();
-}
-
-function chamaModalRegistar() {
-  document.getElementById("btnSubmitRegistar").style.display = "block";
-  document.getElementById("btnCancelaRegistar").innerHTML = "Cancelar";
   bsModalRegistar.show();
 }
 
@@ -199,7 +198,7 @@ function chamaModalInsAss(isEdit = false, row = undefined) {
 	  document.getElementById("name").value = row.name;
 	  document.getElementById("citizencard").value = row.citizencard;
   	document.getElementById("nif").value = row.nif;
-	  document.getElementById("birthdate").value = row.birthdate;
+	  document.getElementById("birthdate").value = birthdate;
 	  document.getElementById("nationality").value = row.nationality;
 	  document.getElementById("naturalness").value = row.naturalness;
 	  document.getElementById("address").value = row.address;
@@ -331,7 +330,7 @@ const bsModalInsAss = new bootstrap.Modal(
 );
 
 
-function validaRegisto() {
+function validaRegisto(isEdit = false) {
   let email = document.getElementById("emailRegistar").value; // email é validado pelo próprio browser
   let senha = document.getElementById("senhaRegistar").value; // tem de ter uma senha
   let section = document.getElementById("sectionRegistar").value;
@@ -396,7 +395,7 @@ function insereRegisto(isEdit = false) {
         if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
           statEsp.innerHTML = body.message;
-          document.getElementById("btnSubmitListaEspera").innerHTML = "Sucesso!";
+          document.getElementById("btnSubmitEspera").innerHTML = "Sucesso!";
           $('#table').bootstrapTable('refresh');
           $('#ModalEspera').modal('hide');													  
         }
@@ -537,7 +536,7 @@ function inserirEstadoDocumento(isEdit = false) {
 }
 
 
-function insereEscuteiro() {
+function insereEscuteiro(isEdit = false) {
   let nin = document.getElementById("nin").value;
   let admissiondate = document.getElementById("admissiondate").value;
   let section = document.getElementById("section").value;
@@ -596,13 +595,14 @@ function insereEscuteiro() {
   let name2 = document.getElementById("name2").value;
   let parent2 = document.getElementById("parent2").value;
   let mobile2 = document.getElementById("mobile2").value;
-  if (nin.length < 17) {
-    console.log("estamos a entrar na função")
-    document.getElementById("passErroNIF").innerHTML =
-      "O NIN tem de ter 17 caracteres";
-    return;
-  }
-  fetch(`${urlBase}/insereEscuteiro`, {
+  // if (nin.length < 17) {
+  //   console.log("estamos a entrar na função")
+  //   document.getElementById("passErroNIF").innerHTML =
+  //     "O NIN tem de ter 17 caracteres";
+  //   return;
+  // }
+  const url = urlBase + '/' + (isEdit ? "editEscuteiro" : "insereEscuteiro");
+  fetch(url, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
@@ -612,17 +612,19 @@ function insereEscuteiro() {
     .then((response) => {
       console.log("estamos a entrar no then")
       return response.json().then((body) => {
-        if (response.status == 201) {
+        if (response.status == (isEdit ? 200 : 201)) {
           console.log(body.message);
-          statReg.innerHTML = body.message;
+          statusInserirEscuteiro.innerHTML = body.message;
           document.getElementById("btnSubmitAssocciao").innerHTML = "Sucesso!";
+          $('#table').bootstrapTable('refresh');
+          $('#area').modal('hide');		
         }
       });
     })
     .catch((body) => {
       result = body.message;
       document.getElementById(
-        "statusInserirAssociacao"
+        "statusInserirEscuteiro"
       ).innerHTML = `${result}`;
       console.log("Catch:");
       console.log(result);
@@ -661,6 +663,7 @@ function deleteEvento(nin) {
 }
 
 async function listarEventos() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemEventos/`,
     columns: [{
@@ -719,6 +722,7 @@ function deleteQuota(nin) {
 }
 
 async function listarQuotas() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemQuotas/`,
     columns: [{
@@ -775,6 +779,7 @@ function deleteEspera(nif) {
 }
 
 async function listarEspera() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemEspera/`,
     columns: [{
@@ -831,6 +836,7 @@ function deleteDocumento(nin) {
 }
 
 async function listarDocumentos() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemDocumentos/`,
     columns: [{
@@ -839,6 +845,26 @@ async function listarDocumentos() {
       formatter: accoesFormatterDocumento,
       title: 'Ações'
     }, {
+      field: 'nin',
+      title: 'NIN'
+    }, {
+      field: 'send',
+      title: 'Documento Enviado'
+    }, {
+      field: 'signature',
+      title: 'Documento Assinado'
+    }, {
+      field: 'received',
+      title: 'Documento Recebido'
+    }]
+  })
+}
+
+async function listarDocumentosNaoAssinados() {
+  cleanAndRebuildTableTemplate();
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemDocumentosNaoAssinados/`,
+    columns: [{
       field: 'nin',
       title: 'NIN'
     }, {
@@ -885,8 +911,8 @@ function deleteLobito(nin) {
   })
 }
 
-
 async function listarLobitos() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemLobitos/`,
     columns: [{
@@ -898,7 +924,7 @@ async function listarLobitos() {
         field: 'nin',
         title: 'NIN'
       }, {
-        field: 'admission',
+        field: 'admissiondate',
         title: 'Data Admissão'
       }, {
         field: 'section',
@@ -921,7 +947,7 @@ async function listarLobitos() {
         title: 'NIF'
       },
       {
-        field: 'birth',
+        field: 'birthdate',
         title: 'Data de Nascimento'
       },
       {
@@ -1137,6 +1163,7 @@ function deleteExplorador(nin) {
 
 
 async function listarExploradores() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemExploradores/`,
     columns: [{
@@ -1148,7 +1175,7 @@ async function listarExploradores() {
         field: 'nin',
         title: 'NIN'
       }, {
-        field: 'admission',
+        field: 'admissiondate',
         title: 'Data Admissão'
       }, {
         field: 'section',
@@ -1171,7 +1198,7 @@ async function listarExploradores() {
         title: 'NIF'
       },
       {
-        field: 'birth',
+        field: 'birthdate',
         title: 'Data de Nascimento'
       },
       {
@@ -1388,6 +1415,7 @@ function deletePioneiro(nin) {
 
 
 async function listarPioneiros() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemPioneiros/`,
     columns: [{
@@ -1399,7 +1427,7 @@ async function listarPioneiros() {
         field: 'nin',
         title: 'NIN'
       }, {
-        field: 'admission',
+        field: 'admissiondate',
         title: 'Data Admissão'
       }, {
         field: 'section',
@@ -1422,7 +1450,7 @@ async function listarPioneiros() {
         title: 'NIF'
       },
       {
-        field: 'birth',
+        field: 'birthdate',
         title: 'Data de Nascimento'
       },
       {
@@ -1636,8 +1664,8 @@ function deleteCaminheiro(nin) {
   })
 }
 
-
 async function listarCaminheiros() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemCaminheiros/`,
     columns: [{
@@ -1649,7 +1677,7 @@ async function listarCaminheiros() {
         field: 'nin',
         title: 'NIN'
       }, {
-        field: 'admission',
+        field: 'admissiondate',
         title: 'Data Admissão'
       }, {
         field: 'section',
@@ -1672,7 +1700,7 @@ async function listarCaminheiros() {
         title: 'NIF'
       },
       {
-        field: 'birth',
+        field: 'birthdate',
         title: 'Data de Nascimento'
       },
       {
@@ -1887,6 +1915,7 @@ function deleteSecretario(email) {
 }
 
 async function listarSecretarios() {
+  cleanAndRebuildTableTemplate();
   $('#table').bootstrapTable({
     url: `${urlBase}/listagemSecretario/`,
     columns: [{

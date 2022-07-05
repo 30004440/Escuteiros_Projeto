@@ -279,21 +279,6 @@ exports.Crud_inserirEscuteiro = (nin, admissiondate, section, name, citizencard,
     }
 )};
 
-
-exports.cRud_findAllDocs = () => {
-  return new Promise((resolve, reject) => {
-    // lê todos os registos
-    query("SELECT * from statusdocument")
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
-
 // exports.cRud_key = (criteria) => {
 //   return new Promise((resolve, reject) => {
 //     // busca os registos que contêm a chave
@@ -452,6 +437,19 @@ exports.cRud_allListaDocumentos = () => {
   return new Promise((resolve, reject) => {
     // lê todos os registos
     query("SELECT * from statusdocument")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaDocumentosNaoAssinados = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos de documentos não assinados
+    query("SELECT * from statusdocument where signature = 'Não Assinado'")
       .then((result) => {
         resolve(result);
       })
@@ -698,18 +696,16 @@ exports.cRud_DeleteSecretario = (email) => {
   });
 };
 
-exports.Crud_EditarSecretario = (email, password, nome, section) => {
+exports.Crud_EditarSecretario = (email, section) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
       email: email,
-      password: password,
-      name: nome,
       section: section,
     };
     query(
-      "UPDATE secretagrup set section = ?, email = ?, name = ? where email = ?",
-      [data.email,data.password,data.name,data.section]
+      "UPDATE secretagrup set section = ? where email = ?",
+      [data.section,data.email]
     )
       .then((result) => {
         console.log(data);
@@ -797,8 +793,8 @@ exports.Crud_EditarEscuteiro = (nin, admissiondate, section, name, citizencard, 
       mobile2 : mobile2,
     };
     query(
-      "UPDATE statusdocument set section = ?, name = ?, citizencard = ?, personsex = ?, nif = ?, birthdate = ?, nationality = ?, naturalness = ?, address = ?, vilage = ?, zipcode = ?, city = ?, district = ?, mobilephone = ?, phone = ?, email = ?, school = ?, profession = ?, fathername = ?, fatherprofession = ?, fathermobilephone = ?, fatheremail = ?, mothername = ?, motherprofession = ?, mothermobilephone = ?, motheremail = ?, sponsername = ?, sponserprofession = ?, sponsermobilephone = ?, sponsoremail = ?, healthnumber = ?, allergies = ?, description_allergies = ?, regular_medication = ?, dietary_restrictions = ?, other_health_problems = ?, data_processing = ?, health_data = ?, data_voice_image = ?, social_networks__educating = ?, email_educating = ?, collective_transport = ?, data_sharing = ?, all_health_data = ?, name1 = ?, parent1 = ?, mobile1 = ?, name2 = ?, parent2 = ?, mobile2 = ? where nin = ?",
-      [data.nin, data.admissiondate, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2]
+      "UPDATE associados set section = ?, name = ?, citizencard = ?, personsex = ?, nif = ?, birthdate = ?, nationality = ?, naturalness = ?, address = ?, vilage = ?, zipcode = ?, city = ?, district = ?, mobilephone = ?, phone = ?, email = ?, school = ?, profession = ?, fathername = ?, fatherprofession = ?, fathermobilephone = ?, fatheremail = ?, mothername = ?, motherprofession = ?, mothermobilephone = ?, motheremail = ?, sponsername = ?, sponserprofession = ?, sponsermobilephone = ?, sponsoremail = ?, healthnumber = ?, allergies = ?, description_allergies = ?, regular_medication = ?, dietary_restrictions = ?, other_health_problems = ?, data_processing = ?, health_data = ?, data_voice_image = ?, social_networks__educating = ?, email_educating = ?, collective_transport = ?, data_sharing = ?, all_health_data = ?, name1 = ?, parent1 = ?, mobile1 = ?, name2 = ?, parent2 = ?, mobile2 = ? where nin = ?",
+      [data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2, data.nin]
     )
       .then((result) => {
         console.log(data);
