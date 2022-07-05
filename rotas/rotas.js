@@ -16,6 +16,9 @@ module.exports = app => {
   // Lista os eventos
   router.get("/listagemEventos/", controlador.listaEventos);
 
+  // Lista o status dos eventos não pagos
+  router.get("/listagemEventosNaoPagos/", controlador.listaEventosNaoPagos);
+   
   // Editar evento
   router.put("/editEvento", controlador.EditEvento);
   
@@ -28,6 +31,9 @@ module.exports = app => {
 
   // Lista as quotas
   router.get("/listagemQuotas/", controlador.listaQuotas);
+
+  // Lista o status das Quotas não pagos
+  router.get("/listagemQuotasNaoPagas/", controlador.listaQuotasNaoPagas);
 
   // Editar quota
   router.put("/editQuota", controlador.EditQuota);
@@ -73,6 +79,7 @@ module.exports = app => {
 
   // Lista os Lobitos
   router.get("/listagemLobitos/", controlador.listaLobitos);
+
   // Apagar Lobito
   router.delete("/deleteLobito", controlador.DeleteEscuteiro);
 

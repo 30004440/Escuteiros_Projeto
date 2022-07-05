@@ -452,6 +452,19 @@ exports.listaEventos = (req, res) => {
     });
 };
 
+exports.listaEventosNaoPagos = (req, res) => {
+  dbmySQL
+    .cRud_allListaEventosNaoPagos()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há lista de documentos não assinados para mostrar!" });
+    });
+};
+
 // Envia todos as quotas
 exports.listaQuotas = (req, res) => {
   dbmySQL
@@ -463,6 +476,19 @@ exports.listaQuotas = (req, res) => {
       return res
         .status(400)
         .send({ message: "Não há quotas para mostrar!" });
+    });
+};
+
+exports.listaQuotasNaoPagas = (req, res) => {
+  dbmySQL
+    .cRud_allListaQuotasNaoPagas()
+    .then((dados) => {
+      res.send(dados);
+    })
+    .catch((err) => {
+      return res
+        .status(400)
+        .send({ message: "Não há lista de documentos não assinados para mostrar!" });
     });
 };
 

@@ -406,11 +406,37 @@ exports.cRud_allListaEventos = () => {
   });
 };
 
+exports.cRud_allListaEventosNaoPagos = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos de eventos não pagas
+    query("SELECT * from events where payment_status IN ( 'Não Pago', 'Pago Parcialmente' )")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 
 exports.cRud_allListaQuotas = () => {
   return new Promise((resolve, reject) => {
     // lê todos os registos
     query("SELECT * from quota")
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.cRud_allListaQuotasNaoPagas = () => {
+  return new Promise((resolve, reject) => {
+    // lê todos os registos de quotas não pagas
+    query("SELECT * from quota where payment_status IN ( 'Não Pago', 'Pago Parcialmente' )")
       .then((result) => {
         resolve(result);
       })

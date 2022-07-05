@@ -690,6 +690,29 @@ async function listarEventos() {
   })
 }
 
+async function listarEventosNaoPagos() {
+  cleanAndRebuildTableTemplate();
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemEventosNaoPagos/`,
+    columns: [{
+      field: 'nin',
+      title: 'NIN'
+    }, {
+      field: 'event',
+      title: 'Evento'
+    }, {
+      field: 'payment',
+      title: 'Pagamento'
+    }, {
+      field: 'payment_status',
+      title: 'Estado do Pagamento'
+    }, {
+      field: 'valueEvent',
+      title: 'Valor Total do Evento'
+    }]
+  })
+}
+
 function accoesFormatterQuotas (value, row, index) {
   return [
     '<a class="edit" href="javascript:void(0)" title="Edit">',
@@ -731,6 +754,26 @@ async function listarQuotas() {
       formatter: accoesFormatterQuotas,
       title: 'Ações'
     }, {
+      field: 'nin',
+      title: 'NIN'
+    }, {
+      field: 'payment',
+      title: 'Valor Pago'
+    }, {
+      field: 'payment_status',
+      title: 'Estado do Pagamento'
+    }, {
+      field: 'school_year',
+      title: 'Ano Letivo'
+    }]
+  })
+}
+
+async function listarQuotasNaoPagas() {
+  cleanAndRebuildTableTemplate();
+  $('#table').bootstrapTable({
+    url: `${urlBase}/listagemQuotasNaoPagas/`,
+    columns: [{
       field: 'nin',
       title: 'NIN'
     }, {
