@@ -28,15 +28,16 @@ function chamaModalRegistar(isEdit = false, row = undefined) {
 	document.getElementById("senhaRegistar").value = row.nin;
     document.getElementById("senhaRegistar").setAttribute('disabled','disabled');
     document.getElementById("emailRegistar").value = row.email;
-    document.getElementById("sectionRegistar").value = row.section;
+    $('select[name=sectionRegistar]').val(row.sectionRegistar);
   } else {
     document.getElementById("usernameRegistar").value = "";
     document.getElementById("usernameRegistar").removeAttribute('disabled');
 	document.getElementById("senhaRegistar").value = "";
     document.getElementById("senhaRegistar").removeAttribute('disabled');
     document.getElementById("emailRegistar").value = "";
-    document.getElementById("sectionRegistar").value = "";
+    $('select[name=sectionRegistar]').val(-1);
   }
+  $('select[name=sectionRegistar]').change(); 
   bsModalRegistar.show();
 }
 
@@ -537,6 +538,7 @@ function inserirEstadoDocumento(isEdit = false) {
 
 
 function insereEscuteiro(isEdit = false) {
+  let upload = document.getElementById("upload").value;
   let nin = document.getElementById("nin").value;
   let admissiondate = document.getElementById("admissiondate").value;
   let section = document.getElementById("section").value;
@@ -595,19 +597,19 @@ function insereEscuteiro(isEdit = false) {
   let name2 = document.getElementById("name2").value;
   let parent2 = document.getElementById("parent2").value;
   let mobile2 = document.getElementById("mobile2").value;
-  // if (nin.length < 17) {
-  //   console.log("estamos a entrar na função")
-  //   document.getElementById("passErroNIF").innerHTML =
-  //     "O NIN tem de ter 17 caracteres";
-  //   return;
-  // }
+  if (nin.length < 17) {
+    console.log("estamos a entrar na função")
+    document.getElementById("passErroNIF").innerHTML =
+      "O NIN tem de ter 17 caracteres";
+    return;
+  }
   const url = urlBase + '/' + (isEdit ? "editEscuteiro" : "insereEscuteiro");
   fetch(url, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: isEdit ? "PUT" : "POST",
-    body: `nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdate=${birthdate}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
+    body: `upload=${upload}&nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdate=${birthdate}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
   })
     .then((response) => {
       console.log("estamos a entrar no then")

@@ -105,16 +105,16 @@ exports.login = async (req, res) => {
         let pathToGo = "/";
         switch (dados.section) {
           case "Caminheiros":
-            pathToGo = "/homepage.html";
+            pathToGo = "/homepageCaminheiros.html";
             break;
           case "Lobitos":
-            pathToGo = "/homepage.html";
+            pathToGo = "/homepageLobitos.html";
             break;
           case "Pioneiros":
-            pathToGo = "/homepage.html";
+            pathToGo = "/homepagePioneiros.html";
             break;
           case "Exploradores":
-            pathToGo = "/homepage.html";
+            pathToGo = "/homepageExploradores.html";
             break;
           case "Agrupamento":
             pathToGo = "/homepage.html";
@@ -368,6 +368,7 @@ exports.inserirEscuteiro = async (req, res) => {
       message: "O conteúdo não pode ser vazio!",
     });
   }
+  const upload = req.body.upload;
   const nin = req.body.nin;
   const admissiondate = req.body.admissiondate;
   const section = req.body.section;
@@ -421,7 +422,7 @@ exports.inserirEscuteiro = async (req, res) => {
   const parent2 = req.body.parent2;
   const mobile2 = req.body.mobile2;
   dbmySQL
-    .Crud_inserirEscuteiro(nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
+    .Crud_inserirEscuteiro(upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
     .then((dados) => {
       res.status(201).send({
         message:
