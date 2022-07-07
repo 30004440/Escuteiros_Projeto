@@ -3,6 +3,7 @@ require("dotenv").config();
 const dbmySQL = require("../models/mysql"); // Define o MODEL mySQL
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const multer  = require('multer')
 
 function authenticateToken(req, res) {
   console.log("A autorizar...");
@@ -421,6 +422,7 @@ exports.inserirEscuteiro = async (req, res) => {
   const name2 = req.body.name2;
   const parent2 = req.body.parent2;
   const mobile2 = req.body.mobile2;
+
   dbmySQL
     .Crud_inserirEscuteiro(upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
     .then((dados) => {
@@ -917,6 +919,7 @@ exports.editEscuteiro = async (req, res) => {
       message: "O conteúdo não pode ser vazio!",
     });
   }
+  const upload = req.body.upload;
   const nin = req.body.nin;
   const admissiondate = req.body.admissiondate;
   const section = req.body.section;
@@ -969,8 +972,9 @@ exports.editEscuteiro = async (req, res) => {
   const name2 = req.body.name2;
   const parent2 = req.body.parent2;
   const mobile2 = req.body.mobile2;
+
   dbmySQL
-    .Crud_EditarEscuteiro(nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
+    .Crud_EditarEscuteiro(upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
     .then(() => {
       res.status(200).send({
         message:

@@ -1,5 +1,14 @@
 const urlBase = "https://localhost:8888/homepage";
 
+async function getBase64(file) {
+  let result_base64 = await new Promise((resolve) => {
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => resolve(fileReader.result);
+      fileReader.readAsDataURL(file);
+  });
+  return result_base64;
+}
+
 const modalRegistar = document.getElementById("modalRegistar");
 const bsModalRegistar = new bootstrap.Modal(
   modalRegistar,
@@ -187,7 +196,7 @@ btnModalInsAss.addEventListener("click", () => {
 function chamaModalInsAss(isEdit = false, row = undefined) {
   document.getElementById("btnSubmitAssocciao").style.display = "block";
   document.getElementById("btnSubmitAssocciao").onclick = () => {
-    insereEscuteiro(isEdit);
+    insereEscuteiro(isEdit, row);
   };
   document.getElementById("statusInserirEscuteiro").innerHTML = "";
   document.getElementById("btnSubmitAssocciao").innerHTML = "Submeter";
@@ -311,17 +320,18 @@ function chamaModalInsAss(isEdit = false, row = undefined) {
 	  $('select[name=data_sharing]').val(-1);
   	$('select[name=all_health_data]').val(-1);
   }
-    $('select[name=section]').change();	
-	  $('select[name=personsex]').change();	
-	  $('select[name=school]').change();	
-	  $('select[name=data_processing]').change();	
-  	$('select[name=health_data]').change();	
-	  $('select[name=data_voice_image]').change();	
-  	$('select[name=social_networks__educating]').change();	
-	  $('select[name=email_educating]').change();	
-  	$('select[name=collective_transport]').change();	
-	  $('select[name=data_sharing]').change();	
-	  $('select[name=all_health_data]').change();	
+  document.getElementById('upload').value = "";
+  $('select[name=section]').change();	
+  $('select[name=personsex]').change();	
+  $('select[name=school]').change();	
+  $('select[name=data_processing]').change();	
+  $('select[name=health_data]').change();	
+  $('select[name=data_voice_image]').change();	
+  $('select[name=social_networks__educating]').change();	
+  $('select[name=email_educating]').change();	
+  $('select[name=collective_transport]').change();	
+  $('select[name=data_sharing]').change();	
+  $('select[name=all_health_data]').change();	
 
   bsModalInsAss.show();
 } 
@@ -537,8 +547,22 @@ function inserirEstadoDocumento(isEdit = false) {
 }
 
 
-function insereEscuteiro(isEdit = false) {
-  let upload = document.getElementById("upload").value;
+async function insereEscuteiro(isEdit = false, originalRow = undefined) {
+
+  let upload;
+  let files = document.getElementById("upload").files;
+  // Se a lista de ficheiros para upload for maior que 0
+  // (significa que há 1 ficheiro de associado para fazer upload)
+  if (files.length > 0) {
+    // Converte o ficheiro da posição 0 do array de ficheiros
+    // numa string de base64 do binário do ficheiro
+    upload = await getBase64(files[0]);
+  } else {
+      // Não existem ficheiros na lista
+      // Vamos avaliar se estamos a editar um registo existente e se
+      // estivermos tentamos usar o ficheiro carregado anteriormente
+    upload = isEdit && originalRow && originalRow.upload.length > 0 ? originalRow.upload : "";
+  }
   let nin = document.getElementById("nin").value;
   let admissiondate = document.getElementById("admissiondate").value;
   let section = document.getElementById("section").value;
@@ -609,7 +633,7 @@ function insereEscuteiro(isEdit = false) {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: isEdit ? "PUT" : "POST",
-    body: `upload=${upload}&nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdate=${birthdate}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
+    body: `upload=${encodeURIComponent(upload)}&nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdate=${birthdate}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
   })
     .then((response) => {
       console.log("estamos a entrar no then")
@@ -848,7 +872,6 @@ async function listarEspera() {
   })
 }
 
-
 function accoesFormatterDocumento (value, row, index) {
   return [
     '<a class="edit" href="javascript:void(0)" title="Edit">',
@@ -925,14 +948,25 @@ async function listarDocumentosNaoAssinados() {
   })
 }
 
-function accoesFormatterLobitos (value, row, index) {
+
+function downloadFichaAssociado(row) {
+  let a = document.createElement("a");
+  a.href = row.upload;
+  a.download = "FichaAssociado_"+row.nin+".pdf";
+  a.click();
+}
+
+function accoesFormatterEscuteiros (value, row, index) {
   return [
     '<a class="edit" href="javascript:void(0)" title="Edit">',
     '<i class="fa fa-edit"></i>',
     '</a>  ',
     '<a class="remove" href="javascript:void(0)" title="Remove">',
     '<i class="fa fa-trash"></i>',
-    '</a>'
+    '</a>',
+    '<a class="download" href="javascript:void(0)" title="Download">',
+    '<i class="fa fa-download"></i>',
+    '</a>  '
   ].join('')
 }
 
@@ -943,6 +977,9 @@ window.eventAcoesLobitos = {
   'click .remove': function (e, value, row, index) {
     deleteLobito(row.nin);
     $('#table').bootstrapTable('refresh');
+  },
+  'click .download': function (e, value, row, index) {
+    downloadFichaAssociado(row);
   }
 }
 
@@ -963,7 +1000,7 @@ async function listarLobitos() {
     columns: [{
       events: eventAcoesLobitos,
       field: 'acoes',
-      formatter: accoesFormatterLobitos,
+      formatter: accoesFormatterEscuteiros,
       title: 'Ações'
     }, {
         field: 'nin',
@@ -1175,17 +1212,6 @@ async function listarLobitos() {
   })
 }
 
-function accoesFormatterExploradores (value, row, index) {
-  return [
-    '<a class="edit" href="javascript:void(0)" title="Edit">',
-    '<i class="fa fa-edit"></i>',
-    '</a>  ',
-    '<a class="remove" href="javascript:void(0)" title="Remove">',
-    '<i class="fa fa-trash"></i>',
-    '</a>'
-  ].join('')
-}
-
 window.eventAcoesExploradores = {
   'click .edit': function (e, value, row, index) {
     chamaModalInsAss(true, row);
@@ -1193,6 +1219,9 @@ window.eventAcoesExploradores = {
   'click .remove': function (e, value, row, index) {
     deleteExplorador(row.nin);
     $('#table').bootstrapTable('refresh');
+  },
+  'click .download': function (e, value, row, index) {
+    downloadFichaAssociado(row);
   }
 }
 
@@ -1214,7 +1243,7 @@ async function listarExploradores() {
     columns: [{
       events: eventAcoesExploradores,
       field: 'acoes',
-      formatter: accoesFormatterExploradores,
+      formatter: accoesFormatterEscuteiros,
       title: 'Ações'
     }, {
         field: 'nin',
@@ -1427,17 +1456,6 @@ async function listarExploradores() {
 }
 
 
-function accoesFormatterPioneiros (value, row, index) {
-  return [
-    '<a class="edit" href="javascript:void(0)" title="Edit">',
-    '<i class="fa fa-edit"></i>',
-    '</a>  ',
-    '<a class="remove" href="javascript:void(0)" title="Remove">',
-    '<i class="fa fa-trash"></i>',
-    '</a>'
-  ].join('')
-}
-
 window.eventAcoesPioneiros = {
   'click .edit': function (e, value, row, index) {
     chamaModalInsAss(true, row);
@@ -1445,6 +1463,9 @@ window.eventAcoesPioneiros = {
   'click .remove': function (e, value, row, index) {
     deletePioneiro(row.nin);
     $('#table').bootstrapTable('refresh');
+  },
+  'click .download': function (e, value, row, index) {
+    downloadFichaAssociado(row);
   }
 }
 
@@ -1466,7 +1487,7 @@ async function listarPioneiros() {
     columns: [{
       events: eventAcoesPioneiros,
       field: 'acoes',
-      formatter: accoesFormatterPioneiros,
+      formatter: accoesFormatterEscuteiros,
       title: 'Ações'
     }, {
         field: 'nin',
@@ -1696,6 +1717,9 @@ window.eventAcoesCaminheiros = {
   'click .remove': function (e, value, row, index) {
     deleteCaminheiro(row.nin);
     $('#table').bootstrapTable('refresh');
+  },
+  'click .download': function (e, value, row, index) {
+    downloadFichaAssociado(row);
   }
 }
 
@@ -1716,7 +1740,7 @@ async function listarCaminheiros() {
     columns: [{
       events: eventAcoesCaminheiros,
       field: 'acoes',
-      formatter: accoesFormatterCaminheiros,
+      formatter: accoesFormatterEscuteiros,
       title: 'Ações'
     }, {
         field: 'nin',

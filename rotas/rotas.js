@@ -1,6 +1,5 @@
 module.exports = app => {
   const controlador = require("../controladores/controller.js");
-
   var router = require("express").Router();
 
   // Cria um novo utilizador
@@ -70,7 +69,7 @@ module.exports = app => {
   // Apagar Documento
   router.delete("/deleteDocumento", controlador.DeleteDocumento);
 
-///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////  
   // Inserir um associado ao agrupamento
   router.post("/insereEscuteiro", controlador.inserirEscuteiro);
 
