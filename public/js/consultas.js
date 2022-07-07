@@ -194,6 +194,7 @@ const btnModalInsAss = document.getElementById("btnModalInsAss");
 btnModalInsAss.addEventListener("click", () => {
   chamaModalInsAss();
 });
+
 function chamaModalInsAss(isEdit = false, row = undefined) {
   document.getElementById("btnSubmitAssocciao").style.display = "block";
   document.getElementById("btnSubmitAssocciao").onclick = () => {

@@ -1,12 +1,12 @@
 {
-  "name": "pratica01-crudrest",
+  "name": "ProjetoEscuteiros",
   "version": "1.0.0",
-  "description": "Primeira prática",
+  "description": "Agrupamento 1240 Murtal",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Laercio Cruvinel",
+  "author": "LaboratorioProjeto",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
