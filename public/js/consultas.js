@@ -24,6 +24,7 @@ const pRegistar = document.getElementById("pRegistar");
 btnModalRegistar.addEventListener("click", () => {
   chamaModalRegistar();
 });
+
 function chamaModalRegistar(isEdit = false, row = undefined) {
   document.getElementById("btnSubmitRegistar").style.display = "block";
   document.getElementById("btnSubmitRegistar").onclick = () => {
@@ -208,7 +209,7 @@ function chamaModalInsAss(isEdit = false, row = undefined) {
 	  document.getElementById("name").value = row.name;
 	  document.getElementById("citizencard").value = row.citizencard;
   	document.getElementById("nif").value = row.nif;
-	  document.getElementById("birthdate").value = birthdate;
+	  document.getElementById("birthdateAss").value = row.birthdateAss;
 	  document.getElementById("nationality").value = row.nationality;
 	  document.getElementById("naturalness").value = row.naturalness;
 	  document.getElementById("address").value = row.address;
@@ -269,7 +270,7 @@ function chamaModalInsAss(isEdit = false, row = undefined) {
 		document.getElementById("name").value = "";
   	document.getElementById("citizencard").value = "";
 	  document.getElementById("nif").value = "";
-  	document.getElementById("birthdate").value = "";
+  	document.getElementById("birthdateAss").value = "";
 	  document.getElementById("nationality").value = "";
   	document.getElementById("naturalness").value = "";
 	  document.getElementById("address").value = "";
@@ -548,7 +549,6 @@ function inserirEstadoDocumento(isEdit = false) {
 
 
 async function insereEscuteiro(isEdit = false, originalRow = undefined) {
-
   let upload;
   let files = document.getElementById("upload").files;
   // Se a lista de ficheiros para upload for maior que 0
@@ -570,7 +570,7 @@ async function insereEscuteiro(isEdit = false, originalRow = undefined) {
   let citizencard = document.getElementById("citizencard").value;
   let personsex = document.getElementById("personsex").value;
   let nif = document.getElementById("nif").value;
-  let birthdate = document.getElementById("birthdate").value;
+  let birthdateAss = document.getElementById("birthdateAss").value;
   let nationality = document.getElementById("nationality").value;
   let naturalness = document.getElementById("naturalness").value;
   let address = document.getElementById("address").value;
@@ -633,7 +633,7 @@ async function insereEscuteiro(isEdit = false, originalRow = undefined) {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: isEdit ? "PUT" : "POST",
-    body: `upload=${encodeURIComponent(upload)}&nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdate=${birthdate}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
+    body: `upload=${encodeURIComponent(upload)}&nin=${nin}&admissiondate=${admissiondate}&section=${section}&name=${name}&citizencard=${citizencard}&personsex=${personsex}&nif=${nif}&birthdateAss=${birthdateAss}&nationality=${nationality}&naturalness=${naturalness}&address=${address}&vilage=${vilage}&zipcode=${zipcode}&city=${city}&district=${district}&mobilephone=${mobilephone}&phone=${phone}&email=${email}&school=${school}&profession=${profession}&fathername=${fathername}&fatherprofession=${fatherprofession}&fathermobilephone=${fathermobilephone}&fatheremail=${fatheremail}&mothername=${mothername}&motherprofession=${motherprofession}&mothermobilephone=${mothermobilephone}&motheremail=${motheremail}&sponsername=${sponsername}&sponserprofession=${sponserprofession}&sponsermobilephone=${sponsermobilephone}&sponsoremail=${sponsoremail}&healthnumber=${healthnumber}&allergies=${allergies}&description_allergies=${description_allergies}&regular_medication=${regular_medication}&dietary_restrictions=${dietary_restrictions}&other_health_problems=${other_health_problems}&data_processing=${data_processing}&health_data=${health_data}&data_voice_image=${data_voice_image}&social_networks__educating=${social_networks__educating}&email_educating=${email_educating}&collective_transport=${collective_transport}&data_sharing=${data_sharing}&all_health_data=${all_health_data}&name1=${name1}&parent1=${parent1}&mobile1=${mobile1}&name2=${name2}&parent2=${parent2}&mobile2=${mobile2}`,
   })
     .then((response) => {
       console.log("estamos a entrar no then")
@@ -1029,7 +1029,7 @@ async function listarLobitos() {
         title: 'NIF'
       },
       {
-        field: 'birthdate',
+        field: 'birthdateAss',
         title: 'Data de Nascimento'
       },
       {
@@ -1272,7 +1272,7 @@ async function listarExploradores() {
         title: 'NIF'
       },
       {
-        field: 'birthdate',
+        field: 'birthdateAss',
         title: 'Data de Nascimento'
       },
       {
@@ -1516,7 +1516,7 @@ async function listarPioneiros() {
         title: 'NIF'
       },
       {
-        field: 'birthdate',
+        field: 'birthdateAss',
         title: 'Data de Nascimento'
       },
       {
@@ -1769,7 +1769,7 @@ async function listarCaminheiros() {
         title: 'NIF'
       },
       {
-        field: 'birthdate',
+        field: 'birthdateAss',
         title: 'Data de Nascimento'
       },
       {

@@ -150,59 +150,9 @@ exports.cRud_allListaEspera = (nif) => {
   });
 };
 
-exports.cRud_findAllAssociados = (section) => {
-  return new Promise((resolve, reject) => {
-    // lê todos os registos
-    query("SELECT * from associados WHERE section like '%?%'", [section])
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
 
-exports.cRud_findAllExploradores = (category) => {
-  return new Promise((resolve, reject) => {
-    // busca os registos que contêm a chave
-    query("SELECT * FROM associados WHERE category=?", [2])
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
 
-exports.cRud_findAllPioneiros = (category) => {
-  return new Promise((resolve, reject) => {
-    // busca os registos que contêm a chave
-    query("SELECT * FROM associados WHERE category=?", [3])
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
-exports.cRud_findAllCaminheiros = (category) => {
-  return new Promise((resolve, reject) => {
-    
-    query("SELECT * FROM associados WHERE category=?", [4])
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
-exports.Crud_inserirEscuteiro = (upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
+exports.Crud_inserirEscuteiro = (upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdateAss, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
   // insere um novo escuteiro
   return new Promise((resolve, reject) => {
     data = {
@@ -215,7 +165,7 @@ exports.Crud_inserirEscuteiro = (upload, nin, admissiondate, section, name, citi
       citizencard : citizencard,
       personsex : personsex,
       nif : nif,
-      birthdate : birthdate,
+      birthdateAss : birthdateAss,
       nationality : nationality,
       naturalness : naturalness,
       address : address,
@@ -262,8 +212,8 @@ exports.Crud_inserirEscuteiro = (upload, nin, admissiondate, section, name, citi
       mobile2 : mobile2,
     };
     query(
-      "INSERT INTO associados (upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-      [data.upload, data.nin, data.admissiondate, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2]
+      "INSERT INTO associados (upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdateAss, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      [data.upload, data.nin, data.admissiondate, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdateAss, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2]
       )
       .then((result) => {
         console.log(data);
@@ -280,29 +230,6 @@ exports.Crud_inserirEscuteiro = (upload, nin, admissiondate, section, name, citi
     }
 )};
 
-// exports.cRud_key = (criteria) => {
-//   return new Promise((resolve, reject) => {
-//     // busca os registos que contêm a chave
-//     console.log("Model - criteria:")
-//     console.log(criteria)
-//     // OR docente LIKE '%' + ? + '%' OR curso LIKE '%' + ? + '%'
-//     query(
-//       "SELECT * FROM disciplinas WHERE ano=? OR disciplina LIKE CONCAT('%',?,'%') OR docente LIKE CONCAT('%',?,'%') OR curso LIKE CONCAT('%',?,'%')", [criteria,criteria,criteria,criteria])
-//       .then((result) => {
-//         console.log("Model - result:")
-//         console.log(result)
-//         if (Object.keys(result).length == 0) {
-//           console.log("Model - sem resultados")
-//           reject("Não posso mostrar disciplinas!");
-//         } else {
-//           resolve(result);
-//         }
-//       })
-//       .catch((error) => {
-//         reject(error);
-//       });
-//   });
-// };
 
 
 exports.Crud_inserirPagamentoEvento = (nin, event, payment, payment_status, valueEvent) => {
@@ -748,8 +675,6 @@ exports.Crud_EditarSecretario = (email, section) => {
     }
 )};
 
-
-
 exports.cRud_DeleteEscuteiro = (nin) => {
   return new Promise((resolve, reject) => {
     query("DELETE FROM associados WHERE nin=?", [nin] )
@@ -762,7 +687,7 @@ exports.cRud_DeleteEscuteiro = (nin) => {
   });
 };
 
-exports.Crud_EditarEscuteiro = (upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
+exports.Crud_EditarEscuteiro = (upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdateAss, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2) => {
   console.log("entrou no mysql")
   return new Promise((resolve, reject) => {
     data = {
@@ -774,7 +699,7 @@ exports.Crud_EditarEscuteiro = (upload, nin, admissiondate, section, name, citiz
       citizencard : citizencard,
       personsex : personsex,
       nif : nif,
-      birthdate : birthdate,
+      birthdateAss : birthdateAss,
       nationality : nationality,
       naturalness : naturalness,
       address : address,
@@ -821,8 +746,8 @@ exports.Crud_EditarEscuteiro = (upload, nin, admissiondate, section, name, citiz
       mobile2 : mobile2,
     };
     query(
-      "UPDATE associados set upload = ?, section = ?, name = ?, citizencard = ?, personsex = ?, nif = ?, birthdate = ?, nationality = ?, naturalness = ?, address = ?, vilage = ?, zipcode = ?, city = ?, district = ?, mobilephone = ?, phone = ?, email = ?, school = ?, profession = ?, fathername = ?, fatherprofession = ?, fathermobilephone = ?, fatheremail = ?, mothername = ?, motherprofession = ?, mothermobilephone = ?, motheremail = ?, sponsername = ?, sponserprofession = ?, sponsermobilephone = ?, sponsoremail = ?, healthnumber = ?, allergies = ?, description_allergies = ?, regular_medication = ?, dietary_restrictions = ?, other_health_problems = ?, data_processing = ?, health_data = ?, data_voice_image = ?, social_networks__educating = ?, email_educating = ?, collective_transport = ?, data_sharing = ?, all_health_data = ?, name1 = ?, parent1 = ?, mobile1 = ?, name2 = ?, parent2 = ?, mobile2 = ? where nin = ?",
-      [data.upload, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdate, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2, data.nin]
+      "UPDATE associados set upload = ?, section = ?, name = ?, citizencard = ?, personsex = ?, nif = ?, birthdateAss = ?, nationality = ?, naturalness = ?, address = ?, vilage = ?, zipcode = ?, city = ?, district = ?, mobilephone = ?, phone = ?, email = ?, school = ?, profession = ?, fathername = ?, fatherprofession = ?, fathermobilephone = ?, fatheremail = ?, mothername = ?, motherprofession = ?, mothermobilephone = ?, motheremail = ?, sponsername = ?, sponserprofession = ?, sponsermobilephone = ?, sponsoremail = ?, healthnumber = ?, allergies = ?, description_allergies = ?, regular_medication = ?, dietary_restrictions = ?, other_health_problems = ?, data_processing = ?, health_data = ?, data_voice_image = ?, social_networks__educating = ?, email_educating = ?, collective_transport = ?, data_sharing = ?, all_health_data = ?, name1 = ?, parent1 = ?, mobile1 = ?, name2 = ?, parent2 = ?, mobile2 = ? where nin = ?",
+      [data.upload, data.section, data.name, data.citizencard, data.personsex, data.nif, data.birthdateAss, data.nationality, data.naturalness, data.address, data.vilage, data.zipcode, data.city, data.district, data.mobilephone, data.phone, data.email, data.school, data.profession, data.fathername, data.fatherprofession, data.fathermobilephone, data.fatheremail, data.mothername, data.motherprofession, data.mothermobilephone, data.motheremail, data.sponsername, data.sponserprofession, data.sponsermobilephone, data.sponsoremail, data.healthnumber, data.allergies, data.description_allergies, data.regular_medication, data.dietary_restrictions, data.other_health_problems, data.data_processing, data.health_data, data.data_voice_image, data.social_networks__educating, data.email_educating, data.collective_transport, data.data_sharing, data.all_health_data, data.name1, data.parent1, data.mobile1, data.name2, data.parent2, data.mobile2, data.nin]
     )
       .then((result) => {
         console.log(data);

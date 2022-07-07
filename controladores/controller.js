@@ -179,71 +179,6 @@ exports.findAllListaEspera = (req, res) => {
 };
 
 
-
-
-// // Envia todos os associados
-// exports.listaAssociados = (req, res) => {
-//   const { section } = req.params
-//   console.log("ListaAssociados");
-//   console.log("Mensagem de debug - listar associados - section: " + section);
-//   dbmySQL
-//     .cRud_findAllAssociados(section)
-//     .then((dados) => {
-//       res.send(dados);
-//     })
-//     .catch((err) => {
-//       return res
-//         .status(400)
-//         .send({ message: "Não há associados para mostrar!" });
-//     });
-// };
-
-
-// // READ one - busca um item pelo id
-// exports.findOne = async (req, res) => {
-//   authenticateToken(req, res);
-//   if (req.email != null) {
-//     // utilizador autenticado
-//     console.log("Find One by id");
-//     console.log("Parâmetro: " + req.params.id);
-//     //Deve implementar esta funcionalidade...
-//     const id = req.params.id.substr(1); // faz substring a partir do segundo carater
-//     dbmySQL
-//       .cRud_id(id) // R: Read
-//       .then((dados) => {
-//         res.send(dados);
-//         // console.log("Dados: " + JSON.stringify(dados)); // para debug
-//       })
-//       .catch((err) => {
-//         return res
-//           .status(400)
-//           .send({ message: "Não há disciplinas para mostrar!" });
-//       });
-//   }
-// };
-
-// // READ key - busca os itens que contêm uma chave
-// exports.findKey = (req, res) => {
-//   authenticateToken(req, res);
-//   if (req.email != null) {
-//     // utilizador autenticado
-//     console.log("Find key");
-//     // Temos de eliminar o primeiro carater para obter a chave de pesquisa
-//     // O primeiro carater é o ":"
-//     const criteria = req.params.id.substr(1); // faz substring a partir do segundo carater
-//     console.log("Critério: " + criteria);
-//     dbmySQL
-//       .cRud_key(criteria) // R: Read
-//       .then((dados) => {
-//         res.send(dados);
-//         // console.log("Dados: " + JSON.stringify(dados)); // para debug
-//       })
-//       .catch((err) => {
-//         return res.status(400).send({});
-//       });
-//   }
-// };
-
 exports.inserirEspera = async (req, res) => {
   console.log("Inserir novo associado");
   if (!req.body) {
@@ -377,7 +312,7 @@ exports.inserirEscuteiro = async (req, res) => {
   const citizencard = req.body.citizencard;
   const personsex = req.body.personsex;
   const nif = req.body.nif;
-  const birthdate = req.body.birthdate;
+  const birthdateAss = req.body.birthdateAss;
   const nationality = req.body.nationality;
   const naturalness = req.body.naturalness;
   const address = req.body.address;
@@ -424,7 +359,7 @@ exports.inserirEscuteiro = async (req, res) => {
   const mobile2 = req.body.mobile2;
 
   dbmySQL
-    .Crud_inserirEscuteiro(upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
+    .Crud_inserirEscuteiro(upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdateAss, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
     .then((dados) => {
       res.status(201).send({
         message:
@@ -927,7 +862,7 @@ exports.editEscuteiro = async (req, res) => {
   const citizencard = req.body.citizencard;
   const personsex = req.body.personsex;
   const nif = req.body.nif;
-  const birthdate = req.body.birthdate;
+  const birthdateAss = req.body.birthdateAss;
   const nationality = req.body.nationality;
   const naturalness = req.body.naturalness;
   const address = req.body.address;
@@ -974,7 +909,7 @@ exports.editEscuteiro = async (req, res) => {
   const mobile2 = req.body.mobile2;
 
   dbmySQL
-    .Crud_EditarEscuteiro(upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdate, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
+    .Crud_EditarEscuteiro(upload, nin, admissiondate, section, name, citizencard, personsex, nif, birthdateAss, nationality, naturalness, address, vilage, zipcode, city, district, mobilephone, phone, email, school, profession, fathername, fatherprofession, fathermobilephone, fatheremail, mothername, motherprofession, mothermobilephone, motheremail, sponsername, sponserprofession, sponsermobilephone, sponsoremail, healthnumber, allergies, description_allergies, regular_medication, dietary_restrictions, other_health_problems, data_processing, health_data, data_voice_image, social_networks__educating, email_educating, collective_transport, data_sharing, all_health_data, name1, parent1, mobile1, name2, parent2, mobile2)
     .then(() => {
       res.status(200).send({
         message:
