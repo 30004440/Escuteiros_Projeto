@@ -99,9 +99,7 @@ exports.login = async (req, res) => {
           maxAge: 1000 * 60 * 2,
           httpOnly: true,
         });
-
         res.cookie("sec", dados.section);
-
         // Escolher a página de acordo com a secção
         let pathToGo = "/";
         switch (dados.section) {
