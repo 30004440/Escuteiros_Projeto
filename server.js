@@ -16,8 +16,6 @@ const sslServer = https.createServer({
     cert:fs.readFileSync('cert/certificate.pem')
 }, app)
 
-
-
 app.listen(process.env.PORT || 8080, function(){
   console.log("O servidor está a ouvir na porta 8080", this.address().port, app.settings.env);
 });
