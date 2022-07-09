@@ -17,8 +17,9 @@ const sslServer = https.createServer({
 }, app)
 
 
-app.listen(process.env.PORT || 8080, () => {
-    console.log(`O servidor está a ouvir na porta 8080`)
-})
+
+app.listen(process.env.PORT || 8080, function(){
+  console.log("O servidor está a ouvir na porta 8080", this.address().port, app.settings.env);
+});
 
 app.use(express.static('public'))
