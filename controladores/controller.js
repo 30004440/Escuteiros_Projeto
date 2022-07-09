@@ -3,7 +3,7 @@ require("dotenv").config();
 const dbmySQL = require("../models/mysql"); // Define o MODEL mySQL
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const multer  = require('multer')
+//const multer  = require('multer')
 
 function authenticateToken(req, res) {
   console.log("A autorizar...");
