@@ -1,4 +1,4 @@
-const urlBase = "https://localhost:8080/homepage";
+const urlBase = "http://localhost:8080/homepage";
 
 async function getBase64(file) {
   let result_base64 = await new Promise((resolve) => {
