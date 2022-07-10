@@ -5,7 +5,7 @@ function connect() {
   return new Promise((resolve, reject) => {
     if (!global.connection || global.connection.state == "disconnected") {
       mysql
-        .createConnection(config.db)
+        .createConnection(process.env.JAWSBD_URL)
         .then((connection) => {
           global.connection = connection;
           console.log("Nova conexão ao mySQL");
