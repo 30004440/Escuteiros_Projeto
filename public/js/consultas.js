@@ -1,4 +1,4 @@
-const urlBase = "http://localhost:8080/homepage";
+const urlBase = "https://agrupamento1240murtal.herokuapp.com/homepage";
 
 async function getBase64(file) {
   let result_base64 = await new Promise((resolve) => {

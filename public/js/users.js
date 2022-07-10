@@ -17,7 +17,7 @@ buttons.forEach((button) => {
   });
 });
 
-const urlBase = "https://localhost:8080/homepage";
+const urlBase = "https://agrupamento1240murtal.herokuapp.com/homepage";
 const modalLogin = document.getElementById("modalLogin");
 const bsModalLogin = new bootstrap.Modal(modalLogin, (backdrop = "static")); // Pode passar opções
 const btnModalLogin = document.getElementById("btnModalLogin");
