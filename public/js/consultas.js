@@ -35,10 +35,10 @@ function chamaModalRegistar(isEdit = false, row = undefined) {
   if (row) {
     document.getElementById("usernameRegistar").value = row.name;
     document.getElementById("usernameRegistar").setAttribute('disabled','disabled');
-	document.getElementById("senhaRegistar").value = row.nin;
+    document.getElementById("senhaRegistar").value = row.nin;
     document.getElementById("senhaRegistar").setAttribute('disabled','disabled');
     document.getElementById("emailRegistar").value = row.email;
-    $('select[name=sectionRegistar]').val(row.sectionRegistar);
+    $('select[name=sectionRegistar]').val(row.section);
   } else {
     document.getElementById("usernameRegistar").value = "";
     document.getElementById("usernameRegistar").removeAttribute('disabled');
